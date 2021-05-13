@@ -1,0 +1,41 @@
+.button {
+  cursor: pointer;
+  margin: 1rem 0;
+  height: 3.6rem;
+  width: 16.4rem;
+  padding: 0 2rem;
+  font-size: 1.6rem;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  outline: none;
+  background-color: #f4511e;
+  color: #ffffff;
+  text-align: center;
+  transition: all 0.5s;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: "\00bb";
+  font-size: 2rem;
+  position: absolute;
+  opacity: 0;
+  /* top: 0; */
+  right: -2rem;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 1.5rem;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
