@@ -1,6 +1,10 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
 
+// export const submitVote =
+//   (categoryVotedName, selectedCategory, selectedChoice, voterId) =>
+//   async (dispatch) => {};
+
 // actionCreators
 export const submitVote =
   (categoryVotedName, selectedCategory, selectedChoice, voterId) =>
@@ -8,25 +12,51 @@ export const submitVote =
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
       },
     };
 
-    const body = JSON.stringify({
-      song_choice: selectedChoice,
-      voter_id: voterId,
-      category: selectedCategory,
-    });
-
     let catVotedUrl = "";
+    let catVoteNameTransformed = "";
 
     if (categoryVotedName === "songs") {
+      catVoteNameTransformed = "song_choice";
       catVotedUrl = "songs";
     } else if (categoryVotedName === "movies") {
+      catVoteNameTransformed = "movie_choice";
       catVotedUrl = "movies";
     } else {
+      catVoteNameTransformed = "artist_choice";
       catVotedUrl = "artists";
     }
+
+    const getBody = (cat_choice, selectedChoice, voterId, selectedCategory) => {
+      if (cat_choice === "artist_choice") {
+        return JSON.stringify({
+          artist_choice: selectedChoice,
+          voter_id: voterId,
+          category: selectedCategory,
+        });
+      } else if (cat_choice === "song_choice") {
+        return JSON.stringify({
+          song_choice: selectedChoice,
+          voter_id: voterId,
+          category: selectedCategory,
+        });
+      } else {
+        return JSON.stringify({
+          movie_choice: selectedChoice,
+          voter_id: voterId,
+          category: selectedCategory,
+        });
+      }
+    };
+
+    const body = getBody(
+      catVoteNameTransformed,
+      selectedChoice,
+      voterId,
+      selectedCategory
+    );
 
     console.log("CatVotedUrl: " + catVotedUrl);
     console.log("body: " + body);
@@ -35,25 +65,32 @@ export const submitVote =
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_API_URL}/${catVotedUrl}/vote/`,
-        config,
-        body
+        body,
+        config
       );
 
       if (!res.data.error) {
         dispatch({
           type: actionTypes.CAST_VOTE_IN_CATEGORY_SUCCESS,
+          payload: {
+            msg: `Succesfully voted!`,
+            data: res.data,
+          },
         });
       } else {
-        console.log("Falling for you...");
         dispatch({
           type: actionTypes.CAST_VOTE_IN_CATEGORY_FAIL,
+          payload: {
+            msg: "Something went wrong...",
+          },
         });
       }
     } catch (err) {
       dispatch({
         type: actionTypes.CAST_VOTE_IN_CATEGORY_FAIL,
         payload: {
-          msg: "Error casting the vote...",
+          msg: "Bad Request! Looks like you voted already in this category.",
+          error: err,
         },
       });
     }

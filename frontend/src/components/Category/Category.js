@@ -3,12 +3,7 @@ import styled from "styled-components";
 import { breakpoints } from "../Utilities";
 import Nomination from "./Nomination/Nomination";
 import { connect } from "react-redux";
-import {
-  setCurrentSongCategory,
-  setCurrentMovieCategory,
-  setCurrentArtistCategory,
-  submitVote,
-} from "../../store/actions";
+import { submitVote } from "../../store/actions";
 
 const CategoryContainer = styled.div`
   .cat-header {
@@ -58,15 +53,15 @@ const BottomContainer = styled.div`
   }
 `;
 
-const Category = (props) => {
-  const {
-    categoriesList,
-    currentSection,
-    selectedCategory,
-    selectedChoice,
-    voterId,
-    submitVote,
-  } = props;
+const Category = ({
+  categoriesList,
+  currentSection,
+  selectedCategory,
+  selectedChoice,
+  voterId,
+  submitVote,
+}) => {
+  // const {} = props;
 
   let nomineeListName;
   let nomineeNameForCat;
@@ -126,8 +121,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  setCurrentSongCategory,
-  setCurrentMovieCategory,
-  setCurrentArtistCategory,
   submitVote,
 })(Category);

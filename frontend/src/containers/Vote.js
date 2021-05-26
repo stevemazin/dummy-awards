@@ -16,6 +16,7 @@ import {
 } from "../store/actions";
 import { NavLink, Link } from "react-router-dom";
 import { accentColor, navyBlue, neutral } from "../components/Utilities";
+import Message from "../components/Message/Message";
 
 const VoteWrapper = styled.div`
   font-size: 1.6rem;
@@ -283,6 +284,7 @@ const Vote = (props) => {
             ) : (
               <div>No data on nomination categories</div>
             )}
+            <Message message="This is a dummy message" />
           </MainSectionWrapper>
         </VoteWrapper>
       </Container>

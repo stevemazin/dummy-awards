@@ -101,6 +101,13 @@ const Nomination = (props) => {
           <button
             className="nominee-select"
             onClick={() => {
+              console.log(
+                "Setting choice now",
+                nomineeName,
+                votingSectionInView,
+                votingSectionInViewData,
+                user
+              );
               setChoice(
                 nomineeName,
                 votingSectionInView,

@@ -6,6 +6,8 @@ const initialState = {
   selectedChoice: null,
   voterId: null,
   msg: null,
+  error: null,
+  successVoteData: null,
 };
 
 const votingReducer = (state = initialState, action) => {
@@ -18,11 +20,17 @@ const votingReducer = (state = initialState, action) => {
         selectedChoice: null,
         selectedCategory: null,
         voterId: null,
-        msg: "Succesfully voted in this category",
+        msg: payload.msg,
+        successVoteData: payload.data, // Data obtained after the vote is casst succesfuly
+        error: null,
       });
     case actionTypes.CAST_VOTE_IN_CATEGORY_FAIL:
       return updateObject(state, {
+        selectedChoice: null,
+        selectedCategory: null,
+        voterId: null,
         msg: payload.msg,
+        error: payload.error,
       });
 
     case actionTypes.SET_CHOICE_IN_CAT:
