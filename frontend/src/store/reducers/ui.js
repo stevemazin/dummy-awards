@@ -7,6 +7,8 @@ const initialState = {
   navBgColor: "",
   votingSectionInView: "",
   votingSectionInViewData: null,
+  showMessage: false,
+  msg: "",
 };
 
 const uiReducer = (state = initialState, action) => {
@@ -15,6 +17,16 @@ const uiReducer = (state = initialState, action) => {
       return updateObject(state, {
         votingSectionInView: action.payload.section,
         votingSectionInViewData: action.payload.data,
+      });
+    case actionTypes.SHOW_MESSAGE:
+      return updateObject(state, {
+        showMessage: action.payload.switchValue,
+        msg: action.payload.msg,
+      });
+    case actionTypes.CLEAR_MESSAGE:
+      return updateObject(state, {
+        showMessage: false,
+        msg: "",
       });
 
     case actionTypes.SWITCH_HERO_VISIBILITY:

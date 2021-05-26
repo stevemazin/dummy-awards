@@ -16,10 +16,17 @@ import {
   setCurrentMovieCategory,
   setCurrentArtistCategory,
 } from "../store/actions";
+import Popup from "../components/Popup/Popup";
+import styled from "styled-components";
+
+const LayoutContainer = styled.div`
+  position: relative;
+`;
 
 const Layout = (props) => {
   const {
     checkAuthenticated,
+    votingMsg,
     loadUser,
     googleAuthenticate,
     fetchLatestPosts,
@@ -59,16 +66,27 @@ const Layout = (props) => {
     setCurrentArtistCategory(0);
   }, []);
 
+  const showMessage = (votingMsg) => {
+    if (votingMsg !== "") {
+      const message = votingMsg;
+      return message;
+    }
+  };
+
   return (
-    <>
+    <LayoutContainer>
       <Navbar />
+      {votingMsg && showMessage && <Popup message={votingMsg} />}
       {props.children}
-    </>
+    </LayoutContainer>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
+    votingMsg: state.ui.msg,
+    showMessage: state.ui.showMessage,
+
     movieCategories: state.movies.movieCategories,
     songCategories: state.songs.songCategories,
     artistCategories: state.artists.artistCategories,

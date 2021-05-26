@@ -38,3 +38,19 @@ export const setVotingSectionInView = (section, sectionData) => {
     },
   };
 };
+
+export const showMessage = (switchValue, message) => {
+  return {
+    type: actionTypes.SHOW_MESSAGE,
+    payload: {
+      switchValue: switchValue,
+      msg: message,
+    },
+  };
+};
+
+export const clearMessage = () => {
+  return {
+    type: actionTypes.CLEAR_MESSAGE,
+  };
+};

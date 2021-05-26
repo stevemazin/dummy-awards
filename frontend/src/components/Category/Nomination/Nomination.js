@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { accentColor, breakpoints, navyBlue, neutral } from "../../Utilities";
 import { setChoice } from "../../../store/actions";
 import { connect } from "react-redux";
+import { showMessage } from "../../../store/actions/ui";
 
 const NominationContainer = styled.div`
   text-align: center;
@@ -86,6 +87,7 @@ const ImageContainer = styled.div`
 const Nomination = (props) => {
   const {
     setChoice,
+    showMessage,
     nomineeImg,
     nomineeName,
     votingSectionInView,
@@ -101,19 +103,16 @@ const Nomination = (props) => {
           <button
             className="nominee-select"
             onClick={() => {
-              console.log(
-                "Setting choice now",
-                nomineeName,
-                votingSectionInView,
-                votingSectionInViewData,
-                user
-              );
-              setChoice(
-                nomineeName,
-                votingSectionInView,
-                votingSectionInViewData,
-                user
-              );
+              if (!user) {
+                showMessage(true, "Login or Create an account to vote...");
+              } else {
+                setChoice(
+                  nomineeName,
+                  votingSectionInView,
+                  votingSectionInViewData,
+                  user
+                );
+              }
             }}
           >
             Select Nominee
@@ -143,4 +142,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setChoice })(Nomination);
+export default connect(mapStateToProps, { setChoice, showMessage })(Nomination);

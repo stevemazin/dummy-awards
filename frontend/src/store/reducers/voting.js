@@ -7,7 +7,6 @@ const initialState = {
   voterId: null,
   msg: null,
   error: null,
-  successVoteData: null,
 };
 
 const votingReducer = (state = initialState, action) => {
@@ -19,7 +18,6 @@ const votingReducer = (state = initialState, action) => {
       return updateObject(state, {
         selectedChoice: null,
         selectedCategory: null,
-        voterId: null,
         msg: payload.msg,
         successVoteData: payload.data, // Data obtained after the vote is casst succesfuly
         error: null,
@@ -28,7 +26,6 @@ const votingReducer = (state = initialState, action) => {
       return updateObject(state, {
         selectedChoice: null,
         selectedCategory: null,
-        voterId: null,
         msg: payload.msg,
         error: payload.error,
       });
@@ -56,6 +53,7 @@ const votingReducer = (state = initialState, action) => {
           choiceId = item["id"];
           console.log(`The chosen id is ${choiceId}`);
         }
+        return choiceId;
       });
 
       // filter
