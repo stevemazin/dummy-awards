@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { Link } from "react-router-dom";
-import { accentColor, breakpoints, neutral, secondary } from "../../Utilities";
+import { accentColor, secondary } from "../../Utilities";
 
 const Newscard = styled.div`
   width: 90%;

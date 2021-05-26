@@ -45,6 +45,6 @@ class SongVoteView(generics.ListCreateAPIView):
         exists = SongVote.objects.filter(voter_id=voter_id, category=category).exists()
         if(exists):
             print('Test Log: This User has already voted in this Category')
-            return Response({"Error": "User has already voted in this Category"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "User has already voted in this Category"}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return self.create(request, *args, **kwargs)

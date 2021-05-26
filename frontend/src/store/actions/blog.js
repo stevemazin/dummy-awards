@@ -2,7 +2,7 @@ import * as actionTypes from "./actionTypes";
 import axios from "axios";
 
 // actionCreators
-export const fetchLatestposts = () => async (dispatch) => {
+export const fetchLatestPosts = () => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",

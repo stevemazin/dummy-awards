@@ -4,13 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
-import {
-  accentColor,
-  infoBlue,
-  neutral,
-  breakpoints,
-  red,
-} from "../../Utilities";
+import { accentColor, neutral, breakpoints, red } from "../../Utilities";
 import { signUp } from "../../../store/actions/auth";
 
 const FormWrapper = styled.div`

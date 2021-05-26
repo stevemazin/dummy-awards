@@ -3,10 +3,8 @@ import styled from "styled-components";
 import BigLogo from "../../assets/hero-logo.svg";
 import { MainButton } from "../Utilities/Buttons/MainBtn";
 import { Paragraph2 } from "../Utilities/Typography";
-import { useMediaQuery } from "react-responsive";
-import { Breakpoints } from "../Utilities/ResponsiveBreakpoints";
 import heroImg from "../../assets/cover-main.jpg";
-import { navyBlue, accentColor, neutral } from "../Utilities";
+import { neutral } from "../Utilities";
 import { Link } from "react-router-dom";
 import { useInView, InView } from "react-intersection-observer";
 import { connect } from "react-redux";
@@ -49,7 +47,7 @@ const Hero = ({
 }) => {
   // const isMobile = useMediaQuery({ maxWidth: Tablet });
 
-  const [ref, inView, entry] = useInView({
+  const [ref] = useInView({
     threshold: 1,
   });
 
@@ -80,7 +78,7 @@ const Hero = ({
             <LogoGfx src={BigLogo} />
           </LogoWrapper>
           <Paragraph2>Rewarding Extra Ordinery Work in the Industry</Paragraph2>
-          <CallToAction to="/vote">
+          <CallToAction to="/vote/songs">
             <MainButton>Vote Now</MainButton>
           </CallToAction>
         </HeroWrapper>

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { navyBlue, accentColor, neutral } from "../../Utilities";
+import { accentColor, neutral } from "../../Utilities";
 import { Link } from "react-router-dom";
 
 const LinkItemCombo = styled(Link)`
@@ -20,12 +20,6 @@ const LinkItemCombo = styled(Link)`
     }
   }
 `;
-
-const Svg = styled.svg`
-  margin-right: 0.75rem;
-`;
-
-const Line = styled.line``;
 
 const LinkItem = (props) => {
   return (

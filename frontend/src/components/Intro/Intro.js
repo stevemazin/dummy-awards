@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Container } from "../Utilities/Container";
-import { Header1, Header2, Paragraph } from "../Utilities/Typography";
+import { Paragraph } from "../Utilities/Typography";
 import introPic from "../../assets/rapper-on-stage.jpg";
 import { breakpoints } from "../Utilities/ResponsiveBreakpoints";
 

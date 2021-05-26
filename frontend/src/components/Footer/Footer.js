@@ -71,12 +71,6 @@ const LinksList = styled.ul`
 
 const SingleLink = styled.li``;
 
-const Svg = styled.svg`
-  margin-right: 0.75rem;
-`;
-
-const Line = styled.line``;
-
 const FooterParagraph = styled.p`
   line-height: 1.6;
   color: ${neutral[300]};

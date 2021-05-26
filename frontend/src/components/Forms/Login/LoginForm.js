@@ -4,8 +4,8 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
-import { accentColor, neutral, infoBlue, breakpoints } from "../../Utilities";
-import { login } from "../../../store/actions/";
+import { accentColor, neutral, breakpoints } from "../../Utilities";
+import { login } from "../../../store/actions";
 
 const FormWrapper = styled.div`
   font-size: 1.6rem;

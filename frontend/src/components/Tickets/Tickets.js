@@ -2,15 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { Container } from "../Utilities/Container";
 import ticketsBack from "../../assets/tickets-back.png";
-import {
-  Header3,
-  Header4,
-  Paragraph,
-  Paragraph2,
-} from "../Utilities/Typography";
+import { Header4 } from "../Utilities/Typography";
 import { MainButton } from "../Utilities/Buttons/MainBtn";
 import { Link } from "react-router-dom";
-import hottestEvent from "../../assets/hottest-event.svg";
 import { accentColor, neutral, secondary } from "../Utilities";
 
 const TicketContainer = styled(Container)``;
@@ -58,10 +52,6 @@ const TicketsWrapper = styled.div`
 
 const BuyTicketsLink = styled(Link)`
   text-decoration: none;
-`;
-
-const CTATxt = styled(Header3)`
-  line-height: 2;
 `;
 
 const Tickets = () => {

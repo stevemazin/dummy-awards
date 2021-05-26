@@ -1,13 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
-import {
-  accentColor,
-  Container,
-  navyBlue,
-  neutral,
-  secondary,
-} from "../../Utilities";
+import { accentColor, Container } from "../../Utilities";
 
 import logo1 from "../../../assets/sponsor-logos/b&w/1.png";
 import logo2 from "../../../assets/sponsor-logos/b&w/4.png";

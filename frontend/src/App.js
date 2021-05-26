@@ -21,21 +21,20 @@ import SinglePost from "./components/Blog/SinglePost";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
-    setTimeout(() => {
+    window.addEventListener("load", (e) => {
       setIsLoading(false);
-    }, 2500);
+    });
   });
 
-  if (isLoading) {
-    return (
-      <>
-        <GlobalStyles />
-        <Loader />
-      </>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <>
+  //       <GlobalStyles />
+  //       <Loader />
+  //     </>
+  //   );
+  // }
 
   return (
     <Provider store={store}>
@@ -47,16 +46,19 @@ const App = () => {
       >
         <Router>
           <GlobalStyles />
-          <Layout />
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/login" exact component={Login} />
-            <Route path="/sign-up" exact component={Register} />
-            <Route exact path="/activate/:uid/:token" component={Activate} />
-            <Route path="/reset-password" exact component={ResetPassword} />
-            <Route path="/post" exact component={SinglePost} />
-            <Route path="/vote" exact component={Vote} />
-          </Switch>
+          <Layout>
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/sign-up" exact component={Register} />
+              <Route exact path="/activate/:uid/:token" component={Activate} />
+              <Route path="/reset-password" exact component={ResetPassword} />
+              <Route path="/post" exact component={SinglePost} />
+              <Route path="/vote/artists" exact component={Vote} />
+              <Route path="/vote/songs" exact component={Vote} />
+              <Route path="/vote/movies" exact component={Vote} />
+            </Switch>
+          </Layout>
         </Router>
       </PersistGate>
     </Provider>

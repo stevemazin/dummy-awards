@@ -9,7 +9,7 @@ User = get_user_model()
 
 class Movie(models.Model):
     movie_name = models.CharField(max_length=255)
-    poster = ProcessedImageField(
+    img = ProcessedImageField(
         upload_to='photos/%Y/%m/%d/'
         , processors=[ResizeToFill(500, 500)],
         format='JPEG',

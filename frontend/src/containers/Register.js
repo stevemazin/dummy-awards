@@ -6,7 +6,7 @@ import {
   setNavSolid,
   switchHeroPresence,
   switchHeroVisibility,
-} from "../../src/store/actions/";
+} from "../store/actions";
 import RegisterForm from "../components/Forms/Register/RegisterForm";
 import heroImg from "../assets/soundtrap-5Wj_tk8_Ens-unsplash.jpg";
 
@@ -28,6 +28,7 @@ const Register = ({ setNavTransparent }) => {
   useEffect(() => {
     setNavTransparent();
   });
+
   return (
     <RegisterWrapper>
       <RegisterForm />

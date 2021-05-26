@@ -28,3 +28,13 @@ export const setNavSolid = (heroIsVisibleVal) => {
     heroIsVisibleVal: heroIsVisibleVal,
   };
 };
+
+export const setVotingSectionInView = (section, sectionData) => {
+  return {
+    type: actionTypes.SET_VOTING_SECTION_IN_VIEW,
+    payload: {
+      section: section,
+      data: sectionData,
+    },
+  };
+};

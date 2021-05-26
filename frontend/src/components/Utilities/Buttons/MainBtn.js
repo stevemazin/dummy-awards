@@ -1,7 +1,5 @@
-import { navyBlue, accentColor, neutral } from "../index";
-
+import { accentColor, neutral } from "../index";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 // Main Button
 export const MainButton = styled.button`
@@ -23,7 +21,7 @@ export const MainButton = styled.button`
   &:hover {
     background-color: ${accentColor[300]};
     color: ${neutral[100]};
-    border: 2px solid transparent};
+    border: 2px solid transparent;
   }
 `;
 

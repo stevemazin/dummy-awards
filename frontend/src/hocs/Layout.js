@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import { connect } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -7,10 +7,29 @@ import {
   checkAuthenticated,
   loadUser,
   googleAuthenticate,
-} from "../store/actions/auth";
+  fetchLatestPosts,
+  fetchMovieCategories,
+  fetchSongCategories,
+  fetchArtistCategories,
+  setVotingSectionInView,
+  setCurrentSongCategory,
+  setCurrentMovieCategory,
+  setCurrentArtistCategory,
+} from "../store/actions";
 
 const Layout = (props) => {
-  const { checkAuthenticated, loadUser, googleAuthenticate } = props;
+  const {
+    checkAuthenticated,
+    loadUser,
+    googleAuthenticate,
+    fetchLatestPosts,
+    fetchMovieCategories,
+    fetchSongCategories,
+    fetchArtistCategories,
+    setCurrentSongCategory,
+    setCurrentMovieCategory,
+    setCurrentArtistCategory,
+  } = props;
   let location = useLocation();
 
   useEffect(() => {
@@ -29,15 +48,48 @@ const Layout = (props) => {
     }
   }, [location]);
 
+  useEffect(() => {
+    console.log("Fetching all the data combined...");
+    fetchLatestPosts();
+    fetchSongCategories();
+    fetchMovieCategories();
+    fetchArtistCategories();
+    setCurrentSongCategory(0);
+    setCurrentMovieCategory(0);
+    setCurrentArtistCategory(0);
+  }, []);
+
   return (
     <>
       <Navbar />
+      {props.children}
     </>
   );
 };
 
-export default connect(null, {
+const mapStateToProps = (state) => {
+  return {
+    movieCategories: state.movies.movieCategories,
+    songCategories: state.songs.songCategories,
+    artistCategories: state.artists.artistCategories,
+    currentSongCategory: state.songs.currentSongCategory,
+    currentMovieCategory: state.songs.currentMovieCategory,
+    currentArtistCategory: state.songs.currentArtistCategory,
+    votingSectionInView: state.ui.votingSectionInView,
+    votingSectionInViewData: state.ui.votingSectionInViewData,
+  };
+};
+
+export default connect(mapStateToProps, {
   checkAuthenticated,
   loadUser,
   googleAuthenticate,
+  fetchLatestPosts,
+  fetchMovieCategories,
+  fetchSongCategories,
+  fetchArtistCategories,
+  setVotingSectionInView,
+  setCurrentSongCategory,
+  setCurrentMovieCategory,
+  setCurrentArtistCategory,
 })(Layout);

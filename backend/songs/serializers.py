@@ -10,10 +10,11 @@ class SongVoteSerializer(serializers.ModelSerializer):
 class SongSerializer(serializers.ModelSerializer):
     class Meta:
         model = Song
-        fields = ('song_name', 'artist', 'features', 'cover_art', )
+        fields = ('id', 'song_name', 'artist', 'features', 'img', )
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    nominated_songs = SongSerializer(many=True)
     class Meta:
         model = Category
         fields = ('id', 'cat_name', 'nominated_songs',)

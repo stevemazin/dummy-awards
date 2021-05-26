@@ -8,11 +8,22 @@ import Steps from "../components/Steps/Steps";
 import NewsCarousel from "../components/Carousels/NewsCarousel/NewsCarousel";
 import Footer from "../components/Footer/Footer";
 import { connect } from "react-redux";
-import { fetchLatestposts } from "../store/actions";
+import { setVotingSectionInView } from "../store/actions";
+// import { useDispatch } from "react-redux";
 
-const Home = ({ fetchLatestposts, blogPosts }) => {
+const Home = ({
+  blogPosts,
+  setVotingSectionInView,
+  songCategories,
+  currentSongCategory,
+}) => {
+  // const dispatch = useDispatch();
+
   useEffect(() => {
-    fetchLatestposts();
+    setVotingSectionInView(
+      "songs",
+      songCategories[parseInt(currentSongCategory, 10)]
+    );
   }, []);
 
   return (
@@ -35,7 +46,19 @@ const Home = ({ fetchLatestposts, blogPosts }) => {
 const mapStateToProps = (state) => {
   return {
     blogPosts: state.blog.posts,
+    heroIsVisible: state.ui.heroIsVisible,
+    movieCategories: state.movies.movieCategories,
+    songCategories: state.songs.songCategories,
+    artistCategories: state.artists.artistCategories,
+    currentSongCategory: state.songs.currentSongCategory,
+    currentMovieCategory: state.movies.currentMovieCategory,
+    currentArtistCategory: state.artists.currentArtistCategory,
+    votingSectionInView: state.ui.votingSectionInView,
+    votingSectionInViewData: state.ui.votingSectionInViewData,
+    totalSongCategories: state.songs.totalSongCategories,
+    totalMovieCategories: state.movies.totalMovieCategories,
+    totalArtistCategories: state.artists.totalArtistCategories,
   };
 };
 
-export default connect(mapStateToProps, { fetchLatestposts })(Home);
+export default connect(mapStateToProps, { setVotingSectionInView })(Home);

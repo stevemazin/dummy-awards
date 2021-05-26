@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import Timer from "../../Timer/Timer";
-import { Header3, navyBlue, neutral } from "../../Utilities";
+import { Header3, neutral } from "../../Utilities";
 import { useInView, InView } from "react-intersection-observer";
 import * as actionCreators from "../../../store/actions";
 import heroImg2 from "../../../assets/orange-concert.jpg";
@@ -24,7 +24,7 @@ const HeroWrapper = styled.section`
 `;
 
 const MiniHero = (props) => {
-  const [ref, inView, entry] = useInView({
+  const [ref] = useInView({
     threshold: 1,
   });
 

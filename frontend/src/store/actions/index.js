@@ -3,6 +3,7 @@ export {
   switchHeroVisibility,
   setNavTransparent,
   setNavSolid,
+  setVotingSectionInView,
 } from "./ui";
 
 export {
@@ -17,4 +18,27 @@ export {
   logout,
 } from "./auth";
 
-export { fetchLatestposts } from "./blog";
+export { fetchLatestPosts } from "./blog";
+
+export {
+  fetchMovieCategories,
+  setCurrentMovieCategory,
+  setNextMovieCategory,
+  setPrevMovieCategory,
+} from "./movies";
+
+export {
+  fetchSongCategories,
+  setCurrentSongCategory,
+  setNextSongCategory,
+  setPrevSongCategory,
+} from "./songs";
+
+export {
+  fetchArtistCategories,
+  setCurrentArtistCategory,
+  setNextArtistCategory,
+  setPrevArtistCategory,
+} from "./artists";
+
+export { submitVote, setChoice } from "./voting";

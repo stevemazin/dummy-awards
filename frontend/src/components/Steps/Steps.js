@@ -73,28 +73,28 @@ const Steps = () => {
         <h1 className="stepHeader">How to Get Involved</h1>
         <StepsWrapper>
           <Step>
-            <img className="stepGfx" src={stepOne} />
+            <img className="stepGfx" src={stepOne} alt="" />
             <div className="stepHelperTxt">
               <h6>Create Account</h6>
               <p>You must have an account to vote.</p>
             </div>
           </Step>
           <Step>
-            <img className="stepGfx" src={stepTwo} />
+            <img className="stepGfx" src={stepTwo} alt="" />
             <div className="stepHelperTxt">
               <h6>Login</h6>
               <p>Only authenticated user's can vote.</p>
             </div>
           </Step>
           <Step>
-            <img className="stepGfx" src={stepThree} />
+            <img className="stepGfx" src={stepThree} alt="" />
             <div className="stepHelperTxt">
               <h6>Cast your Vote</h6>
               <p>Make your vote count</p>
             </div>
           </Step>
           <Step>
-            <img className="stepGfx" src={stepFour} />
+            <img className="stepGfx" src={stepFour} alt="" />
             <div className="stepHelperTxt">
               <h6>Attend the Show</h6>
               <p>Don't miss the action.</p>

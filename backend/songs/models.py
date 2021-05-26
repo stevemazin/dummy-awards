@@ -22,7 +22,7 @@ class Song(models.Model):
     song_name = models.CharField(max_length=255)
     artist = models.ForeignKey('artists.Artist', on_delete=models.CASCADE)
     features = models.ManyToManyField('artists.Artist', related_name='featured_artists', blank=True)
-    cover_art = ProcessedImageField(
+    img = ProcessedImageField(
         upload_to='photos/%Y/%m/%d/'
         , processors=[ResizeToFill(500, 500)],
         format='JPEG',

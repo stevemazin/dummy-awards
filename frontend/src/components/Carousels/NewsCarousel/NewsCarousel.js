@@ -1,14 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { accentColor, Container, navyBlue, neutral } from "../../Utilities";
+import { Container, navyBlue, neutral } from "../../Utilities";
 import NewsCard from "./NewsCard";
 import Slider from "react-slick";
-// import news1 from "../../../assets/lifetime.jpg";
-// import news2 from "../../../assets/host.jpg";
-// import news3 from "../../../assets/fans.jpg";
-// import news4 from "../../../assets/lady.jpg";
-// import news5 from "../../../assets/sq-gangster-rapper.jpg";
-// import { connect } from "react-redux";
 
 const NewsSection = styled.section`
   background-color: ${navyBlue[300]};

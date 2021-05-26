@@ -1,1 +1,13 @@
 imagekit
+
+
+
+  // useEffect(() => {
+  //   if (votingSectionInView === "songs") {
+  //     console.log("This should run only once");
+  //     setVotingSectionInView(
+  //       "songs",
+  //       songCategories[parseInt(currentSongCategory, 10)]
+  //     );
+  //   }
+  // }, []);
