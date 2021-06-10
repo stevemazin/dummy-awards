@@ -5,10 +5,16 @@ import { resetPassword } from "../store/actions/auth";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { neutral, accentColor, infoBlue } from "../components/Utilities";
+import heroImg from "../assets/mq-cover.jpg";
 
 const ResetPasswordContainer = styled.div`
   height: 100vh;
   width: 100%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url(${heroImg});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
   display: flex;
   justify-content: center;
@@ -24,6 +30,7 @@ const FormWrapper = styled.div`
   }
 
   .form-header {
+    color: ${neutral[100]};
     margin-left: 1rem;
     margin-bottom: 1.5rem;
   }

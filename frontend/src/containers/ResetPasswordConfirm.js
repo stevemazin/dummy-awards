@@ -3,6 +3,8 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { resetPassConfirm } from "../store/actions/auth";
 import styled from "styled-components";
+import { accentColor, infoBlue, neutral } from "../components/Utilities";
+import { useForm } from "react-hook-form";
 
 const FormWrapper = styled.div`
   font-size: 1.6rem;
@@ -89,8 +91,8 @@ const ResetPasswordConfirm = ({ match, resetPassConfirm }) => {
     const uid = match.params.uid;
     const token = match.params.token;
 
-    new_password = data["new_password"];
-    re_new_password = data["re_new_password"];
+    const new_password = data["new_password"];
+    const re_new_password = data["re_new_password"];
 
     resetPassConfirm(uid, token, new_password, re_new_password);
     setRequestSent(true);

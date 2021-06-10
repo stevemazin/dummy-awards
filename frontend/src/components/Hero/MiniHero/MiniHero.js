@@ -35,8 +35,6 @@ const MiniHero = (props) => {
   return (
     <InView
       onChange={(inView) => {
-        console.log("Mini In View: " + inView);
-
         if (inView) {
           // set nav to transparent if hero is in view
           props.switchHeroVisibility(inView);

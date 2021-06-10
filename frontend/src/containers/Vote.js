@@ -84,7 +84,6 @@ const VotingCategories = styled.div`
 `;
 
 const Vote = (props) => {
-  // console.log(props.match);
   const {
     songCategories,
     movieCategories,
@@ -105,6 +104,12 @@ const Vote = (props) => {
     setCurrentArtistCategory,
     setCurrentSongCategory,
   } = props;
+
+  // Get movies and artist data
+  useEffect(() => {
+    fetchArtistCategories();
+    fetchMovieCategories();
+  }, []);
 
   let currentSectionIndex = null;
   let totalCategoriesInCurrentSection = null;

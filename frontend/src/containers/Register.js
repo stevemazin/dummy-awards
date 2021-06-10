@@ -8,7 +8,7 @@ import {
   switchHeroVisibility,
 } from "../store/actions";
 import RegisterForm from "../components/Forms/Register/RegisterForm";
-import heroImg from "../assets/soundtrap-5Wj_tk8_Ens-unsplash.jpg";
+import heroImg from "../assets/mq-cover.jpg";
 
 const RegisterWrapper = styled.div`
   height: 100vh;

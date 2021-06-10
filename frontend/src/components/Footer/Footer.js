@@ -166,7 +166,7 @@ const Footer = () => {
             <LinksList>
               <SingleLink>
                 <LinkItem
-                  destination="/submit"
+                  destination="/submit-work"
                   destinationTag="Submit your work"
                 />
               </SingleLink>
@@ -187,7 +187,7 @@ const Footer = () => {
           <SubSection className="last">
             <LinksHeader>contacts</LinksHeader>
             <FooterParagraph>Sliq Mega Towers,</FooterParagraph>
-            <FooterParagraph>CBD Nairobi</FooterParagraph>
+            <FooterParagraph>Pluto</FooterParagraph>
             <FooterParagraph>0700 500 900</FooterParagraph>
             <FooterParagraph>sliq@sliqawards.info</FooterParagraph>
             <SocialsContainer>

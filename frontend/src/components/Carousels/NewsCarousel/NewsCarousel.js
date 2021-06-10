@@ -24,6 +24,29 @@ const NewsSection = styled.section`
   .slick-slide > div {
     padding: 0 1rem;
   }
+
+  .posts-error {
+    color: ${neutral[100]};
+    font-size: 2rem;
+  }
+`;
+
+const ErrorWrapper = styled.div`
+  background-color: ${navyBlue[300]};
+  width: 100%;
+  height: 70rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .posts-error {
+    color: ${neutral[100]};
+    font-size: 2rem;
+
+    @media screen and (max-width: 768px) {
+      font-size: 1.6rem;
+    }
+  }
 `;
 
 const NewsWrapper = styled.div`
@@ -42,7 +65,6 @@ const NewsWrapper = styled.div`
 
 const NewsCarousel = (props) => {
   const { posts } = props;
-  console.log(posts);
 
   const settings = {
     dots: false,
@@ -87,13 +109,22 @@ const NewsCarousel = (props) => {
     ],
   };
 
+  if (posts.length === 0) {
+    return (
+      <ErrorWrapper>
+        <div className="posts-error">
+          <p>No posts to show for now, we'll be posting soon!</p>
+        </div>
+      </ErrorWrapper>
+    );
+  }
+
   return (
     <NewsSection>
       <NewsWrapper>
         <Container>
           <h3 className="newsHeader">Event News</h3>
           <Slider {...settings}>
-            {!posts && <div>No Posts</div>}
             <NewsCard
               newsHeading={posts[1].headline}
               storyThumbnail={posts[1].main_photo_thumbnail}
