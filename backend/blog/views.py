@@ -7,7 +7,16 @@ from rest_framework.permissions import AllowAny
 class LatestPostsView(generics.ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = PostSerializer
-    queryset = Post.objects.order_by('-timestamp')[:6]
+    queryset = Post.objects.order_by('-timestamp')[:5]
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+
+class SinglePostPostView(generics.RetrieveAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()
+    lookup_field = 'slug'
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)

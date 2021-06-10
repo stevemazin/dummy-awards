@@ -18,7 +18,7 @@ export {
   logout,
 } from "./auth";
 
-export { fetchLatestPosts } from "./blog";
+export { fetchLatestPosts, getSinglePost } from "./blog";
 
 export {
   fetchMovieCategories,

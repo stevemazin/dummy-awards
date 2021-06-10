@@ -28,25 +28,57 @@ const TicketsWrapper = styled.div`
   text-align: center;
 
   .streets {
+    margin-top: 1rem;
     font-family: "Gill Sans";
     font-weight: 1000;
-    font-size: 15rem;
+    font-size: 12rem;
     line-height: 0.75;
     color: ${secondary[300]};
+
+    @media screen and (max-width: 768px) {
+      font-size: 10rem;
+    }
+
+    @media screen and (max-width: 540px) {
+      font-size: 7rem;
+    }
+  }
+
+  .calig-pair {
+    span {
+      display: inline-block;
+      &:not(:last-of-type) {
+        margin-right: 2rem;
+      }
+    }
   }
 
   .hottest {
     font-family: "Mistral";
-    /* font-weight: 900; */
     font-size: 14rem;
     color: ${accentColor[300]};
+
+    @media screen and (max-width: 768px) {
+      font-size: 10rem;
+    }
+
+    @media screen and (max-width: 540px) {
+      font-size: 7rem;
+    }
   }
 
   .event {
     font-family: "Mistral";
-    /* font-weight: 900; */
     font-size: 14rem;
     color: ${neutral[300]};
+
+    @media screen and (max-width: 768px) {
+      font-size: 10rem;
+    }
+
+    @media screen and (max-width: 540px) {
+      font-size: 7rem;
+    }
   }
 `;
 
@@ -61,7 +93,7 @@ const Tickets = () => {
         <TicketsWrapper>
           <Header4>10,356 tickects remaining</Header4>
           <h1 className="streets">Street's</h1>
-          <div>
+          <div className="calig-pair">
             <span className="hottest">Hottest </span>
             <span className="event">Event</span>
           </div>

@@ -30,9 +30,7 @@ const Layout = (props) => {
     loadUser,
     googleAuthenticate,
     fetchLatestPosts,
-    fetchMovieCategories,
     fetchSongCategories,
-    fetchArtistCategories,
     setCurrentSongCategory,
     setCurrentMovieCategory,
     setCurrentArtistCategory,
@@ -56,11 +54,8 @@ const Layout = (props) => {
   }, [location]);
 
   useEffect(() => {
-    console.log("Fetching all the data combined...");
     fetchLatestPosts();
     fetchSongCategories();
-    fetchMovieCategories();
-    fetchArtistCategories();
     setCurrentSongCategory(0);
     setCurrentMovieCategory(0);
     setCurrentArtistCategory(0);
@@ -86,7 +81,6 @@ const mapStateToProps = (state) => {
   return {
     votingMsg: state.ui.msg,
     showMessage: state.ui.showMessage,
-
     movieCategories: state.movies.movieCategories,
     songCategories: state.songs.songCategories,
     artistCategories: state.artists.artistCategories,
@@ -103,9 +97,7 @@ export default connect(mapStateToProps, {
   loadUser,
   googleAuthenticate,
   fetchLatestPosts,
-  fetchMovieCategories,
   fetchSongCategories,
-  fetchArtistCategories,
   setVotingSectionInView,
   setCurrentSongCategory,
   setCurrentMovieCategory,

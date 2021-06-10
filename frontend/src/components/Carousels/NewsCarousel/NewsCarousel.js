@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { Container, navyBlue, neutral } from "../../Utilities";
 import NewsCard from "./NewsCard";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const NewsSection = styled.section`
   background-color: ${navyBlue[300]};
@@ -15,6 +17,13 @@ const NewsSection = styled.section`
   align-content: stretch;
   align-items: center;
   justify-content: center;
+
+  .slick-list {
+    margin: 0 -1rem;
+  }
+  .slick-slide > div {
+    padding: 0 1rem;
+  }
 `;
 
 const NewsWrapper = styled.div`
@@ -33,12 +42,14 @@ const NewsWrapper = styled.div`
 
 const NewsCarousel = (props) => {
   const { posts } = props;
+  console.log(posts);
 
   const settings = {
     dots: false,
     arrows: false,
     infinite: true,
     slidesToShow: 3,
+    centerMode: true,
     slidesToScroll: 1,
     autoplay: true,
     speed: 2000,
@@ -82,17 +93,31 @@ const NewsCarousel = (props) => {
         <Container>
           <h3 className="newsHeader">Event News</h3>
           <Slider {...settings}>
-            {posts &&
-              posts.map((post) => {
-                return (
-                  <NewsCard
-                    newsHeading={post.headline}
-                    storyImg={post.photo_thumb}
-                    previewTxt={post.intro}
-                  />
-                );
-              })}
-            <p>No Posts To Show</p>
+            {!posts && <div>No Posts</div>}
+            <NewsCard
+              newsHeading={posts[1].headline}
+              storyThumbnail={posts[1].main_photo_thumbnail}
+              previewTxt={posts[1].intro}
+              slug={posts[1].slug}
+            />
+            <NewsCard
+              newsHeading={posts[2].headline}
+              storyThumbnail={posts[2].main_photo_thumbnail}
+              previewTxt={posts[2].intro}
+              slug={posts[2].slug}
+            />
+            <NewsCard
+              newsHeading={posts[3].headline}
+              storyThumbnail={posts[3].main_photo_thumbnail}
+              previewTxt={posts[3].intro}
+              slug={posts[3].slug}
+            />
+            <NewsCard
+              newsHeading={posts[4].headline}
+              storyThumbnail={posts[4].main_photo_thumbnail}
+              previewTxt={posts[4].intro}
+              slug={posts[4].slug}
+            />
           </Slider>
         </Container>
       </NewsWrapper>

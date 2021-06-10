@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import BigLogo from "../../assets/hero-logo.svg";
 import { MainButton } from "../Utilities/Buttons/MainBtn";
-import { Paragraph2 } from "../Utilities/Typography";
 import heroImg from "../../assets/cover-main.jpg";
 import { neutral } from "../Utilities";
 import { Link } from "react-router-dom";
@@ -25,19 +24,20 @@ const HeroSection = styled.section`
     url(${heroImg});
   background-position: cover;
   background-repeat: no-repeat;
+
+  .tag-line {
+    margin: 1rem 0;
+    font-size: 1.6rem;
+  }
 `;
-const LogoWrapper = styled.div``;
+
 const LogoGfx = styled.img`
-  // height: 10vw;
+  width: 55vw;
 
-  /* @media screen and (max-width: 768px) {
-    height: 20vw;
-  } */
+  @media screen and (max-width: 768px) {
+    width: 70vw;
+  }
 `;
-
-const CallToAction = styled(Link)``;
-
-const HeroWrapper = styled.div``;
 
 const Hero = ({
   setNavTransparent,
@@ -73,15 +73,17 @@ const Hero = ({
       rootMargin="-90% 0px 0px 0px"
     >
       <HeroSection ref={ref}>
-        <HeroWrapper>
-          <LogoWrapper>
+        <>
+          <div>
             <LogoGfx src={BigLogo} />
-          </LogoWrapper>
-          <Paragraph2>Rewarding Extra Ordinery Work in the Industry</Paragraph2>
-          <CallToAction to="/vote/songs">
+          </div>
+          <p className="tag-line">
+            Rewarding Extra Ordinery Work in the Industry
+          </p>
+          <Link to="/vote/songs">
             <MainButton>Vote Now</MainButton>
-          </CallToAction>
-        </HeroWrapper>
+          </Link>
+        </>
       </HeroSection>
     </InView>
   );

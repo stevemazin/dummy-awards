@@ -154,10 +154,7 @@ const Footer = () => {
                 <LinkItem destination="/gallery" destinationTag="Gallery" />
               </SingleLink>
               <SingleLink>
-                <LinkItem
-                  destination="/categories"
-                  destinationTag="Categories"
-                />
+                <LinkItem destination="/vote/songs" destinationTag="Vote" />
               </SingleLink>
               <SingleLink>
                 <LinkItem destination="/winners" destinationTag="Winners" />

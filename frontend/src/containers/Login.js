@@ -13,11 +13,11 @@ import heroImg from "../assets/soundtrap-5Wj_tk8_Ens-unsplash.jpg";
 const LoginWrapper = styled.div`
   height: 100vh;
   width: 100%;
-  /* background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url(${heroImg});
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat; */
+  background-repeat: no-repeat;
 
   display: flex;
   align-items: center;

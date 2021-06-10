@@ -5,9 +5,6 @@ import { Provider } from "react-redux";
 import { store, persistor } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
 import Layout from "./hocs/Layout";
 import Home from "./containers/Home";
 import Register from "./containers/Register";

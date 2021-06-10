@@ -11,3 +11,14 @@ imagekit
   //     );
   //   }
   // }, []);
+
+  {posts &&
+              posts.map((post) => {
+                return (
+                  <NewsCard
+                    newsHeading={post.headline}
+                    storyImg={post.photo_thumb}
+                    previewTxt={post.intro}
+                  />
+                );
+              })}

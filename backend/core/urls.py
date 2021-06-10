@@ -25,6 +25,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
     path('auth/', include('djoser.social.urls')),
+    path('tinymce/', include('tinymce.urls')),
     path('posts/', include('blog.urls')),
     path('songs/', include('songs.urls')),
     path('movies/', include('movies.urls')),

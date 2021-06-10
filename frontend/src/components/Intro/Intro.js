@@ -77,15 +77,15 @@ const Intro = () => {
       <Container>
         <IntroWrapper>
           <TextWrapper>
-            <SectionHeader>A Show for Creatives in Kenya</SectionHeader>
+            <SectionHeader>A Show for Creatives</SectionHeader>
             <Paragraph>
-              Sliq Awards is Kenya's most prestigious award show in music, and
-              digital design. For over 15 years, the Sliq Master Crafter has
-              been regarded as one of the top prizes in the creative industry.
-              Sliq Events Inc. has had a rich legacy of honoring some of the
-              most groundbreaking ideas, created by some of the most remarkable
-              minds in the industry. Our main agenda is to celebrate the art
-              culture, and put 254 on the map while at it.
+              Sliq Awards is considered the most prestigious award show in
+              music, and digital design. For over 15 years, the Sliq Master
+              Crafter has been regarded as one of the top prizes in the creative
+              industry. Sliq Events Inc. has had a rich legacy of honoring some
+              of the most groundbreaking ideas, created by some of the most
+              remarkable minds in the industry. Our main agenda is to celebrate
+              the art culture, and reward the players.
             </Paragraph>
           </TextWrapper>
 

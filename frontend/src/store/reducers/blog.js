@@ -4,6 +4,7 @@ import { updateObject } from "../utility";
 const initialState = {
   posts: null,
   msg: null,
+  singlePostInView: null,
 };
 
 const blogReducer = (state = initialState, action) => {
@@ -11,12 +12,13 @@ const blogReducer = (state = initialState, action) => {
 
   switch (type) {
     case actionTypes.FETCH_LATEST_POSTS:
-      console.log("Fetching posts...");
       return updateObject(state, { posts: payload });
     case actionTypes.FETCH_LATEST_POSTS_FAIL:
-      console.log("Error fetching posts...");
       return updateObject(state, { msg: payload });
-
+    case actionTypes.GET_SINGLE_POST_SUCCESS:
+      return updateObject(state, { singlePostInView: payload });
+    case actionTypes.GET_SINGLE_POST_FAIL:
+      return updateObject(state, { singlePostInView: null });
     default:
       return state;
   }
