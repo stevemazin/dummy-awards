@@ -37,17 +37,3 @@ export const setCurrentArtistCategory = (currentArtistCat) => {
     payload: currentArtistCat,
   };
 };
-
-export const setPrevArtistCategory = (pretArtistCat) => {
-  return {
-    type: actionTypes.SET_PREV_ARTIST_CATEGORY,
-    payload: pretArtistCat,
-  };
-};
-
-export const setNextArtistCategory = (nextArtistCat) => {
-  return {
-    type: actionTypes.SET_NEXT_ARTIST_CATEGORY,
-    payload: nextArtistCat,
-  };
-};

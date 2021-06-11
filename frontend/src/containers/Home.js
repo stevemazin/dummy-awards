@@ -7,24 +7,22 @@ import SponsorsCarousel from "../components/Carousels/SponsorsCarousel/SponsorsC
 import Steps from "../components/Steps/Steps";
 import NewsCarousel from "../components/Carousels/NewsCarousel/NewsCarousel";
 import Footer from "../components/Footer/Footer";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { setVotingSectionInView } from "../store/actions";
-// import { useDispatch } from "react-redux";
 
-const Home = ({
-  blogPosts,
-  setVotingSectionInView,
-  songCategories,
-  currentSongCategory,
-}) => {
-  // const dispatch = useDispatch();
+const Home = ({ blogPosts, songCategories, currentSongCategory }) => {
+  const dispatch = useDispatch();
+  console.log(currentSongCategory);
+  console.log(songCategories);
 
-  useEffect(() => {
-    setVotingSectionInView(
-      "songs",
-      songCategories[parseInt(currentSongCategory, 10)]
-    );
-  }, []);
+  // useEffect(() => {
+  //   dispatch(
+  //     setVotingSectionInView(
+  //       "songs",
+  //       songCategories[parseInt(currentSongCategory, 10)]
+  //     )
+  //   );
+  // }, []);
 
   return (
     <InView>
@@ -61,4 +59,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setVotingSectionInView })(Home);
+export default connect(mapStateToProps)(Home);

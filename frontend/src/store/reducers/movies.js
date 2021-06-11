@@ -4,9 +4,7 @@ import { updateObject } from "../utility";
 const initialState = {
   movieCategories: null,
   totalMovieCategories: null,
-  currentMovieCategory: null,
-  nextMovieCategory: null,
-  previousMovieCategory: null,
+  currentMovieCategory: 0,
   msg: null,
 };
 
@@ -16,11 +14,6 @@ const moviesReducer = (state = initialState, action) => {
   switch (type) {
     case actionTypes.SET_CURRENT_MOVIE_CATEGORY:
       return updateObject(state, { currentMovieCategory: payload });
-    case actionTypes.SET_NEXT_MOVIE_CATEGORY:
-      return updateObject(state, { nextMovieCategory: payload });
-    case actionTypes.SET_PREV_MOVIE_CATEGORY:
-      return updateObject(state, { previousMovieCategory: payload });
-
     case actionTypes.FETCH_ALL_MOVIE_CATEGORIES_SUCCESS:
       console.log("Fetching categories success...");
       return updateObject(state, {

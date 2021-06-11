@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Navbar from "../components/Navbar/Navbar";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import {
@@ -8,13 +8,7 @@ import {
   loadUser,
   googleAuthenticate,
   fetchLatestPosts,
-  fetchMovieCategories,
   fetchSongCategories,
-  fetchArtistCategories,
-  setVotingSectionInView,
-  setCurrentSongCategory,
-  setCurrentMovieCategory,
-  setCurrentArtistCategory,
 } from "../store/actions";
 import Popup from "../components/Popup/Popup";
 import styled from "styled-components";
@@ -30,10 +24,6 @@ const Layout = (props) => {
     loadUser,
     googleAuthenticate,
     fetchLatestPosts,
-    fetchSongCategories,
-    setCurrentSongCategory,
-    setCurrentMovieCategory,
-    setCurrentArtistCategory,
   } = props;
   let location = useLocation();
 
@@ -53,12 +43,15 @@ const Layout = (props) => {
     }
   }, [location]);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    // Fetch songs data in preperation of the user going to the voting page
+    const testFetch = async () => {
+      await dispatch(fetchSongCategories());
+    };
+    testFetch();
     fetchLatestPosts();
-    fetchSongCategories();
-    setCurrentSongCategory(0);
-    setCurrentMovieCategory(0);
-    setCurrentArtistCategory(0);
   }, []);
 
   const showMessage = (votingMsg) => {
@@ -97,9 +90,4 @@ export default connect(mapStateToProps, {
   loadUser,
   googleAuthenticate,
   fetchLatestPosts,
-  fetchSongCategories,
-  setVotingSectionInView,
-  setCurrentSongCategory,
-  setCurrentMovieCategory,
-  setCurrentArtistCategory,
 })(Layout);

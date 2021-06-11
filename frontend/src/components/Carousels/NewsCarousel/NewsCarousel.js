@@ -10,7 +10,6 @@ const NewsSection = styled.section`
   background-color: ${navyBlue[300]};
   width: 100%;
   height: 70rem;
-
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -38,6 +37,13 @@ const ErrorWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  .newsHeader {
+    color: ${neutral[100]};
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
 
   .posts-error {
     color: ${neutral[100]};
@@ -113,6 +119,7 @@ const NewsCarousel = (props) => {
     return (
       <ErrorWrapper>
         <div className="posts-error">
+          <h3 className="newsHeader">Event News</h3>
           <p>No posts to show for now, we'll be posting soon!</p>
         </div>
       </ErrorWrapper>
@@ -126,28 +133,34 @@ const NewsCarousel = (props) => {
           <h3 className="newsHeader">Event News</h3>
           <Slider {...settings}>
             <NewsCard
-              newsHeading={posts[1].headline}
-              storyThumbnail={posts[1].main_photo_thumbnail}
-              previewTxt={posts[1].intro}
-              slug={posts[1].slug}
+              newsHeading={posts[0] && posts[0].headline}
+              storyThumbnail={posts[0] && posts[0].main_photo_thumbnail}
+              previewTxt={posts[0] && posts[0].intro}
+              slug={posts[0] && posts[0].slug}
             />
             <NewsCard
-              newsHeading={posts[2].headline}
-              storyThumbnail={posts[2].main_photo_thumbnail}
-              previewTxt={posts[2].intro}
-              slug={posts[2].slug}
+              newsHeading={posts[1] && posts[1].headline}
+              storyThumbnail={posts[1] && posts[1].main_photo_thumbnail}
+              previewTxt={posts[1] && posts[1].intro}
+              slug={posts[1] && posts[1].slug}
             />
             <NewsCard
-              newsHeading={posts[3].headline}
-              storyThumbnail={posts[3].main_photo_thumbnail}
-              previewTxt={posts[3].intro}
-              slug={posts[3].slug}
+              newsHeading={posts[2] && posts[2].headline}
+              storyThumbnail={posts[2] && posts[2].main_photo_thumbnail}
+              previewTxt={posts[2] && posts[2].intro}
+              slug={posts[2] && posts[2].slug}
             />
             <NewsCard
-              newsHeading={posts[4].headline}
-              storyThumbnail={posts[4].main_photo_thumbnail}
-              previewTxt={posts[4].intro}
-              slug={posts[4].slug}
+              newsHeading={posts[3] && posts[3].headline}
+              storyThumbnail={posts[3] && posts[3].main_photo_thumbnail}
+              previewTxt={posts[3] && posts[3].intro}
+              slug={posts[3] && posts[3].slug}
+            />
+            <NewsCard
+              newsHeading={posts[4] && posts[4].headline}
+              storyThumbnail={posts[4] && posts[4].main_photo_thumbnail}
+              previewTxt={posts[4] && posts[4].intro}
+              slug={posts[4] && posts[4].slug}
             />
           </Slider>
         </Container>

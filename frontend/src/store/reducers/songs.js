@@ -4,9 +4,7 @@ import { updateObject } from "../utility";
 const initialState = {
   songCategories: null,
   totalSongCategories: null,
-  currentSongCategory: null,
-  nextSongCategory: null,
-  previousSongCategory: null,
+  currentSongCategory: 0,
   msg: null,
 };
 
@@ -16,11 +14,6 @@ const songsReducer = (state = initialState, action) => {
   switch (type) {
     case actionTypes.SET_CURRENT_SONG_CATEGORY:
       return updateObject(state, { currentSongCategory: payload });
-    case actionTypes.SET_NEXT_SONG_CATEGORY:
-      return updateObject(state, { nextSongCategory: payload });
-    case actionTypes.SET_PREV_SONG_CATEGORY:
-      return updateObject(state, { previousSongCategory: payload });
-
     case actionTypes.FETCH_ALL_SONG_CATEGORIES_SUCCESS:
       console.log("Fetching song categories success...");
       return updateObject(state, {

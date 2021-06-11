@@ -41,17 +41,3 @@ export const setCurrentMovieCategory = (currentMovieCat) => {
     payload: currentMovieCat,
   };
 };
-
-export const setPrevMovieCategory = (pretMovieCat) => {
-  return {
-    type: actionTypes.SET_PREV_MOVIE_CATEGORY,
-    payload: pretMovieCat,
-  };
-};
-
-export const setNextMovieCategory = (nextMovieCat) => {
-  return {
-    type: actionTypes.SET_NEXT_MOVIE_CATEGORY,
-    payload: nextMovieCat,
-  };
-};

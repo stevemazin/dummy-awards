@@ -20,25 +20,10 @@ export {
 
 export { fetchLatestPosts, getSinglePost } from "./blog";
 
-export {
-  fetchMovieCategories,
-  setCurrentMovieCategory,
-  setNextMovieCategory,
-  setPrevMovieCategory,
-} from "./movies";
+export { fetchMovieCategories, setCurrentMovieCategory } from "./movies";
 
-export {
-  fetchSongCategories,
-  setCurrentSongCategory,
-  setNextSongCategory,
-  setPrevSongCategory,
-} from "./songs";
+export { fetchSongCategories, setCurrentSongCategory } from "./songs";
 
-export {
-  fetchArtistCategories,
-  setCurrentArtistCategory,
-  setNextArtistCategory,
-  setPrevArtistCategory,
-} from "./artists";
+export { fetchArtistCategories, setCurrentArtistCategory } from "./artists";
 
 export { submitVote, setChoice } from "./voting";
