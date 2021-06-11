@@ -237,10 +237,12 @@ AUTHENTICATION_BACKENDS = {
 } 
 
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    'https://stevemazin.pythonanywhere.com/'
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+#     'https://stevemazin.pythonanywhere.com/'
+# ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 TINYMCE_DEFAULT_CONFIG = {
     'theme': "advanced",
