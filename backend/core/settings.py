@@ -239,6 +239,7 @@ AUTHENTICATION_BACKENDS = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    'https://stevemazin.pythonanywhere.com/'
 ]
 
 TINYMCE_DEFAULT_CONFIG = {
