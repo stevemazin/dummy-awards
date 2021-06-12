@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Hero from "../components/Hero/Hero";
 import Intro from "../components/Intro/Intro";
 import Tickets from "../components/Tickets/Tickets";
@@ -7,27 +7,18 @@ import SponsorsCarousel from "../components/Carousels/SponsorsCarousel/SponsorsC
 import Steps from "../components/Steps/Steps";
 import NewsCarousel from "../components/Carousels/NewsCarousel/NewsCarousel";
 import Footer from "../components/Footer/Footer";
-import { connect, useDispatch } from "react-redux";
-import { setVotingSectionInView } from "../store/actions";
+import { connect } from "react-redux";
+import Navbar from "../components/Navbar/Navbar";
 
 const Home = ({ blogPosts, songCategories, currentSongCategory }) => {
-  const dispatch = useDispatch();
   console.log(currentSongCategory);
   console.log(songCategories);
-
-  // useEffect(() => {
-  //   dispatch(
-  //     setVotingSectionInView(
-  //       "songs",
-  //       songCategories[parseInt(currentSongCategory, 10)]
-  //     )
-  //   );
-  // }, []);
 
   return (
     <InView>
       {({ inView, ref, entry }) => (
         <>
+          <Navbar />
           <Hero />
           <Intro />
           <Steps />

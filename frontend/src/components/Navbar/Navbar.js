@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link, NavLink, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import logo from "../../assets/logo.svg";
 import { Container } from "../Utilities/Container";
-import { accentColor, neutral, breakpoints } from "../Utilities";
-import { logout } from "../../store/actions";
-import "./Navbar.css";
+import { accentColor, neutral, navyBlue, breakpoints } from "../Utilities";
+import {
+  logout,
+  setMobile,
+  setNavSolid,
+  setNavTransparent,
+} from "../../store/actions";
+import SliqLogo from "../Utilities/SliqLogo";
+import { FiLogIn, FiLogOut, FiUserPlus } from "react-icons/fi";
+import { useMediaQuery } from "react-responsive";
+import MenuToggle from "./MenuToggle";
+import MobileNavbarLinks from "./MobileNavLinks";
+import DefaultNavLinks from "./DefaultNavLinks";
 
 const NavContainer = styled(Container)`
   height: 100%;
@@ -19,26 +28,50 @@ const NavSection = styled.nav`
   top: 0;
   left: 0;
   font-size: 1.6rem;
-  z-index: 100;
-  transition: all 400ms ease-in-out;
+  z-index: 999;
+  transition: all 200ms ease-in-out;
 
   .link-btn {
+    display: flex;
+    align-items: center;
+    height: 4.2rem;
+
     cursor: pointer;
     background-color: transparent;
     border: none;
     outline: none;
-    color: ${neutral[100]};
+    color: ${({ navBgColor }) => {
+      if (navBgColor === "#2d5d78") {
+        return navyBlue[300];
+      } else {
+        return neutral[300];
+      }
+    }};
     font-size: 1.6rem;
 
     &:hover,
     &:active {
       color: ${accentColor[300]};
     }
+
+    span {
+      margin-left: 0.5rem;
+    }
   }
 
   .nav-link {
+    display: flex;
+    align-items: center;
+    height: 4.2rem;
+
     text-decoration: none;
-    color: ${neutral[100]};
+    color: ${({ navBgColor }) => {
+      if (navBgColor === "#2d5d78") {
+        return navyBlue[300];
+      } else {
+        return neutral[300];
+      }
+    }};
 
     &:hover {
       color: ${accentColor[300]};
@@ -46,6 +79,10 @@ const NavSection = styled.nav`
 
     &:not(:last-child) {
       margin-right: 1rem;
+    }
+
+    span {
+      margin-left: 0.5rem;
     }
   }
 
@@ -61,7 +98,10 @@ const NavWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const RightSection = styled.div``;
+const RightSection = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const LeftSection = styled.div``;
 
@@ -69,78 +109,78 @@ const HomeLink = styled(Link)`
   text-decoration: none;
 `;
 
-const LogoImg = styled.img`
-  height: 3rem;
+const Nav = ({
+  navBgColor,
+  isAuthenticated,
+  logout,
+  setNavSolid,
+  setMobile,
+  setNavTransparent,
+  heroIsVisible,
+}) => {
+  const isMobile = useMediaQuery({ maxWidth: breakpoints.Tablet });
+  const [isOpen, setIsOpen] = useState(false);
 
-  @media screen and (max-width: ${breakpoints.Medium}) {
-    height: 2.6rem;
-  }
-
-  @media screen and (max-width: ${breakpoints.Tablet}) {
-    height: 2.4rem;
-  }
-`;
-
-const Nav = ({ navBgColor, isAuthenticated, logout }) => {
-  const [redirect, setRedirect] = useState(false);
-
-  const logoutUser = () => {
-    logout();
-    setRedirect(true);
-  };
-
-  const guestLinks = () => {
-    return (
-      <>
-        <NavLink
-          activeClassName="nav-active"
-          className="nav-link"
-          to="/sign-up"
-        >
-          Register
-        </NavLink>
-
-        <NavLink activeClassName="nav-active" className="nav-link" to="/login">
-          Login
-        </NavLink>
-      </>
-    );
-  };
-  const authenticatedUserLinks = () => {
-    return (
-      <>
-        <button onClick={logoutUser} className="link-btn">
-          Logout
-        </button>
-      </>
-    );
-  };
+  useEffect(() => {
+    if (isMobile) {
+      setMobile(true);
+      setNavSolid();
+    } else {
+      setMobile(false);
+      heroIsVisible && setNavTransparent();
+    }
+  }, [isMobile]);
 
   return (
-    <NavSection className={navBgColor === "#0b0c10" ? "inView" : "notInView"}>
+    <NavSection
+      navBgColor={navBgColor}
+      className={navBgColor === "#2d5d78" ? "inView" : "notInView"}
+    >
       <NavContainer>
         <NavWrapper>
           <LeftSection>
             <HomeLink to="/">
-              <LogoImg src={logo} />
+              <SliqLogo />
             </HomeLink>
           </LeftSection>
           <RightSection>
-            {isAuthenticated ? authenticatedUserLinks() : guestLinks()}
+            {isMobile && (
+              <MenuToggle
+                isOpen={isOpen}
+                toggle={() => {
+                  setIsOpen(!isOpen);
+                }}
+              />
+            )}
+            {!isMobile && <DefaultNavLinks isAuthenticated={isAuthenticated} />}
           </RightSection>
         </NavWrapper>
       </NavContainer>
-      {redirect ? <Redirect to="/" /> : <></>}
+      {isOpen && isMobile && (
+        <MobileNavbarLinks
+          close={() => {
+            setIsOpen(false);
+          }}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          isAuthenticated={isAuthenticated}
+        />
+      )}
     </NavSection>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
+    heroIsVisible: state.ui.heroIsVisible,
     heroIsPresent: state.ui.heroIsPresent,
     navBgColor: state.ui.navBgColor,
     isAuthenticated: state.auth.isAuthenticated,
   };
 };
 
-export default connect(mapStateToProps, { logout })(Nav);
+export default connect(mapStateToProps, {
+  setNavSolid,
+  setNavTransparent,
+  setMobile,
+})(Nav);

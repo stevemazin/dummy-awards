@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { accentColor, secondary } from "../../Utilities";
+import { accentColor, neutral } from "../../Utilities";
 import { connect } from "react-redux";
 import { getSinglePost } from "../../../store/actions";
+import Skeleton from "react-loading-skeleton";
 
 const Newscard = styled.div`
   display: inline-block;
@@ -17,7 +18,8 @@ const Newscard = styled.div`
   }
 
   .previewTxt {
-    color: #fff;
+    font-size: 1.4rem;
+    color: ${neutral[200]};
   }
 `;
 
@@ -28,10 +30,10 @@ const NewsImg = styled.img`
 const NewsLink = styled(Link)`
   font-size: 1.6rem;
   text-decoration: none;
-  color: ${accentColor[300]};
+  color: ${neutral[100]};
 
   &:hover {
-    color: ${secondary[300]};
+    color: ${accentColor[300]};
   }
 `;
 
@@ -42,16 +44,16 @@ const NewsCard = (props) => {
 
   return (
     <Newscard>
-      <NewsImg src={storyThumbnail} />
+      <NewsImg src={storyThumbnail || <Skeleton />} />
       <NewsLink
         to="/post"
         onClick={() => {
           getSinglePost(props.slug);
         }}
       >
-        {props.newsHeading}
+        {props.newsHeading || <Skeleton />}
       </NewsLink>
-      <p className="previewTxt">{props.previewTxt}...</p>
+      <p className="previewTxt">{props.previewTxt || <Skeleton />}...</p>
     </Newscard>
   );
 };

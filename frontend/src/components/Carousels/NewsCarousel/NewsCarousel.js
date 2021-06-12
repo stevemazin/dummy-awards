@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const NewsSection = styled.section`
-  background-color: ${navyBlue[300]};
+  background-color: ${navyBlue[200]};
   width: 100%;
   height: 70rem;
   display: flex;

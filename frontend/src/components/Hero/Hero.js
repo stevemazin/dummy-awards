@@ -44,9 +44,8 @@ const Hero = ({
   setNavSolid,
   switchHeroPresence,
   switchHeroVisibility,
+  isMobile,
 }) => {
-  // const isMobile = useMediaQuery({ maxWidth: Tablet });
-
   const [ref] = useInView({
     threshold: 1,
   });
@@ -60,7 +59,7 @@ const Hero = ({
       onChange={(inView) => {
         console.log("Big Hero In View: " + inView);
 
-        if (inView) {
+        if (!isMobile && inView) {
           // set nav to transparent if hero is in view
           switchHeroVisibility(inView);
           setNavTransparent();
@@ -91,6 +90,7 @@ const Hero = ({
 
 const mapStateToProps = (state) => {
   return {
+    isMobile: state.ui.isMobile,
     heroIsVisible: state.ui.heroIsVisible,
     heroIsPresent: state.ui.heroIsPresent,
   };

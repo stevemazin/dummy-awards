@@ -1,17 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.57752fb9.chunk.css",
-    "main.js": "/static/js/main.9ed921ca.chunk.js",
-    "main.js.map": "/static/js/main.9ed921ca.chunk.js.map",
+    "main.js": "/static/js/main.d4c00847.chunk.js",
+    "main.js.map": "/static/js/main.d4c00847.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.248907bc.js",
     "runtime-main.js.map": "/static/js/runtime-main.248907bc.js.map",
     "static/css/2.165ff965.chunk.css": "/static/css/2.165ff965.chunk.css",
-    "static/js/2.155bf71a.chunk.js": "/static/js/2.155bf71a.chunk.js",
-    "static/js/2.155bf71a.chunk.js.map": "/static/js/2.155bf71a.chunk.js.map",
+    "static/js/2.81419cd5.chunk.js": "/static/js/2.81419cd5.chunk.js",
+    "static/js/2.81419cd5.chunk.js.map": "/static/js/2.81419cd5.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.165ff965.chunk.css.map": "/static/css/2.165ff965.chunk.css.map",
-    "static/css/main.57752fb9.chunk.css.map": "/static/css/main.57752fb9.chunk.css.map",
-    "static/js/2.155bf71a.chunk.js.LICENSE.txt": "/static/js/2.155bf71a.chunk.js.LICENSE.txt",
+    "static/js/2.81419cd5.chunk.js.LICENSE.txt": "/static/js/2.81419cd5.chunk.js.LICENSE.txt",
     "static/media/1.e28f6d3c.svg": "/static/media/1.e28f6d3c.svg",
     "static/media/2.78962dd1.svg": "/static/media/2.78962dd1.svg",
     "static/media/3.4177daae.svg": "/static/media/3.4177daae.svg",
@@ -21,10 +19,11 @@
     "static/media/8.1d7c7d2d.png": "/static/media/8.1d7c7d2d.png",
     "static/media/cover-main.c067d63b.jpg": "/static/media/cover-main.c067d63b.jpg",
     "static/media/facebook.80580ea2.svg": "/static/media/facebook.80580ea2.svg",
+    "static/media/google-logo.03ea2157.svg": "/static/media/google-logo.03ea2157.svg",
     "static/media/hero-logo.6d993d4e.svg": "/static/media/hero-logo.6d993d4e.svg",
     "static/media/instagram.67a8fa58.svg": "/static/media/instagram.67a8fa58.svg",
-    "static/media/logo.f7bac70f.svg": "/static/media/logo.f7bac70f.svg",
-    "static/media/mq-cover.a9d5ffa5.jpg": "/static/media/mq-cover.a9d5ffa5.jpg",
+    "static/media/logo.51294a6d.svg": "/static/media/logo.51294a6d.svg",
+    "static/media/mega-concert.f98f0520.svg": "/static/media/mega-concert.f98f0520.svg",
     "static/media/orange-concert.e3acedc9.jpg": "/static/media/orange-concert.e3acedc9.jpg",
     "static/media/rapper-on-stage.5aee1e23.jpg": "/static/media/rapper-on-stage.5aee1e23.jpg",
     "static/media/slick-theme.css": "/static/media/slick.c94f7671.ttf",
@@ -34,8 +33,7 @@
   "entrypoints": [
     "static/js/runtime-main.248907bc.js",
     "static/css/2.165ff965.chunk.css",
-    "static/js/2.155bf71a.chunk.js",
-    "static/css/main.57752fb9.chunk.css",
-    "static/js/main.9ed921ca.chunk.js"
+    "static/js/2.81419cd5.chunk.js",
+    "static/js/main.d4c00847.chunk.js"
   ]
 }

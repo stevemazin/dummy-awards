@@ -54,3 +54,10 @@ export const clearMessage = () => {
     type: actionTypes.CLEAR_MESSAGE,
   };
 };
+
+export const setMobile = (val) => {
+  return {
+    type: actionTypes.SET_MOBILE,
+    payload: val,
+  };
+};

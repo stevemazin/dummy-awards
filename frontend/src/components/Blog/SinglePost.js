@@ -2,7 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import Footer from "../Footer/Footer";
-import { accentColor, Container } from "../Utilities";
+import { accentColor, Container, navyBlue } from "../Utilities";
+import Skeleton from "react-loading-skeleton";
+import Navbar from "../Navbar/Navbar";
 
 const PostDetail = styled.div`
   font-size: 1.6rem;
@@ -11,6 +13,10 @@ const PostDetail = styled.div`
 
   @media screen and (max-width: 768px) {
     width: 100%;
+  }
+
+  .post-body {
+    margin-bottom: 3rem;
   }
 
   .post-main-img {
@@ -22,6 +28,7 @@ const PostDetail = styled.div`
 
   h3 {
     margin-bottom: 1rem;
+    color: ${navyBlue[300]};
   }
 
   p {
@@ -30,8 +37,13 @@ const PostDetail = styled.div`
   }
 
   p > strong {
-    color: ${accentColor[300]};
+    color: ${navyBlue[300]};
     margin-top: 1rem;
+  }
+
+  ul {
+    margin-left: 3rem;
+    margin-bottom: 1rem;
   }
 `;
 
@@ -45,12 +57,20 @@ const SinglePost = (props) => {
 
   return (
     <>
+      <Navbar />
       {postData && (
         <PostDetail>
           <Container>
-            <img className="post-main-img" src={postData.photo_main} alt="" />
-            <h3>{postData.headline}</h3>
-            <div dangerouslySetInnerHTML={setDangerousPost()}></div>
+            <img
+              className="post-main-img"
+              src={postData.photo_main || <Skeleton />}
+              alt=""
+            />
+            <h3>{postData.headline || <Skeleton />}</h3>
+            <div
+              className="post-body"
+              dangerouslySetInnerHTML={setDangerousPost() || <Skeleton />}
+            ></div>
           </Container>
         </PostDetail>
       )}

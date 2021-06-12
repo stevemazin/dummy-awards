@@ -1,9 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { accentColor, breakpoints, navyBlue, neutral } from "../../Utilities";
+import {
+  accentColor,
+  breakpoints,
+  green,
+  navyBlue,
+  neutral,
+} from "../../Utilities";
 import { setChoice } from "../../../store/actions";
 import { connect } from "react-redux";
 import { showMessage } from "../../../store/actions/ui";
+import CircularTick from "../../Utilities/InlineSVGs/CircularTick";
+import SimpleTick from "../../Utilities/InlineSVGs/SimpleTick";
 
 const NominationContainer = styled.div`
   text-align: center;
@@ -25,9 +33,62 @@ const NominationContainer = styled.div`
     min-width: 14rem;
   }
 
+  #circularTick {
+    height: 5rem;
+    path,
+    polygon {
+      fill: ${green[100]};
+    }
+  }
+
   .nominee-info {
-    font-size: 1.6rem;
-    color: ${navyBlue[500]};
+    margin-top: 1rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    #smallTick {
+      height: 1.9rem;
+
+      .tickArtwork {
+        fill: ${green[100]};
+      }
+    }
+
+    .nominee-info-txt {
+      display: inline-block;
+      font-size: 1.6rem;
+      color: ${({
+        tempSelectedNominee,
+        tempCatName,
+        reduxNominee,
+        reduxData,
+      }) => {
+        if (tempSelectedNominee === reduxNominee && tempCatName === reduxData) {
+          return green[300];
+        } else {
+          return navyBlue[500];
+        }
+      }};
+
+      margin-right: ${({
+        tempSelectedNominee,
+        tempCatName,
+        reduxNominee,
+        reduxData,
+      }) => {
+        if (tempSelectedNominee === reduxNominee && tempCatName === reduxData) {
+          return ".5rem";
+        } else {
+          return 0;
+        }
+      }};
+    }
+  }
+
+  .hide {
+    display: none;
   }
 `;
 
@@ -63,6 +124,7 @@ const ImageContainer = styled.div`
     height: 100%;
     transition: 0.3s ease;
     opacity: 0;
+
     font-size: 2rem;
     text-align: center;
     border-radius: 5px;
@@ -93,33 +155,58 @@ const Nomination = (props) => {
     votingSectionInView,
     votingSectionInViewData,
     user,
+    itemId,
+    currentCatName,
+    selectedNominee,
   } = props;
 
   return (
-    <NominationContainer>
-      <ImageContainer>
+    <NominationContainer
+      tempSelectedNominee={itemId}
+      tempCatName={currentCatName}
+      reduxNominee={selectedNominee}
+      reduxData={votingSectionInViewData.cat_name}
+    >
+      <ImageContainer
+        onClick={() => {
+          console.log(itemId, currentCatName);
+        }}
+      >
         <img src={nomineeImg} alt="Nominee" />
         <div className="overlay">
+          {itemId === selectedNominee &&
+            currentCatName === votingSectionInViewData.cat_name && (
+              <CircularTick />
+            )}
           <button
-            className="nominee-select"
+            className={
+              itemId === selectedNominee &&
+              currentCatName === votingSectionInViewData.cat_name
+                ? "nominee-select hide"
+                : "nominee-select"
+            }
             onClick={() => {
               if (!user) {
                 showMessage(true, "Login or Create an account to vote...");
               } else {
-                setChoice(
-                  nomineeName,
-                  votingSectionInView,
-                  votingSectionInViewData,
-                  user
-                );
+                let tempChoiceData = {};
+                tempChoiceData["nomineeName"] = nomineeName;
+                tempChoiceData["votingSectionInView"] = votingSectionInView;
+                tempChoiceData["allCatData"] = votingSectionInViewData;
+                tempChoiceData["voterData"] = user;
+                setChoice(tempChoiceData);
               }
             }}
           >
-            Select Nominee
+            Select
           </button>
         </div>
       </ImageContainer>
-      <h6 className="nominee-info">{nomineeName}</h6>
+      <div className="nominee-info">
+        <h6 className="nominee-info-txt">{nomineeName}</h6>
+        {itemId === selectedNominee &&
+          currentCatName === votingSectionInViewData.cat_name && <SimpleTick />}
+      </div>
     </NominationContainer>
   );
 };
@@ -127,6 +214,7 @@ const Nomination = (props) => {
 const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
+    selectedNominee: state.voting.selectedChoice,
     heroIsVisible: state.ui.heroIsVisible,
     movieCategories: state.movies.movieCategories,
     songCategories: state.songs.songCategories,

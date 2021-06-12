@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { neutral } from "../Utilities";
-import heroImg from "../../assets/mq-cover.jpg";
 import { setNavTransparent } from "../../store/actions";
 import { connect } from "react-redux";
+import heroImg from "../../assets/mega-concert.svg";
 
 const DevWrapper = styled.div`
   height: 100vh;

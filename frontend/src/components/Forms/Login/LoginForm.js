@@ -4,17 +4,49 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
-import { accentColor, neutral, breakpoints } from "../../Utilities";
+import { accentColor, neutral, breakpoints, navyBlue } from "../../Utilities";
 import { login } from "../../../store/actions";
+import googleLogo from "../../../assets/google-logo.svg";
 
 const FormWrapper = styled.div`
   font-size: 1.6rem;
-  width: 35rem;
-  padding: 2rem;
-  border-radius: 1rem;
+  margin-top: 2rem;
 
-  @media screen and (max-width: ${breakpoints.Tablet}) {
-    width: 32.5rem;
+  .form-container {
+    background-color: ${neutral[100]};
+    width: 35rem;
+    padding: 2rem;
+    border-radius: 1rem;
+
+    @media screen and (max-width: ${breakpoints.Tablet}) {
+      width: 32.5rem;
+    }
+  }
+
+  .google-btn {
+    margin-top: 2rem;
+    background-color: ${neutral[200]};
+    border: none;
+    cursor: pointer;
+    height: 4.2rem;
+    width: 35rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: ${neutral[300]};
+    }
+
+    .google-logo {
+      height: 2rem;
+      margin-right: 1rem;
+    }
+
+    @media screen and (max-width: ${breakpoints.Tablet}) {
+      width: 32.5rem;
+    }
   }
 
   .mt-1 {
@@ -33,14 +65,14 @@ const FormWrapper = styled.div`
   }
 
   .alt-txt {
-    margin: 1rem;
+    margin: 0.75rem 0;
     text-align: center;
     font-size: 1.4rem;
-    color: ${neutral[100]};
+    color: ${navyBlue[300]};
   }
 
   .form-header {
-    color: ${accentColor[300]};
+    color: ${navyBlue[300]};
     margin-left: 0.5rem;
     margin-bottom: 1.5rem;
   }
@@ -51,32 +83,6 @@ const FormWrapper = styled.div`
     flex-direction: column;
     align-items: center;
   }
-
-  .btn-primary {
-    background-color: ${accentColor[300]};
-
-    &:active {
-      background-color: ${accentColor[400]};
-    }
-  }
-
-  .btn-google {
-    background-color: #cc3333;
-
-    &:active {
-      background-color: #cc3333;
-    }
-  }
-
-  .btn {
-    border-radius: 5px;
-    outline: none;
-    border: none;
-    height: 4.2rem;
-    width: 100%;
-    color: ${neutral[100]};
-    font-size: 1.3rem;
-  }
 `;
 
 const FormGroup = styled.div`
@@ -85,9 +91,9 @@ const FormGroup = styled.div`
 
   .form-in {
     width: 100%;
-    border: 1px solid transparent;
+    border: 1px solid ${neutral[300]};
     border-radius: 5px;
-    padding: 1.2rem 1rem;
+    padding: 1rem 1rem;
     outline: none;
     background-color: ${neutral[100]};
     font-size: 1.5rem;
@@ -143,50 +149,50 @@ const LoginForm = ({ login, isAuthenticated }) => {
 
   return (
     <FormWrapper>
-      <h2 className="form-header">Log In</h2>
-      <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
-        <FormGroup>
-          <input
-            className="form-in"
-            type="email"
-            placeholder="Email"
-            {...register("email", { required: true })}
-          />
-          {errors.email && <p className="error-msg">Email is required.</p>}
-        </FormGroup>
-        <FormGroup>
-          <input
-            className="form-in"
-            type="password"
-            placeholder="Password"
-            {...register("password", { required: true })}
-          />
-          {errors.password && (
-            <p className="error-msg">Password is required.</p>
-          )}
-        </FormGroup>
+      <div className="form-container">
+        <h2 className="form-header">Log In</h2>
+        <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
+          <FormGroup>
+            <input
+              className="form-in"
+              type="email"
+              placeholder="Email"
+              {...register("email", { required: true })}
+            />
+            {errors.email && <p className="error-msg">Email is required.</p>}
+          </FormGroup>
+          <FormGroup>
+            <input
+              className="form-in"
+              type="password"
+              placeholder="Password"
+              {...register("password", { required: true })}
+            />
+            {errors.password && (
+              <p className="error-msg">Password is required.</p>
+            )}
+          </FormGroup>
 
-        <input className="btn btn-primary  mt-1" value="Login" type="submit" />
-      </form>
+          <input className="fx-dark-btn" value="Login" type="submit" />
+        </form>
+        <p className="alt-txt">
+          Don't have an account?{" "}
+          <Link className="alt-link" to="/sign-up">
+            Sign Up
+          </Link>
+        </p>
 
-      <p className="alt-txt">Or</p>
-      <button className="btn btn-google" onClick={continueWithGoogle}>
+        <p className="alt-txt">
+          Forgot your password?{" "}
+          <Link className="alt-link" to="/reset-password">
+            Reset Password
+          </Link>
+        </p>
+      </div>
+      <button className="google-btn" onClick={continueWithGoogle}>
+        <img className="google-logo" src={googleLogo} alt="google" />
         Continue With Google
       </button>
-
-      <p className="alt-txt">
-        Don't have an account?{" "}
-        <Link className="alt-link" to="/sign-up">
-          Sign Up
-        </Link>
-      </p>
-
-      <p className="alt-txt">
-        Forgot your password?{" "}
-        <Link className="alt-link" to="/reset-password">
-          Reset Password
-        </Link>
-      </p>
     </FormWrapper>
   );
 };

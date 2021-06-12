@@ -85,6 +85,8 @@ const Category = ({
           return (
             <Nomination
               key={category["id"]}
+              itemId={category["id"]}
+              currentCatName={categoriesList["cat_name"]}
               nomineeImg={category["img"]}
               nomineeName={category[nomineeNameForCat]}
             />

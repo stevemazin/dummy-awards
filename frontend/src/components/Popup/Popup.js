@@ -26,7 +26,7 @@ const Backdrop = styled.div`
 const MessageContainer = styled.div`
   text-align: center;
   height: fit-content;
-  padding: 3rem 1rem;
+  padding: 3rem 2rem;
   font-size: 1.6rem;
   min-width: 35vw;
   background-color: ${neutral[200]};
@@ -37,6 +37,10 @@ const MessageContainer = styled.div`
     showing ? "translateY(0)" : "translateY(-200%)"};
   transition: all 100ms ease-in-out;
   z-index: 888;
+
+  @media screen and (max-width: 768px) {
+    font-size: 1.4rem;
+  }
 `;
 
 const Popup = (props) => {

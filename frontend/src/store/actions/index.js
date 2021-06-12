@@ -4,6 +4,7 @@ export {
   setNavTransparent,
   setNavSolid,
   setVotingSectionInView,
+  setMobile,
 } from "./ui";
 
 export {
@@ -26,4 +27,4 @@ export { fetchSongCategories, setCurrentSongCategory } from "./songs";
 
 export { fetchArtistCategories, setCurrentArtistCategory } from "./artists";
 
-export { submitVote, setChoice } from "./voting";
+export { submitVote, setChoice, clearChoiceData } from "./voting";

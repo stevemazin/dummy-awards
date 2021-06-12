@@ -11,7 +11,7 @@ import facebook from "../../assets/facebook.svg";
 import instagram from "../../assets/instagram.svg";
 
 const FooterSection = styled.section`
-  /* padding: 2rem 0 1rem 0; */
+  padding: 2rem 0 0 0;
   font-size: 1.6rem;
   height: fit-content;
   background-color: ${navyBlue[300]};
@@ -69,8 +69,6 @@ const LinksList = styled.ul`
   list-style: none;
 `;
 
-const SingleLink = styled.li``;
-
 const FooterParagraph = styled.p`
   line-height: 1.6;
   color: ${neutral[300]};
@@ -96,7 +94,7 @@ const SocialGfx = styled.img`
 const BottomSection = styled.div`
   font-size: 1.4rem;
   padding: 1.5rem 0;
-  border-top: 1px solid ${accentColor[300]};
+  border-top: 0.15rem solid ${accentColor[300]};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -147,41 +145,41 @@ const Footer = () => {
           <SubSection className="second">
             <LinksHeader>sliq-awards</LinksHeader>
             <LinksList>
-              <SingleLink>
+              <li>
                 <LinkItem destination="/" destinationTag="Home" />
-              </SingleLink>
-              <SingleLink>
+              </li>
+              <li>
                 <LinkItem destination="/gallery" destinationTag="Gallery" />
-              </SingleLink>
-              <SingleLink>
+              </li>
+              <li>
                 <LinkItem destination="/vote/songs" destinationTag="Vote" />
-              </SingleLink>
-              <SingleLink>
+              </li>
+              <li>
                 <LinkItem destination="/winners" destinationTag="Winners" />
-              </SingleLink>
+              </li>
             </LinksList>
           </SubSection>
           <SubSection className="third">
             <LinksHeader>quick-links</LinksHeader>
             <LinksList>
-              <SingleLink>
+              <li>
                 <LinkItem
                   destination="/submit-work"
                   destinationTag="Submit your work"
                 />
-              </SingleLink>
-              <SingleLink>
+              </li>
+              <li>
                 <LinkItem
                   destination="/advertise-with-us"
                   destinationTag="Advertise with us"
                 />
-              </SingleLink>
-              <SingleLink>
+              </li>
+              <li>
                 <LinkItem
                   destination="/sponsor-us"
                   destinationTag="Sponsor us"
                 />
-              </SingleLink>
+              </li>
             </LinksList>
           </SubSection>
           <SubSection className="last">

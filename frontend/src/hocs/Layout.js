@@ -12,6 +12,7 @@ import {
 } from "../store/actions";
 import Popup from "../components/Popup/Popup";
 import styled from "styled-components";
+import GlobalStyles from "../components/Utilities/globalStyles";
 
 const LayoutContainer = styled.div`
   position: relative;
@@ -63,7 +64,7 @@ const Layout = (props) => {
 
   return (
     <LayoutContainer>
-      <Navbar />
+      <GlobalStyles />
       {votingMsg && showMessage && <Popup message={votingMsg} />}
       {props.children}
     </LayoutContainer>

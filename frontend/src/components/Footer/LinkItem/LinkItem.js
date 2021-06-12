@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { accentColor, neutral } from "../../Utilities";
 import { Link } from "react-router-dom";
+import Dash from "../../Utilities/InlineSVGs/Dash";
 
 const LinkItemCombo = styled(Link)`
   display: flex;
@@ -9,14 +10,13 @@ const LinkItemCombo = styled(Link)`
   margin-bottom: 0.5rem;
   text-decoration: none;
   color: ${neutral[100]};
-  transition: all 150ms ease-in;
+  transition: transform 100ms ease-in;
 
   &:hover {
-    transform: translateX(0.5rem);
     color: ${accentColor[300]};
 
-    .line {
-      stroke: ${neutral[100]};
+    .st0 {
+      fill: ${accentColor[300]};
     }
   }
 `;
@@ -24,7 +24,7 @@ const LinkItemCombo = styled(Link)`
 const LinkItem = (props) => {
   return (
     <LinkItemCombo to={props.destination}>
-      <span>- </span>
+      <Dash />
       <span>{props.destinationTag}</span>
     </LinkItemCombo>
   );

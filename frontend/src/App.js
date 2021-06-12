@@ -26,12 +26,11 @@ const App = () => {
         persistor={persistor}
       >
         <Router>
-          <GlobalStyles />
-          <Route path="/login" exact component={Login} />
-          <Route path="/sign-up" exact component={Register} />
           <Layout>
             <Switch>
               <Route path="/" exact component={Home} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/sign-up" exact component={Register} />
               <Route exact path="/activate/:uid/:token" component={Activate} />
               <Route path="/reset-password" exact component={ResetPassword} />
               <Route path="/post" exact component={SinglePost} />

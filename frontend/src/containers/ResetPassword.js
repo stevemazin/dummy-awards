@@ -5,7 +5,7 @@ import { resetPassword } from "../store/actions/auth";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { neutral, accentColor, infoBlue } from "../components/Utilities";
-import heroImg from "../assets/mq-cover.jpg";
+import heroImg from "../assets/mega-concert.svg";
 
 const ResetPasswordContainer = styled.div`
   height: 100vh;

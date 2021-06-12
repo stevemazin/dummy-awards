@@ -1,31 +1,34 @@
 export const navyBlue = {
-  100: "#3a36e0",
-  200: "#0804b8",
-  300: "#0b0c10",
-  400: "#5f25a4",
-  500: "#120F2E",
+  100: "#426d86",
+  200: "#38657f",
+  300: "#2d5d78",
+  400: "#2b5872",
+  500: "#29546c",
 };
 
-// Yellow
-export const secondary = {
-  300: "#FEC40E",
-};
-
-// Orange
+// Orange => 5% Diff
 export const accentColor = {
   100: "#f47a56",
-
   200: "#f26a41",
   300: "#F1592C",
   400: "#d95028",
   500: "#c14723",
 };
 
+// Yellow => 5% Diff
+export const altAccentColor = {
+  100: "#feed51",
+  200: "#feec48",
+  300: "#feeb3e",
+  400: "#f1df3b",
+  500: "#e5d438",
+};
+
 // Success => 7.5% Difference In Shade
 export const green = {
-  100: "#449830",
-  200: "#35901f",
-  300: "#31851d",
+  100: "#4adf5a",
+  200: "#3bdc4d",
+  300: "#37cc47",
 };
 
 export const yellow = {

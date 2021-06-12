@@ -13,6 +13,11 @@ const votingReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case actionTypes.CLEAR_VOTING_CHOICE_DATA:
+      return updateObject(state, {
+        selectedCategory: null,
+        selectedChoice: null,
+      });
     case actionTypes.CAST_VOTE_IN_CATEGORY_SUCCESS:
       console.log("Succesfully voted in this category...");
       return updateObject(state, {

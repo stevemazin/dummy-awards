@@ -1,17 +1,14 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import {
-  setNavTransparent,
-  setNavSolid,
-  switchHeroPresence,
-  switchHeroVisibility,
-} from "../store/actions";
+import { setNavSolid } from "../store/actions";
 import RegisterForm from "../components/Forms/Register/RegisterForm";
-import heroImg from "../assets/mq-cover.jpg";
+import heroImg from "../assets/mega-concert.svg";
+import { Link } from "react-router-dom";
+import SliqLogo from "../components/Utilities/SliqLogo";
 
 const RegisterWrapper = styled.div`
-  height: 100vh;
+  height: 100%;
   width: 100%;
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url(${heroImg});
@@ -22,16 +19,33 @@ const RegisterWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  .utility-container {
+    height: 100vh;
+    min-height: 75rem;
+  }
+
+  .home-link {
+    margin-top: 6rem;
+    text-align: center;
+  }
 `;
 
-const Register = ({ setNavTransparent }) => {
+const Register = ({ setNavSolid }) => {
   useEffect(() => {
-    setNavTransparent();
-  });
+    setNavSolid();
+  }, []);
 
   return (
     <RegisterWrapper>
-      <RegisterForm />
+      <div className="utility-container">
+        <div className="home-link">
+          <Link to="/">
+            <SliqLogo />
+          </Link>
+        </div>
+        <RegisterForm />
+      </div>
     </RegisterWrapper>
   );
 };
@@ -45,8 +59,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  setNavTransparent,
   setNavSolid,
-  switchHeroVisibility,
-  switchHeroPresence,
 })(Register);

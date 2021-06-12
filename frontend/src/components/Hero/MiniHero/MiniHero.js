@@ -6,6 +6,7 @@ import { Header3, neutral } from "../../Utilities";
 import { useInView, InView } from "react-intersection-observer";
 import * as actionCreators from "../../../store/actions";
 import heroImg2 from "../../../assets/orange-concert.jpg";
+import VoteTypeWritter from "../../TypeWriter/VoteTypeWritter";
 
 const HeroWrapper = styled.section`
   height: 40rem;
@@ -35,7 +36,7 @@ const MiniHero = (props) => {
   return (
     <InView
       onChange={(inView) => {
-        if (inView) {
+        if (!props.isMobile && inView) {
           // set nav to transparent if hero is in view
           props.switchHeroVisibility(inView);
           props.setNavTransparent();
@@ -49,7 +50,9 @@ const MiniHero = (props) => {
     >
       <HeroWrapper ref={ref}>
         <Timer />
-        <Header3>Vote for Your Favorite Artist</Header3>
+        <Header3>
+          <VoteTypeWritter />
+        </Header3>
       </HeroWrapper>
     </InView>
   );
@@ -59,6 +62,7 @@ const mapStateToProps = (state) => {
   return {
     heroIsVisible: state.ui.heroIsVisible,
     heroIsPresent: state.ui.heroIsPresent,
+    isMobile: state.ui.isMobile,
   };
 };
 

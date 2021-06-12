@@ -13,13 +13,20 @@ import {
   setCurrentMovieCategory,
   setCurrentArtistCategory,
   setCurrentSongCategory,
+  setChoice,
+  clearChoiceData,
 } from "../store/actions";
 import { NavLink, Link } from "react-router-dom";
 import { accentColor, navyBlue, neutral } from "../components/Utilities";
 import Message from "../components/Popup/Popup";
+import Navbar from "../components/Navbar/Navbar";
 
 const VoteWrapper = styled.div`
   font-size: 1.6rem;
+
+  .nomination-errors {
+    text-align: center;
+  }
 `;
 
 const SectionNavigator = styled.div`
@@ -95,7 +102,6 @@ const Vote = (props) => {
     votingSectionInViewData,
     setVotingSectionInView,
     fetchArtistCategories,
-    fetchSongCategories,
     fetchMovieCategories,
     totalSongCategories,
     totalArtistCategories,
@@ -103,12 +109,17 @@ const Vote = (props) => {
     setCurrentMovieCategory,
     setCurrentArtistCategory,
     setCurrentSongCategory,
+    clearChoiceData,
   } = props;
 
   // Get movies and artist data
   useEffect(() => {
     fetchArtistCategories();
     fetchMovieCategories();
+    setVotingSectionInView(
+      "songs",
+      songCategories[parseInt(currentSongCategory, 10)]
+    );
   }, []);
 
   let currentSectionIndex = null;
@@ -145,12 +156,15 @@ const Vote = (props) => {
     if (currentSection === "songs") {
       setCurrentSongCategory(previousCatInSection);
       setVotingSectionInView("songs", songCategories[previousCatInSection]);
+      clearChoiceData();
     } else if (currentSection === "movies") {
       setCurrentMovieCategory(previousCatInSection);
       setVotingSectionInView("movies", movieCategories[previousCatInSection]);
+      clearChoiceData();
     } else {
       setCurrentArtistCategory(previousCatInSection);
       setVotingSectionInView("artists", artistCategories[previousCatInSection]);
+      clearChoiceData();
     }
   };
 
@@ -174,28 +188,32 @@ const Vote = (props) => {
     if (currentSection === "songs") {
       setCurrentSongCategory(nextCatInSection);
       setVotingSectionInView("songs", songCategories[nextCatInSection]);
+      clearChoiceData();
     } else if (currentSection === "movies") {
       setCurrentMovieCategory(nextCatInSection);
       setVotingSectionInView("movies", movieCategories[nextCatInSection]);
+      clearChoiceData();
     } else {
       setCurrentArtistCategory(nextCatInSection);
       setVotingSectionInView("artists", artistCategories[nextCatInSection]);
+      clearChoiceData();
     }
   };
 
   return (
     <>
+      <Navbar />
       <MiniHero />
       <Container>
         <VoteWrapper>
           <VotingCategories>
             <NavLink
               onClick={() => {
-                fetchSongCategories();
                 setVotingSectionInView(
                   "songs",
                   songCategories[parseInt(currentSongCategory, 10)]
                 );
+                clearChoiceData();
               }}
               to="/vote/songs"
               className="cat-link"
@@ -205,11 +223,11 @@ const Vote = (props) => {
             </NavLink>
             <NavLink
               onClick={() => {
-                fetchMovieCategories();
                 setVotingSectionInView(
                   "movies",
                   movieCategories[parseInt(currentMovieCategory, 10)]
                 );
+                clearChoiceData();
               }}
               to="/vote/movies"
               className="cat-link"
@@ -219,11 +237,11 @@ const Vote = (props) => {
             </NavLink>
             <NavLink
               onClick={() => {
-                fetchArtistCategories();
                 setVotingSectionInView(
                   "artists",
                   artistCategories[parseInt(currentArtistCategory, 10)]
                 );
+                clearChoiceData();
               }}
               to="/vote/artists"
               className="cat-link"
@@ -287,7 +305,9 @@ const Vote = (props) => {
                 totalCategoriesInSection={totalCategoriesInCurrentSection}
               />
             ) : (
-              <div>No data on nomination categories</div>
+              <div className="nomination-errors">
+                No data on nomination categories
+              </div>
             )}
           </MainSectionWrapper>
         </VoteWrapper>
@@ -322,4 +342,6 @@ export default connect(mapStateToProps, {
   setCurrentMovieCategory,
   setCurrentArtistCategory,
   setCurrentSongCategory,
+  setChoice,
+  clearChoiceData,
 })(Vote);
