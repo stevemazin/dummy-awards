@@ -324,11 +324,10 @@ const RegisterForm = ({
           </Link>
         </p>
       </div>
-
-      <button className="google-btn" onClick={continueWithGoogle}>
+      {/* <button className="google-btn" onClick={continueWithGoogle}>
         <img className="google-logo" src={googleLogo} alt="google" />
         Continue With Google
-      </button>
+      </button> */}
     </FormWrapper>
   );
 };

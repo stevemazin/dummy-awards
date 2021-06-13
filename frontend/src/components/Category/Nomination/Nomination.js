@@ -7,10 +7,7 @@ import {
   navyBlue,
   neutral,
 } from "../../Utilities";
-import { setChoice } from "../../../store/actions";
 import { connect } from "react-redux";
-import { showPopupMessage } from "../../../store/actions/ui";
-import CircularTick from "../../Utilities/InlineSVGs/CircularTick";
 import SimpleTick from "../../Utilities/InlineSVGs/SimpleTick";
 import { isMobile } from "react-device-detect";
 import MobileNomination from "./MobileNomination";
@@ -153,8 +150,6 @@ const ImageContainer = styled.div`
 
 const Nomination = (props) => {
   const {
-    setChoice,
-    showPopupMessage,
     nomineeImg,
     nomineeName,
     votingSectionInView,
@@ -229,6 +224,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setChoice, showPopupMessage })(
-  Nomination
-);
+export default connect(mapStateToProps, {})(Nomination);

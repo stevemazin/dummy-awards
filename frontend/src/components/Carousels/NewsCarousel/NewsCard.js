@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { accentColor, neutral } from "../../Utilities";
-import { connect } from "react-redux";
-import { getSinglePost } from "../../../store/actions";
+import { useDispatch } from "react-redux";
+import { getSinglePost, setShowLoader } from "../../../store/actions";
 import Skeleton from "react-loading-skeleton";
 
 const Newscard = styled.div`
@@ -38,9 +38,9 @@ const NewsLink = styled(Link)`
 `;
 
 const NewsCard = (props) => {
-  const { storyThumbnail, getSinglePost } = props;
+  const { storyThumbnail } = props;
 
-  console.log(`URL: ${storyThumbnail}`);
+  const dispatch = useDispatch();
 
   return (
     <Newscard>
@@ -48,7 +48,14 @@ const NewsCard = (props) => {
       <NewsLink
         to="/post"
         onClick={() => {
-          getSinglePost(props.slug);
+          const attemptFetch = async () => {
+            dispatch(setShowLoader(true));
+            await dispatch(getSinglePost(props.slug));
+            setTimeout(() => {
+              dispatch(setShowLoader(false));
+            }, [1200]);
+          };
+          attemptFetch();
         }}
       >
         {props.newsHeading || <Skeleton />}
@@ -58,4 +65,4 @@ const NewsCard = (props) => {
   );
 };
 
-export default connect(null, { getSinglePost })(NewsCard);
+export default NewsCard;

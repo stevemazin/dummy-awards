@@ -4,17 +4,27 @@ import { connect } from "react-redux";
 import { activateUser } from "../store/actions/auth";
 import styled from "styled-components";
 import { accentColor, infoBlue, neutral } from "../components/Utilities";
+import heroImg from "../assets/mega-concert.svg";
 
 const ActivateWrapper = styled.div`
   height: 100vh;
   width: 100%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url(${heroImg});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 
   .form-header {
+    color: ${neutral[100]};
+    font-size: 2rem;
     margin-left: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .activate-container {
@@ -68,12 +78,8 @@ const Activate = ({ activateUser, match }) => {
   return (
     <ActivateWrapper>
       <div className="activate-container">
-        <h3 className="form-header">Verify your account</h3>
-        <button
-          onClick={verifyAccount}
-          className="btn btn-primary"
-          type="button"
-        >
+        <h3 className="form-header">Activate your account</h3>
+        <button onClick={verifyAccount} className="fx-dark-btn" type="button">
           Activate Account
         </button>
       </div>

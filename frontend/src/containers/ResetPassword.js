@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { resetPassword } from "../store/actions/auth";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { neutral, accentColor, infoBlue } from "../components/Utilities";
+import {
+  neutral,
+  accentColor,
+  infoBlue,
+  danger,
+} from "../components/Utilities";
 import heroImg from "../assets/mega-concert.svg";
+import SliqLogo from "../components/Utilities/InlineSVGs/SliqLogo";
 
 const ResetPasswordContainer = styled.div`
   height: 100vh;
@@ -24,6 +30,7 @@ const ResetPasswordContainer = styled.div`
 const FormWrapper = styled.div`
   font-size: 1.6rem;
   width: 30rem;
+  text-align: center;
 
   .mt-1 {
     margin-top: 1rem;
@@ -87,7 +94,7 @@ const FormGroup = styled.div`
   }
 
   .error-msg {
-    color: red;
+    color: ${danger[200]};
     font-size: 1.2rem;
     margin-left: 1rem;
     margin-top: 1rem;
@@ -118,6 +125,11 @@ const ResetPassword = ({ resetPassword }) => {
   return (
     <ResetPasswordContainer>
       <FormWrapper>
+        <div className="home-link">
+          <Link to="/">
+            <SliqLogo />
+          </Link>
+        </div>
         <h2 className="form-header">Request Password Reset</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormGroup className="form-group mb-2">
@@ -127,7 +139,9 @@ const ResetPassword = ({ resetPassword }) => {
               placeholder="Email"
               {...register("email", { required: true })}
             />
-            {errors.email && <p className="error-msg">Email is required.</p>}
+            {errors.email && (
+              <span className="error-msg">Email is required</span>
+            )}
           </FormGroup>
 
           <button className="fx-dark-btn" type="submit">
