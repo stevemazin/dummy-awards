@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
-import { accentColor, neutral, breakpoints, navyBlue } from "../../Utilities";
+import {
+  accentColor,
+  neutral,
+  breakpoints,
+  navyBlue,
+  danger,
+} from "../../Utilities";
 import { login } from "../../../store/actions";
 import googleLogo from "../../../assets/google-logo.svg";
+import AuthMessage from "../AuthMessage";
+import { clearAuthMessage } from "../../../store/actions/ui";
 
 const FormWrapper = styled.div`
   font-size: 1.6rem;
@@ -74,7 +82,7 @@ const FormWrapper = styled.div`
   .form-header {
     color: ${navyBlue[300]};
     margin-left: 0.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .login-form {
@@ -109,13 +117,18 @@ const FormGroup = styled.div`
     }
   }
   .error-msg {
-    color: red;
+    color: ${danger[200]};
     font-size: 1.2rem;
     margin-left: 1rem;
     margin-top: 1rem;
   }
 `;
-const LoginForm = ({ login, isAuthenticated }) => {
+const LoginForm = ({
+  login,
+  isAuthenticated,
+  authMessage,
+  clearAuthMessage,
+}) => {
   const {
     register,
     handleSubmit,
@@ -142,6 +155,21 @@ const LoginForm = ({ login, isAuthenticated }) => {
     } catch (err) {}
   };
 
+  // Check if there is a message and show it
+  const showMessage = (authMessage) => {
+    if (authMessage !== "") {
+      const message = authMessage;
+      return message;
+    }
+  };
+
+  // Clear error message after 5 seconds
+  useEffect(() => {
+    setTimeout(() => {
+      clearAuthMessage();
+    }, [6000]);
+  }, [authMessage]);
+
   // If the user authenticated, redirect to home page
   if (isAuthenticated) {
     return <Redirect to="/" />;
@@ -151,6 +179,7 @@ const LoginForm = ({ login, isAuthenticated }) => {
     <FormWrapper>
       <div className="form-container">
         <h2 className="form-header">Log In</h2>
+        {authMessage && showMessage && <AuthMessage message={authMessage} />}
         <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
             <input
@@ -159,7 +188,9 @@ const LoginForm = ({ login, isAuthenticated }) => {
               placeholder="Email"
               {...register("email", { required: true })}
             />
-            {errors.email && <p className="error-msg">Email is required.</p>}
+            {errors.email && (
+              <span className="error-msg">Email is required</span>
+            )}
           </FormGroup>
           <FormGroup>
             <input
@@ -169,10 +200,9 @@ const LoginForm = ({ login, isAuthenticated }) => {
               {...register("password", { required: true })}
             />
             {errors.password && (
-              <p className="error-msg">Password is required.</p>
+              <span className="error-msg">Password is required</span>
             )}
           </FormGroup>
-
           <input className="fx-dark-btn" value="Login" type="submit" />
         </form>
         <p className="alt-txt">
@@ -199,6 +229,8 @@ const LoginForm = ({ login, isAuthenticated }) => {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  showAuthMessage: state.ui.showAuthMessage,
+  authMessage: state.ui.authMessage,
 });
 
-export default connect(mapStateToProps, { login })(LoginForm);
+export default connect(mapStateToProps, { login, clearAuthMessage })(LoginForm);

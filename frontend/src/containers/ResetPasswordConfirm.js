@@ -16,15 +16,7 @@ const FormWrapper = styled.div`
 
   .form-header {
     margin-left: 1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .btn-primary {
-    background-color: ${accentColor[300]};
-
-    &:active {
-      background-color: ${accentColor[400]};
-    }
+    margin-bottom: 1rem;
   }
 
   .btn-google {
@@ -128,7 +120,7 @@ const ResetPasswordConfirm = ({ match, resetPassConfirm }) => {
             <p className="error-msg">Password must match.</p>
           )}
         </FormGroup>
-        <button className="btn btn-primary" type="submit">
+        <button className="fx-dark-btn" type="submit">
           Reset Password
         </button>
       </form>

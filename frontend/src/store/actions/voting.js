@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
-import { showMessage, clearMessage } from "./ui";
+import { showPopupMessage, clearPopupMessage } from "./ui";
 
 // actionCreators
 export const submitVote =
@@ -10,7 +10,7 @@ export const submitVote =
       // If voter id is not null, validate the vote before submitting
       if (selectedChoice) {
         // If selected choice is not null, continue with the validation
-        dispatch(clearMessage());
+        dispatch(clearPopupMessage());
 
         const config = {
           headers: {
@@ -82,7 +82,7 @@ export const submitVote =
                 data: res.data,
               },
             });
-            dispatch(showMessage(true, message));
+            dispatch(showPopupMessage(true, message));
           } else {
             dispatch({
               type: actionTypes.CAST_VOTE_IN_CATEGORY_FAIL,
@@ -90,9 +90,10 @@ export const submitVote =
                 msg: res.data.error,
               },
             });
-            dispatch(showMessage(true, res.data.error));
+            dispatch(showPopupMessage(true, res.data.error));
           }
         } catch (err) {
+          console.log(err.response.data);
           dispatch({
             type: actionTypes.CAST_VOTE_IN_CATEGORY_FAIL,
             payload: {
@@ -100,15 +101,19 @@ export const submitVote =
               error: err,
             },
           });
-          dispatch(showMessage(true, "Looks like you voted here already..."));
+          dispatch(
+            showPopupMessage(true, "Looks like you voted here already...")
+          );
         }
       } else {
-        dispatch(showMessage(true, "You have not selected any nominee..."));
+        dispatch(
+          showPopupMessage(true, "You have not selected any nominee...")
+        );
       }
     } else {
       // If voter id is null, show this error message
       dispatch(
-        showMessage(true, "Please login or create an account to vote...")
+        showPopupMessage(true, "Please login or create an account to vote...")
       );
     }
   };

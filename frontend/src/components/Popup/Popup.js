@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { clearMessage } from "../../store/actions/ui";
-import { accentColor, neutral } from "../Utilities";
+import { clearPopupMessage } from "../../store/actions/ui";
+import { navyBlue, neutral } from "../Utilities";
+// import { FiX } from "react-icons/fi";
 
 const Backdrop = styled.div`
   position: fixed;
@@ -11,7 +12,7 @@ const Backdrop = styled.div`
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.75);
-  z-index: 999;
+  z-index: 9999;
   overflow: hidden;
 
   .msg-holder {
@@ -20,6 +21,7 @@ const Backdrop = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
 `;
 
@@ -31,7 +33,7 @@ const MessageContainer = styled.div`
   min-width: 35vw;
   background-color: ${neutral[200]};
   border-radius: 5px;
-  color: ${accentColor[100]};
+  color: ${navyBlue[300]};
 
   transform: ${({ showing }) =>
     showing ? "translateY(0)" : "translateY(-200%)"};
@@ -44,17 +46,17 @@ const MessageContainer = styled.div`
 `;
 
 const Popup = (props) => {
-  const { currrentMessage, clearMessage, showMessage } = props;
+  const { currrentMessage, clearPopupMessage, showPopupMessage } = props;
 
   return (
     <Backdrop
       onClick={() => {
-        clearMessage();
+        clearPopupMessage();
       }}
     >
       <div className="msg-holder">
-        <MessageContainer showing={showMessage}>
-          <p>{currrentMessage}</p>
+        <MessageContainer showing={showPopupMessage}>
+          <span>{currrentMessage}</span>
         </MessageContainer>
       </div>
     </Backdrop>
@@ -63,9 +65,9 @@ const Popup = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    showMessage: state.ui.showMessage,
-    currrentMessage: state.ui.msg,
+    showPopupMessage: state.ui.showPopupMessage,
+    currrentMessage: state.ui.popupMessage,
   };
 };
 
-export default connect(mapStateToProps, { clearMessage })(Popup);
+export default connect(mapStateToProps, { clearPopupMessage })(Popup);

@@ -8,8 +8,11 @@ const initialState = {
   navBgColor: "",
   votingSectionInView: "",
   votingSectionInViewData: null,
-  showMessage: false,
-  msg: "",
+  showPopupMessage: false,
+  popupMessage: "",
+  showAuthMessage: false,
+  authMessage: "",
+  showLoader: false,
 };
 
 const uiReducer = (state = initialState, action) => {
@@ -19,15 +22,32 @@ const uiReducer = (state = initialState, action) => {
         votingSectionInView: action.payload.section,
         votingSectionInViewData: action.payload.data,
       });
-    case actionTypes.SHOW_MESSAGE:
+
+    case actionTypes.SHOW_LOADER:
       return updateObject(state, {
-        showMessage: action.payload.switchValue,
-        msg: action.payload.msg,
+        showLoader: action.payload,
       });
-    case actionTypes.CLEAR_MESSAGE:
+
+    case actionTypes.SHOW_POPUP_MESSAGE:
       return updateObject(state, {
-        showMessage: false,
-        msg: "",
+        showPopupMessage: action.payload.switchValue,
+        popupMessage: action.payload.popupMessage,
+      });
+    case actionTypes.CLEAR_POPUP_MESSAGE:
+      return updateObject(state, {
+        showPopupMessage: false,
+        popupMessage: "",
+      });
+
+    case actionTypes.SHOW_AUTH_MESSAGE:
+      return updateObject(state, {
+        showAuthMessage: action.payload.switchValue,
+        authMessage: action.payload.authMessage,
+      });
+    case actionTypes.CLEAR_AUTH_MESSAGE:
+      return updateObject(state, {
+        showAuthMessage: false,
+        authMessage: "",
       });
 
     case actionTypes.SET_MOBILE:

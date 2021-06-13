@@ -1,24 +1,3 @@
-imagekit
+REACT_APP_API_URL = 'https://stevemazin.pythonanywhere.com'
+REACT_APP_API_URL = 'http://localhost:8000'
 
-
-
-  // useEffect(() => {
-  //   if (votingSectionInView === "songs") {
-  //     console.log("This should run only once");
-  //     setVotingSectionInView(
-  //       "songs",
-  //       songCategories[parseInt(currentSongCategory, 10)]
-  //     );
-  //   }
-  // }, []);
-
-  {posts &&
-              posts.map((post) => {
-                return (
-                  <NewsCard
-                    newsHeading={post.headline}
-                    storyImg={post.photo_thumb}
-                    previewTxt={post.intro}
-                  />
-                );
-              })}

@@ -13,6 +13,7 @@ import {
 import Popup from "../components/Popup/Popup";
 import styled from "styled-components";
 import GlobalStyles from "../components/Utilities/globalStyles";
+import Loader from "../components/Loader/Loader";
 
 const LayoutContainer = styled.div`
   position: relative;
@@ -21,10 +22,11 @@ const LayoutContainer = styled.div`
 const Layout = (props) => {
   const {
     checkAuthenticated,
-    votingMsg,
+    popupMessage,
     loadUser,
     googleAuthenticate,
     fetchLatestPosts,
+    showLoader,
   } = props;
   let location = useLocation();
 
@@ -55,9 +57,9 @@ const Layout = (props) => {
     fetchLatestPosts();
   }, []);
 
-  const showMessage = (votingMsg) => {
-    if (votingMsg !== "") {
-      const message = votingMsg;
+  const showMessage = (popupMessage) => {
+    if (popupMessage !== "") {
+      const message = popupMessage;
       return message;
     }
   };
@@ -65,7 +67,8 @@ const Layout = (props) => {
   return (
     <LayoutContainer>
       <GlobalStyles />
-      {votingMsg && showMessage && <Popup message={votingMsg} />}
+      {showLoader && <Loader />}
+      {popupMessage && showMessage && <Popup message={popupMessage} />}
       {props.children}
     </LayoutContainer>
   );
@@ -73,8 +76,9 @@ const Layout = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    votingMsg: state.ui.msg,
-    showMessage: state.ui.showMessage,
+    showLoader: state.ui.showLoader,
+    popupMessage: state.ui.popupMessage,
+    showPopupMessage: state.ui.showPopupMessage,
     movieCategories: state.movies.movieCategories,
     songCategories: state.songs.songCategories,
     artistCategories: state.artists.artistCategories,

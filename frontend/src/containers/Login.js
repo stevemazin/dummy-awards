@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { setNavSolid } from "../store/actions";
 import LoginForm from "../components/Forms/Login/LoginForm";
 import heroImg from "../assets/mega-concert.svg";
-import SliqLogo from "../components/Utilities/SliqLogo";
+import SliqLogo from "../components/Utilities/InlineSVGs/SliqLogo";
 import { Link } from "react-router-dom";
 
 const LoginWrapper = styled.div`

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import Timer from "../../Timer/Timer";
-import { Header3, neutral } from "../../Utilities";
+import { breakpoints, neutral } from "../../Utilities";
 import { useInView, InView } from "react-intersection-observer";
 import * as actionCreators from "../../../store/actions";
 import heroImg2 from "../../../assets/orange-concert.jpg";
@@ -16,12 +16,20 @@ const HeroWrapper = styled.section`
   align-items: center;
   justify-content: center;
   color: ${neutral[100]};
-  height: 60vh;
-
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url(${heroImg2});
   background-position: center;
   background-repeat: no-repeat;
+
+  .typing-effect {
+    margin: 0.5rem 0;
+    font-weight: 400;
+    font-size: 3rem;
+
+    @media screen and (max-width: ${breakpoints.Tablet}) {
+      font-size: 2rem;
+    }
+  }
 `;
 
 const MiniHero = (props) => {
@@ -50,9 +58,9 @@ const MiniHero = (props) => {
     >
       <HeroWrapper ref={ref}>
         <Timer />
-        <Header3>
+        <h3 className="typing-effect">
           <VoteTypeWritter />
-        </Header3>
+        </h3>
       </HeroWrapper>
     </InView>
   );

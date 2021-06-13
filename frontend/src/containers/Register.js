@@ -5,7 +5,7 @@ import { setNavSolid } from "../store/actions";
 import RegisterForm from "../components/Forms/Register/RegisterForm";
 import heroImg from "../assets/mega-concert.svg";
 import { Link } from "react-router-dom";
-import SliqLogo from "../components/Utilities/SliqLogo";
+import SliqLogo from "../components/Utilities/InlineSVGs/SliqLogo";
 
 const RegisterWrapper = styled.div`
   height: 100%;

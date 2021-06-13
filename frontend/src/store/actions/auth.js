@@ -18,6 +18,7 @@ import {
   GOOGLE_AUTH_SUCCESS,
   GOOGLE_AUTH_FAIL,
 } from "./actionTypes";
+import { showAuthMessage, showPopupMessage } from "./ui";
 
 // Load user data if they successfuly sign in
 export const loadUser = () => async (dispatch) => {
@@ -150,12 +151,20 @@ export const login = (email, password) => async (dispatch) => {
       config
     );
 
+    if (res.data.status === 401) {
+      console.log(res);
+    }
+
+    console.log(res);
+
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
     dispatch(loadUser());
   } catch (err) {
+    console.log(err.response.data.detail);
+    dispatch(showAuthMessage(true, err.response.data.detail));
     dispatch({
       type: LOGIN_FAIL,
     });
@@ -163,44 +172,53 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 // Sign up a user
-export const signUp = (
-  first_name,
-  last_name,
-  email,
-  password,
-  re_password
-) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
+export const signUp =
+  (first_name, last_name, email, password, re_password) => async (dispatch) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = JSON.stringify({
+      first_name,
+      last_name,
+      email,
+      password,
+      re_password,
+    });
+
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/auth/users/`,
+        body,
+        config
+      );
+      dispatch({
+        type: SIGN_UP_SUCCESS,
+        payload: res.data,
+      });
+      if (res.status === 201) {
+        dispatch(
+          showPopupMessage(
+            true,
+            "Head on to your email & verify the account..."
+          )
+        );
+      }
+    } catch (err) {
+      if (err.response.data.email) {
+        dispatch(showAuthMessage(true, err.response.data.email[0]));
+      }
+      if (err.response.data.password) {
+        dispatch(showAuthMessage(true, err.response.data.password[0]));
+      }
+
+      dispatch({
+        type: SIGN_UP_FAIL,
+      });
+    }
   };
-
-  const body = JSON.stringify({
-    first_name,
-    last_name,
-    email,
-    password,
-    re_password,
-  });
-
-  try {
-    const res = await axios.post(
-      `${process.env.REACT_APP_API_URL}/auth/users/`,
-      body,
-      config
-    );
-
-    dispatch({
-      type: SIGN_UP_SUCCESS,
-      payload: res.data,
-    });
-  } catch (err) {
-    dispatch({
-      type: SIGN_UP_FAIL,
-    });
-  }
-};
 
 // Verify/activate a user
 export const activateUser = (uid, token) => async (dispatch) => {
@@ -257,44 +275,40 @@ export const resetPassword = (email) => async (dispatch) => {
 };
 
 // Confirm password reset
-export const resetPassConfirm = (
-  uid,
-  token,
-  new_password,
-  re_new_password
-) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
+export const resetPassConfirm =
+  (uid, token, new_password, re_new_password) => async (dispatch) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = JSON.stringify({
+      uid,
+      token,
+      new_password,
+      re_new_password,
+    });
+
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/auth/users/reset_password_confirm/`,
+        body,
+        config
+      );
+
+      dispatch({
+        type: PASSWORD_RESET_CONFIRM_SUCCESS,
+      });
+    } catch (err) {
+      console.log("Error");
+      console.log(err);
+
+      dispatch({
+        type: PASSWORD_RESET_CONFIRM_FAIL,
+      });
+    }
   };
-
-  const body = JSON.stringify({
-    uid,
-    token,
-    new_password,
-    re_new_password,
-  });
-
-  try {
-    await axios.post(
-      `${process.env.REACT_APP_API_URL}/auth/users/reset_password_confirm/`,
-      body,
-      config
-    );
-
-    dispatch({
-      type: PASSWORD_RESET_CONFIRM_SUCCESS,
-    });
-  } catch (err) {
-    console.log("Error");
-    console.log(err);
-
-    dispatch({
-      type: PASSWORD_RESET_CONFIRM_FAIL,
-    });
-  }
-};
 
 // Log a user out
 export const logout = () => (dispatch) => {

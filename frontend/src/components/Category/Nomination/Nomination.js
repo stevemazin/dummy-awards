@@ -9,9 +9,12 @@ import {
 } from "../../Utilities";
 import { setChoice } from "../../../store/actions";
 import { connect } from "react-redux";
-import { showMessage } from "../../../store/actions/ui";
+import { showPopupMessage } from "../../../store/actions/ui";
 import CircularTick from "../../Utilities/InlineSVGs/CircularTick";
 import SimpleTick from "../../Utilities/InlineSVGs/SimpleTick";
+import { isMobile } from "react-device-detect";
+import MobileNomination from "./MobileNomination";
+import DesktopNomination from "./DesktopNomination";
 
 const NominationContainer = styled.div`
   text-align: center;
@@ -139,9 +142,11 @@ const ImageContainer = styled.div`
     }
   }
 
-  &:hover {
-    .overlay {
-      opacity: 1;
+  @media (hover) {
+    &:hover {
+      .overlay {
+        opacity: 1;
+      }
     }
   }
 `;
@@ -149,7 +154,7 @@ const ImageContainer = styled.div`
 const Nomination = (props) => {
   const {
     setChoice,
-    showMessage,
+    showPopupMessage,
     nomineeImg,
     nomineeName,
     votingSectionInView,
@@ -159,6 +164,8 @@ const Nomination = (props) => {
     currentCatName,
     selectedNominee,
   } = props;
+
+  console.log("This is mobile: " + isMobile);
 
   return (
     <NominationContainer
@@ -172,35 +179,27 @@ const Nomination = (props) => {
           console.log(itemId, currentCatName);
         }}
       >
-        <img src={nomineeImg} alt="Nominee" />
-        <div className="overlay">
-          {itemId === selectedNominee &&
-            currentCatName === votingSectionInViewData.cat_name && (
-              <CircularTick />
-            )}
-          <button
-            className={
-              itemId === selectedNominee &&
-              currentCatName === votingSectionInViewData.cat_name
-                ? "nominee-select hide"
-                : "nominee-select"
-            }
-            onClick={() => {
-              if (!user) {
-                showMessage(true, "Login or Create an account to vote...");
-              } else {
-                let tempChoiceData = {};
-                tempChoiceData["nomineeName"] = nomineeName;
-                tempChoiceData["votingSectionInView"] = votingSectionInView;
-                tempChoiceData["allCatData"] = votingSectionInViewData;
-                tempChoiceData["voterData"] = user;
-                setChoice(tempChoiceData);
-              }
-            }}
-          >
-            Select
-          </button>
-        </div>
+        {isMobile && (
+          <MobileNomination
+            nomineeImg={nomineeImg}
+            nomineeName={nomineeName}
+            votingSectionInView={votingSectionInView}
+            votingSectionInViewData={votingSectionInViewData}
+            user={user}
+          />
+        )}
+        {!isMobile && (
+          <DesktopNomination
+            nomineeImg={nomineeImg}
+            itemId={itemId}
+            selectedNominee={selectedNominee}
+            currentCatName={currentCatName}
+            votingSectionInViewData={votingSectionInViewData}
+            user={user}
+            nomineeName={nomineeName}
+            votingSectionInView={votingSectionInView}
+          />
+        )}
       </ImageContainer>
       <div className="nominee-info">
         <h6 className="nominee-info-txt">{nomineeName}</h6>
@@ -230,4 +229,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setChoice, showMessage })(Nomination);
+export default connect(mapStateToProps, { setChoice, showPopupMessage })(
+  Nomination
+);

@@ -32,7 +32,7 @@ const FormWrapper = styled.div`
   .form-header {
     color: ${neutral[100]};
     margin-left: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .btn-primary {
@@ -130,7 +130,7 @@ const ResetPassword = ({ resetPassword }) => {
             {errors.email && <p className="error-msg">Email is required.</p>}
           </FormGroup>
 
-          <button className="btn btn-primary" type="submit">
+          <button className="fx-dark-btn" type="submit">
             Reset Password
           </button>
         </form>

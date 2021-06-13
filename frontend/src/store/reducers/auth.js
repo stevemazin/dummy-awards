@@ -23,6 +23,7 @@ const initialState = {
   refresh: localStorage.getItem("refresh"),
   isAuthenticated: null,
   user: null,
+  signUpStatus: null,
 };
 
 export default function authReducer(state = initialState, action) {
@@ -51,6 +52,7 @@ export default function authReducer(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: false,
+        signUpStatus: "success",
       };
 
     case USER_LOADED_SUCCESS:
@@ -68,9 +70,19 @@ export default function authReducer(state = initialState, action) {
         ...state,
         user: null,
       };
-
-    case GOOGLE_AUTH_FAIL:
     case SIGN_UP_FAIL:
+      localStorage.removeItem("access");
+      localStorage.removeItem("refresh");
+
+      return {
+        ...state,
+        access: null,
+        refresh: null,
+        isAuthenticated: false,
+        user: null,
+        signUpStatus: "failed",
+      };
+    case GOOGLE_AUTH_FAIL:
     case LOGIN_FAIL:
     case LOGOUT:
       localStorage.removeItem("access");

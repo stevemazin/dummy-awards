@@ -39,19 +39,42 @@ export const setVotingSectionInView = (section, sectionData) => {
   };
 };
 
-export const showMessage = (switchValue, message) => {
+export const showPopupMessage = (switchValue, message) => {
   return {
-    type: actionTypes.SHOW_MESSAGE,
+    type: actionTypes.SHOW_POPUP_MESSAGE,
     payload: {
       switchValue: switchValue,
-      msg: message,
+      popupMessage: message,
     },
   };
 };
 
-export const clearMessage = () => {
+export const setShowLoader = (val) => {
   return {
-    type: actionTypes.CLEAR_MESSAGE,
+    type: actionTypes.SHOW_LOADER,
+    payload: val,
+  };
+};
+
+export const clearPopupMessage = () => {
+  return {
+    type: actionTypes.CLEAR_POPUP_MESSAGE,
+  };
+};
+
+export const showAuthMessage = (switchValue, message) => {
+  return {
+    type: actionTypes.SHOW_AUTH_MESSAGE,
+    payload: {
+      switchValue: switchValue,
+      authMessage: message,
+    },
+  };
+};
+
+export const clearAuthMessage = () => {
+  return {
+    type: actionTypes.CLEAR_AUTH_MESSAGE,
   };
 };
 

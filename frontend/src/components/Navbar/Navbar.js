@@ -10,8 +10,7 @@ import {
   setNavSolid,
   setNavTransparent,
 } from "../../store/actions";
-import SliqLogo from "../Utilities/SliqLogo";
-import { FiLogIn, FiLogOut, FiUserPlus } from "react-icons/fi";
+import SliqLogo from "../Utilities/InlineSVGs/SliqLogo";
 import { useMediaQuery } from "react-responsive";
 import MenuToggle from "./MenuToggle";
 import MobileNavbarLinks from "./MobileNavLinks";

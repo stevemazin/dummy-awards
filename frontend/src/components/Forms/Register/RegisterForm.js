@@ -1,18 +1,26 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 import { Link, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 import {
   accentColor,
   neutral,
   breakpoints,
-  red,
+  danger,
   navyBlue,
 } from "../../Utilities";
 import { signUp } from "../../../store/actions/auth";
 import googleLogo from "../../../assets/google-logo.svg";
+import {
+  clearAuthMessage,
+  setShowLoader,
+  showAuthMessage,
+} from "../../../store/actions/ui";
+import AuthMessage from "../AuthMessage";
 
 const FormWrapper = styled.div`
   font-size: 1.6rem;
@@ -100,7 +108,7 @@ const FormWrapper = styled.div`
   .form-header {
     color: ${navyBlue[300]};
     margin-left: 0.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .login-form {
@@ -144,37 +152,76 @@ const FormGroup = styled.div`
   }
 
   .error-msg {
-    color: ${red[200]};
+    color: ${danger[200]};
     font-size: 1.2rem;
     margin-left: 1rem;
     margin-top: 1rem;
   }
 `;
 
-const RegisterForm = ({ signUp, isAuthenticated }) => {
+const RegisterForm = ({
+  isAuthenticated,
+  authMessage,
+  showAuthMessage,
+  clearAuthMessage,
+  signUpStatus,
+}) => {
+  // Validation Stuff
+  const validationSchema = Yup.object().shape({
+    first_name: Yup.string().required("First name is required"),
+    last_name: Yup.string().required("Last name is required"),
+    email: Yup.string().required("Email is required").email("Email is invalid"),
+    password: Yup.string()
+      .min(8, "Password must be at least 8 characters")
+      .required("Password is required"),
+    re_password: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .required("Confirm Password is required"),
+  });
+  const formOptions = { resolver: yupResolver(validationSchema) };
+  // get functions to build form with useForm() hook
+  const { register, handleSubmit, formState } = useForm(formOptions);
+  const { errors } = formState;
+
   const [accountCreated, setAccountCreated] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const dispatch = useDispatch();
 
   // Submit the register form
   const onSubmit = (data) => {
-    if (data["password"] === data["re_password"]) {
-      const first_name = data["first_name"];
-      const last_name = data["last_name"];
-      const email = data["email"];
-      const password = data["password"];
-      const re_password = data["re_password"];
+    const first_name = data["first_name"];
+    const last_name = data["last_name"];
+    const email = data["email"];
+    const password = data["password"];
+    const re_password = data["re_password"];
 
-      console.log("Password Ok");
-      console.log(data["password"]);
+    console.log("Password Ok");
+    console.log(data["password"]);
 
-      signUp(first_name, last_name, email, password, re_password);
-      setAccountCreated(true);
+    const attemptSignup = async () => {
+      dispatch(setShowLoader(true));
+      await dispatch(
+        signUp(first_name, last_name, email, password, re_password)
+      );
+      // make loader spin for atleast 2 seconds for improved user experience
+      setTimeout(() => {
+        dispatch(setShowLoader(false));
+        setAccountCreated(true);
+      }, [2000]);
+    };
+    attemptSignup();
+  };
+
+  // Check if there is a message and show it
+  const showMessage = (authMessage) => {
+    if (authMessage !== "") {
+      const message = authMessage;
+      return message;
     }
   };
+
+  if (accountCreated && signUpStatus === "success") {
+    return <Redirect to="/" />;
+  }
 
   // Register using google
   const continueWithGoogle = async () => {
@@ -191,69 +238,80 @@ const RegisterForm = ({ signUp, isAuthenticated }) => {
     return <Redirect to="/" />;
   }
 
-  // Is the account is created, redirect to login
-  if (accountCreated) {
-    return <Redirect to="/login" />;
-  }
-
   return (
     <FormWrapper>
       <div className="form-container">
         <h2 className="form-header">Register</h2>
+        {authMessage && showMessage && <AuthMessage message={authMessage} />}
         <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="col-2">
             <FormGroup className="form-in-sm">
               <input
                 className="form-in "
                 type="text"
+                name="first_name"
                 placeholder="First name"
-                {...register("first_name", { required: true })}
+                {...register("first_name")}
               />
               {errors.first_name && (
-                <p className="error-msg">First name is required.</p>
+                <span className="error-msg">{errors.first_name.message}</span>
               )}
             </FormGroup>
             <FormGroup className="form-in-sm">
               <input
                 className="form-in form-in-sm"
                 type="text"
+                name="last_name"
                 placeholder="Last name"
-                {...register("last_name", { required: true })}
+                {...register("last_name")}
               />
               {errors.last_name && (
-                <p className="error-msg">Last name is required.</p>
+                <span className="error-msg">{errors.last_name.message}</span>
               )}
             </FormGroup>
           </div>
-          <FormGroup>
+          <FormGroup
+            onClick={() => {
+              // wait 5 seconds befor clearing the unique email error
+              setTimeout(() => {
+                clearAuthMessage();
+              }, [5000]);
+            }}
+          >
             <input
               className="form-in"
               type="email"
+              name="email"
               placeholder="Email"
-              {...register("email", { required: true })}
+              {...register("email")}
             />
-            {errors.email && <p className="error-msg">Email is required.</p>}
+            {errors.email && (
+              <span className="error-msg">{errors.email.message}</span>
+            )}
           </FormGroup>
           <FormGroup>
             <input
               className="form-in"
               type="password"
+              name="password"
               placeholder="Password"
-              {...register("password", { required: true })}
+              {...register("password")}
             />
             {errors.password && (
-              <p className="error-msg">Password is required.</p>
+              <span className="error-msg">{errors.password.message}</span>
             )}
-          </FormGroup>{" "}
+          </FormGroup>
           <FormGroup>
             <input
               className="form-in"
               type="password"
+              name="re_password"
               placeholder="Confirm Password"
-              {...register("re_password", { required: true })}
+              {...register("re_password")}
             />
+
             {errors.re_password && (
-              <p className="error-msg">Password is required.</p>
+              <span className="error-msg">{errors.re_password.message}</span>
             )}
           </FormGroup>
           <input className="fx-dark-btn" value="Register" type="submit" />
@@ -277,6 +335,12 @@ const RegisterForm = ({ signUp, isAuthenticated }) => {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  signUpStatus: state.auth.signUpStatus,
+  showAuthMessage: state.ui.showAuthMessage,
+  authMessage: state.ui.authMessage,
 });
 
-export default connect(mapStateToProps, { signUp })(RegisterForm);
+export default connect(mapStateToProps, {
+  showAuthMessage,
+  clearAuthMessage,
+})(RegisterForm);

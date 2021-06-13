@@ -31,13 +31,13 @@ export const green = {
   300: "#37cc47",
 };
 
-export const yellow = {
-  100: "#ffbb34",
-  200: "#ffb524",
-  300: "#eca721",
+export const warning = {
+  100: "#ffee8c",
+  200: "#ffed83",
+  300: "#ecdb79",
 };
 
-export const red = {
+export const danger = {
   100: "#ff4141",
   200: "#ff3232",
   300: "#ec2e2e",

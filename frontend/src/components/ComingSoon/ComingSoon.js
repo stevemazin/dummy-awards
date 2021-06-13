@@ -4,6 +4,8 @@ import { neutral } from "../Utilities";
 import { setNavTransparent } from "../../store/actions";
 import { connect } from "react-redux";
 import heroImg from "../../assets/mega-concert.svg";
+import { Link } from "react-router-dom";
+import SliqLogo from "../Utilities/InlineSVGs/SliqLogo";
 
 const DevWrapper = styled.div`
   height: 100vh;
@@ -22,6 +24,10 @@ const DevWrapper = styled.div`
   p {
     color: ${neutral[100]};
   }
+
+  .utility-container {
+    text-align: center;
+  }
 `;
 
 const ComingSoon = ({ setNavTransparent }) => {
@@ -31,7 +37,12 @@ const ComingSoon = ({ setNavTransparent }) => {
 
   return (
     <DevWrapper>
-      <div>
+      <div className="utility-container">
+        <div className="home-link">
+          <Link to="/">
+            <SliqLogo />
+          </Link>
+        </div>
         <p>Feature Coming Soon!</p>
       </div>
     </DevWrapper>
