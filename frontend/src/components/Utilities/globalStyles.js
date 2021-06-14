@@ -59,26 +59,81 @@ const GlobalStyles = createGlobalStyle`
             }
         }
 
-        .btn {
-            text-decoration: none;
+        .link-btn {
             cursor: pointer;
-            padding: 0 2rem;
-            margin: 1rem 0;
-            height: 4.2rem;
-            background-color: transparent;
-
-            color: ${accentColor[100]};
             font-size: 1.6rem;
+            text-decoration: none;
+        }
+
+        .mobi-link-btn {
+            font-size: 1.4rem;
+            background-color: ${accentColor[300]};
+            padding: 1rem;
+            color: ${neutral[100]};
+            border: none;
+            border-radius: 4px;
+
+
+            &:focus {
+                background-color: ${accentColor[400]};
+            }
+        }
+
+
+        .dsk-link-btn {
+            color: ${neutral[100]};
+            background-color: transparent;
             border: 2px solid ${accentColor[300]};
+            padding: 1rem;
             border-radius: 5px;
-            outline: none;
-            transition: all 200ms ease-in;
+
+            &:hover {
+                background-color: ${accentColor[300]};
+                border: 2px solid transparent;
+            }
+        }
+
+        .ghost-btn {
+            background-color: transparent;
+            color: ${accentColor[100]};
+            border: 2px solid ${accentColor[300]};
 
             &:hover {
                 background-color: ${accentColor[300]};
                 color: ${neutral[100]};
                 border: 2px solid transparent;
             }
+        }
+
+        .dsk-solid-btn {
+            background-color: ${accentColor[300]};
+            color: ${neutral[100]};
+            border: 2px solid transparent;
+
+            &:hover {
+                background-color: ${accentColor[400]};
+            }
+        }
+
+        .mobi-btn {
+            height: 3.6rem;
+            padding: 0 1.25rem;
+            transition: all 200ms ease-in;
+            outline: none;
+            font-size: 1.6rem;
+            border-radius: 5px;
+            margin: 0.5rem 0;
+        }
+
+        .btn {
+            cursor: pointer;
+            padding: 0 2rem;
+            margin: 0.5rem 0;
+            height: 4.2rem;
+            font-size: 1.6rem;
+            border-radius: 5px;
+            outline: none;
+            transition: all 200ms ease-in;
         }
 
 

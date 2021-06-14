@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { Container } from "../Utilities/Container";
 import ticketsBack from "../../assets/tickets-back.png";
 import { Header4 } from "../Utilities/Typography";
-import { MainButton } from "../Utilities/Buttons/MainBtn";
 import { Link } from "react-router-dom";
 import { accentColor, navyBlue, neutral } from "../Utilities";
+import { isMobile } from "react-device-detect";
 
 const TicketContainer = styled(Container)``;
 
@@ -76,10 +76,6 @@ const TicketsWrapper = styled.div`
   }
 `;
 
-const BuyTicketsLink = styled(Link)`
-  text-decoration: none;
-`;
-
 const Tickets = () => {
   return (
     <TicketSection>
@@ -91,9 +87,14 @@ const Tickets = () => {
             <span className="hottest">Hottest</span>
             <span className="event">Event</span>
           </div>
-          <BuyTicketsLink to="/buy-tickets">
-            <MainButton>Buy Tickets</MainButton>
-          </BuyTicketsLink>
+          <Link
+            className={
+              isMobile ? "link-btn mobi-link-btn" : "link-btn dsk-link-btn"
+            }
+            to="/buy-tickets"
+          >
+            Vote Now
+          </Link>
         </TicketsWrapper>
       </TicketContainer>
     </TicketSection>

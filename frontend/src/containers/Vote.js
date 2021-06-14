@@ -45,15 +45,23 @@ const SectionNavigator = styled.div`
     border-radius: 5px;
     cursor: pointer;
 
-    &:hover {
+    @media (hover) {
+      &:hover {
+        background-color: ${neutral[200]};
+      }
+    }
+
+    &:acitve {
       background-color: ${neutral[200]};
     }
 
     .section-nav-icons {
       fill: ${accentColor[300]};
 
-      &:hover {
-        fill: ${accentColor[400]};
+      @media (hover) {
+        &:hover {
+          fill: ${accentColor[400]};
+        }
       }
     }
   }
@@ -217,7 +225,7 @@ const Vote = (props) => {
               }}
               to="/vote/songs"
               className="cat-link"
-              activeClassName="cat-link-active"
+              activeClassName={votingSectionInView && "cat-link-active"}
             >
               Songs
             </NavLink>
@@ -231,7 +239,7 @@ const Vote = (props) => {
               }}
               to="/vote/movies"
               className="cat-link"
-              activeClassName="cat-link-active"
+              activeClassName={votingSectionInView && "cat-link-active"}
             >
               Movies
             </NavLink>
@@ -245,7 +253,7 @@ const Vote = (props) => {
               }}
               to="/vote/artists"
               className="cat-link"
-              activeClassName="cat-link-active"
+              activeClassName={votingSectionInView && "cat-link-active"}
             >
               Artists
             </NavLink>
@@ -306,7 +314,7 @@ const Vote = (props) => {
               />
             ) : (
               <div className="nomination-errors">
-                No data on nomination categories
+                No data for this category!
               </div>
             )}
           </MainSectionWrapper>

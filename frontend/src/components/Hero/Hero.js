@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import BigLogo from "../../assets/hero-logo.svg";
-import { MainButton } from "../Utilities/Buttons/MainBtn";
 import heroImg from "../../assets/cover-main.jpg";
 import { neutral } from "../Utilities";
 import { Link } from "react-router-dom";
 import { useInView, InView } from "react-intersection-observer";
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions";
+import { isMobile } from "react-device-detect";
 
 const HeroSection = styled.section`
   text-align: center;
@@ -44,7 +44,7 @@ const Hero = ({
   setNavSolid,
   switchHeroPresence,
   switchHeroVisibility,
-  isMobile,
+  // isMobile,
 }) => {
   const [ref] = useInView({
     threshold: 1,
@@ -79,8 +79,13 @@ const Hero = ({
           <p className="tag-line">
             Rewarding Extra Ordinery Work in the Industry
           </p>
-          <Link to="/vote/songs">
-            <MainButton>Vote Now</MainButton>
+          <Link
+            className={
+              isMobile ? "link-btn mobi-link-btn" : "link-btn dsk-link-btn"
+            }
+            to="/vote/songs"
+          >
+            Vote Now
           </Link>
         </>
       </HeroSection>

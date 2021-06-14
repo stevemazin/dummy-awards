@@ -4,6 +4,7 @@ import { breakpoints } from "../Utilities";
 import Nomination from "./Nomination/Nomination";
 import { connect } from "react-redux";
 import { submitVote } from "../../store/actions";
+import { isMobile } from "react-device-detect";
 
 const CategoryContainer = styled.div`
   .cat-header {
@@ -45,23 +46,20 @@ const NominationGroup = styled.div`
 `;
 
 const BottomContainer = styled.div`
+  margin-top: 1rem;
   display: flex;
-
-  #cast-vote {
-    justify-self: flex-end;
-    margin-right: 4rem;
-  }
+  justify-content: end;
 `;
 
-const Category = ({
-  categoriesList,
-  currentSection,
-  selectedCategory,
-  selectedChoice,
-  voterId,
-  submitVote,
-}) => {
-  // const {} = props;
+const Category = (props) => {
+  const {
+    categoriesList,
+    currentSection,
+    selectedCategory,
+    selectedChoice,
+    voterId,
+    submitVote,
+  } = props;
 
   let nomineeListName;
   let nomineeNameForCat;
@@ -95,8 +93,7 @@ const Category = ({
       </NominationGroup>
       <BottomContainer>
         <button
-          id="cast-vote"
-          className="btn btn-primary"
+          className={isMobile ? "mobi-btn" : "btn dsk-solid-btn"}
           onClick={() => {
             submitVote(
               currentSection,

@@ -15,6 +15,7 @@ import { useMediaQuery } from "react-responsive";
 import MenuToggle from "./MenuToggle";
 import MobileNavbarLinks from "./MobileNavLinks";
 import DefaultNavLinks from "./DefaultNavLinks";
+import { isMobile } from "react-device-detect";
 
 const NavContainer = styled(Container)`
   height: 100%;
@@ -104,31 +105,26 @@ const RightSection = styled.div`
 
 const LeftSection = styled.div``;
 
-const HomeLink = styled(Link)`
-  text-decoration: none;
-`;
-
 const Nav = ({
   navBgColor,
   isAuthenticated,
-  logout,
   setNavSolid,
   setMobile,
   setNavTransparent,
   heroIsVisible,
 }) => {
-  const isMobile = useMediaQuery({ maxWidth: breakpoints.Tablet });
+  const isTabletWidth = useMediaQuery({ maxWidth: breakpoints.Tablet });
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (isMobile) {
+    if (isTabletWidth) {
       setMobile(true);
       setNavSolid();
     } else {
       setMobile(false);
       heroIsVisible && setNavTransparent();
     }
-  }, [isMobile]);
+  }, [isTabletWidth]);
 
   return (
     <NavSection
@@ -138,9 +134,9 @@ const Nav = ({
       <NavContainer>
         <NavWrapper>
           <LeftSection>
-            <HomeLink to="/">
+            <Link to="/">
               <SliqLogo />
-            </HomeLink>
+            </Link>
           </LeftSection>
           <RightSection>
             {isMobile && (
@@ -155,6 +151,7 @@ const Nav = ({
           </RightSection>
         </NavWrapper>
       </NavContainer>
+
       {isOpen && isMobile && (
         <MobileNavbarLinks
           close={() => {

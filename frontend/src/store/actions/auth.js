@@ -18,7 +18,7 @@ import {
   GOOGLE_AUTH_SUCCESS,
   GOOGLE_AUTH_FAIL,
 } from "./actionTypes";
-import { showAuthMessage, showPopupMessage } from "./ui";
+import { setShowLoader, showAuthMessage, showPopupMessage } from "./ui";
 
 // Load user data if they successfuly sign in
 export const loadUser = () => async (dispatch) => {
@@ -214,6 +214,7 @@ export const signUp =
         dispatch(showAuthMessage(true, err.response.data.password[0]));
       }
 
+      dispatch(setShowLoader(false));
       dispatch({
         type: SIGN_UP_FAIL,
       });
