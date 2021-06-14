@@ -15,6 +15,7 @@ import ResetPassword from "./containers/ResetPassword";
 import GlobalStyles from "./components/Utilities/globalStyles";
 import SinglePost from "./components/Blog/SinglePost";
 import ComingSoon from "./components/ComingSoon/ComingSoon";
+import Hottest from "./components/Tickets/Hottest";
 
 const App = () => {
   return (

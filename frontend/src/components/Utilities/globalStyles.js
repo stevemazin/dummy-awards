@@ -136,6 +136,19 @@ const GlobalStyles = createGlobalStyle`
             transition: all 200ms ease-in;
         }
 
+        // Utility Margins
+        .mt-1 {
+            margin-top: 0.5rem;
+        }
+
+        .mt-2 {
+            margin-top: 1rem;
+        }
+
+        .mt-3 {
+            margin-top: 1.5rem;
+        }
+
 
     }
 `;

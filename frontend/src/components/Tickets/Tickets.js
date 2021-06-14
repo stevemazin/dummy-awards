@@ -4,74 +4,60 @@ import { Container } from "../Utilities/Container";
 import ticketsBack from "../../assets/tickets-back.png";
 import { Header4 } from "../Utilities/Typography";
 import { Link } from "react-router-dom";
-import { accentColor, navyBlue, neutral } from "../Utilities";
+import { accentColor, breakpoints, navyBlue, neutral } from "../Utilities";
 import { isMobile } from "react-device-detect";
-
-const TicketContainer = styled(Container)``;
+import Hottest from "./Hottest";
 
 const TicketSection = styled.section`
   font-size: 1.6rem;
-  height: 100vh;
+  height: 70rem;
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url(${ticketsBack});
   background-position: top;
   background-repeat: no-repeat;
-
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 `;
 
 const TicketsWrapper = styled.div`
   margin: 2rem 0;
   text-align: center;
+  height: 100%;
 
-  .remaining-tickets {
+  #buy-tickets {
+    margin-top: 6rem;
+  }
+
+  #remaining-tickets {
     color: ${neutral[300]};
     font-weight: 300;
-  }
+    transform: translateY(40px);
+    font-size: 2rem;
 
-  .streets {
-    margin-top: 1rem;
-    font-family: "Gill Sans";
-    font-weight: 1000;
-    font-size: 12rem;
-    line-height: 0.75;
-    color: ${accentColor[300]};
-
-    @media screen and (max-width: 768px) {
-      font-size: 10rem;
+    @media screen and (max-width: ${breakpoints.Laptop}) {
+      font-size: 2rem;
+      transform: translateY(28px);
     }
 
-    @media screen and (max-width: 540px) {
-      font-size: 7rem;
-    }
-  }
-
-  .calig-pair {
-    font-size: 14rem;
-    @media screen and (max-width: 768px) {
-      font-size: 10rem;
+    @media screen and (max-width: ${breakpoints.Medium}) {
+      font-size: 1.8rem;
+      transform: translateY(25px);
     }
 
-    @media screen and (max-width: 540px) {
-      font-size: 7rem;
+    @media screen and (max-width: ${breakpoints.Tablet}) {
+      font-size: 1.6rem;
+      transform: translateY(25px);
     }
 
-    span {
-      &:not(:last-of-type) {
-        margin-right: 2rem;
-      }
+    @media screen and (max-width: ${breakpoints.Phone}) {
+      font-size: 1.5rem;
+      transform: translateY(25px);
     }
 
-    .hottest {
-      font-family: "Mistral";
-      color: ${navyBlue[300]};
-    }
-
-    .event {
-      font-family: "Mistral";
-      color: ${neutral[300]};
+    @media screen and (max-width: ${breakpoints.ExtraSmallPhone}) {
+      display: none;
     }
   }
 `;
@@ -79,24 +65,23 @@ const TicketsWrapper = styled.div`
 const Tickets = () => {
   return (
     <TicketSection>
-      <TicketContainer>
+      <Container>
         <TicketsWrapper>
-          <h3 className="remaining-tickets">10,356 tickects remaining</h3>
-          <h2 className="streets">Street's</h2>
-          <div className="calig-pair">
-            <span className="hottest">Hottest</span>
-            <span className="event">Event</span>
-          </div>
-          <Link
-            className={
-              isMobile ? "link-btn mobi-link-btn" : "link-btn dsk-link-btn"
-            }
-            to="/buy-tickets"
-          >
-            Buy Tickets
-          </Link>
+          <h3 id="remaining-tickets">10,356 tickects remaining</h3>
+          <Hottest />
         </TicketsWrapper>
-      </TicketContainer>
+        <Link
+          id="buy-tickets"
+          className={
+            isMobile
+              ? "link-btn mobi-link-btn mt-2"
+              : "link-btn dsk-link-btn mt-2"
+          }
+          to="/buy-tickets"
+        >
+          Buy Tickets
+        </Link>
+      </Container>
     </TicketSection>
   );
 };

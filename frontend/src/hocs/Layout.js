@@ -31,6 +31,7 @@ const Layout = (props) => {
     showLoader,
     songCategories,
     currentSongCategory,
+    setVotingSectionInView,
   } = props;
   let location = useLocation();
 
