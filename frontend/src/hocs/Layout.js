@@ -9,6 +9,7 @@ import {
   googleAuthenticate,
   fetchLatestPosts,
   fetchSongCategories,
+  setVotingSectionInView,
 } from "../store/actions";
 import Popup from "../components/Popup/Popup";
 import styled from "styled-components";
@@ -27,6 +28,8 @@ const Layout = (props) => {
     googleAuthenticate,
     fetchLatestPosts,
     showLoader,
+    songCategories,
+    currentSongCategory,
   } = props;
   let location = useLocation();
 
@@ -50,11 +53,15 @@ const Layout = (props) => {
 
   useEffect(() => {
     // Fetch songs data in preperation of the user going to the voting page
-    const testFetch = async () => {
+    const attemptSongFetch = async () => {
       await dispatch(fetchSongCategories());
+      setVotingSectionInView(
+        "songs",
+        songCategories[parseInt(currentSongCategory, 10)]
+      );
+      fetchLatestPosts();
     };
-    testFetch();
-    fetchLatestPosts();
+    attemptSongFetch();
   }, []);
 
   const showMessage = (popupMessage) => {
@@ -95,4 +102,5 @@ export default connect(mapStateToProps, {
   loadUser,
   googleAuthenticate,
   fetchLatestPosts,
+  setVotingSectionInView,
 })(Layout);

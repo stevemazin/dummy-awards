@@ -18,8 +18,8 @@ export const fetchSongCategories = () => {
   };
 
   return async (dispatch, getState) => {
-    const currentState = getState();
-    const currentSongCategory = currentState.songs.currentSongCategory;
+    // const currentState = getState();
+    // const currentSongCategory = currentState.songs.currentSongCategory;
 
     try {
       const res = await axios.get(
@@ -35,12 +35,12 @@ export const fetchSongCategories = () => {
         },
       });
 
-      dispatch(
-        setVotingSectionInView(
-          "songs",
-          res.data[parseInt(currentSongCategory, 10)]
-        )
-      );
+      // dispatch(
+      //   setVotingSectionInView(
+      //     "songs",
+      //     res.data[parseInt(currentSongCategory, 10)]
+      //   )
+      // );
     } catch (err) {
       dispatch({
         type: actionTypes.FETCH_ALL_SONG_CATEGORIES_FAIL,

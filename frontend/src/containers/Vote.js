@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Category from "../components/Category/Category";
 import { Container } from "../components/Utilities/Container";
@@ -16,9 +16,8 @@ import {
   setChoice,
   clearChoiceData,
 } from "../store/actions";
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { accentColor, navyBlue, neutral } from "../components/Utilities";
-import Message from "../components/Popup/Popup";
 import Navbar from "../components/Navbar/Navbar";
 
 const VoteWrapper = styled.div`
@@ -124,10 +123,6 @@ const Vote = (props) => {
   useEffect(() => {
     fetchArtistCategories();
     fetchMovieCategories();
-    setVotingSectionInView(
-      "songs",
-      songCategories[parseInt(currentSongCategory, 10)]
-    );
   }, []);
 
   let currentSectionIndex = null;
@@ -215,7 +210,7 @@ const Vote = (props) => {
       <Container>
         <VoteWrapper>
           <VotingCategories>
-            <NavLink
+            <Link
               onClick={() => {
                 setVotingSectionInView(
                   "songs",
@@ -223,13 +218,16 @@ const Vote = (props) => {
                 );
                 clearChoiceData();
               }}
-              to="/vote/songs"
-              className="cat-link"
-              activeClassName={votingSectionInView && "cat-link-active"}
+              to="/vote"
+              className={
+                votingSectionInView === "songs"
+                  ? "cat-link cat-link-active"
+                  : "cat-link"
+              }
             >
               Songs
-            </NavLink>
-            <NavLink
+            </Link>
+            <Link
               onClick={() => {
                 setVotingSectionInView(
                   "movies",
@@ -237,13 +235,16 @@ const Vote = (props) => {
                 );
                 clearChoiceData();
               }}
-              to="/vote/movies"
-              className="cat-link"
-              activeClassName={votingSectionInView && "cat-link-active"}
+              to="/vote"
+              className={
+                votingSectionInView === "movies"
+                  ? "cat-link cat-link-active"
+                  : "cat-link"
+              }
             >
               Movies
-            </NavLink>
-            <NavLink
+            </Link>
+            <Link
               onClick={() => {
                 setVotingSectionInView(
                   "artists",
@@ -251,12 +252,15 @@ const Vote = (props) => {
                 );
                 clearChoiceData();
               }}
-              to="/vote/artists"
-              className="cat-link"
-              activeClassName={votingSectionInView && "cat-link-active"}
+              to="/vote"
+              className={
+                votingSectionInView === "artists"
+                  ? "cat-link cat-link-active"
+                  : "cat-link"
+              }
             >
               Artists
-            </NavLink>
+            </Link>
           </VotingCategories>
           <SectionNavigator>
             <button

@@ -83,7 +83,7 @@ const Hero = ({
             className={
               isMobile ? "link-btn mobi-link-btn" : "link-btn dsk-link-btn"
             }
-            to="/vote/songs"
+            to="/vote"
           >
             Vote Now
           </Link>

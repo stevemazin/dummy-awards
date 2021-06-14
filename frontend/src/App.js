@@ -34,9 +34,7 @@ const App = () => {
               <Route exact path="/activate/:uid/:token" component={Activate} />
               <Route path="/reset-password" exact component={ResetPassword} />
               <Route path="/post" exact component={SinglePost} />
-              <Route path="/vote/artists" exact component={Vote} />
-              <Route path="/vote/songs" exact component={Vote} />
-              <Route path="/vote/movies" exact component={Vote} />
+              <Route path="/vote" exact component={Vote} />
               {/* Work In Progress */}
               <Route path="/terms" exact component={ComingSoon} />
               <Route path="/privacy-policy" exact component={ComingSoon} />
