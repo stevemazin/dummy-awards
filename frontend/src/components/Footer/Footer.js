@@ -152,7 +152,7 @@ const Footer = () => {
                 <LinkItem destination="/gallery" destinationTag="Gallery" />
               </li>
               <li>
-                <LinkItem destination="/vote/songs" destinationTag="Vote" />
+                <LinkItem destination="/vote" destinationTag="Vote" />
               </li>
               <li>
                 <LinkItem destination="/winners" destinationTag="Winners" />

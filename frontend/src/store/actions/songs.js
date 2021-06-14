@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
-import { setVotingSectionInView } from "./ui";
+import { setShowLoader, setVotingSectionInView } from "./ui";
 
 export const setCurrentSongCategory = (currentSongCat) => {
   return {
@@ -17,10 +17,7 @@ export const fetchSongCategories = () => {
     },
   };
 
-  return async (dispatch, getState) => {
-    // const currentState = getState();
-    // const currentSongCategory = currentState.songs.currentSongCategory;
-
+  return async (dispatch) => {
     try {
       const res = await axios.get(
         `${process.env.REACT_APP_API_URL}/songs/categories/`,
@@ -34,14 +31,8 @@ export const fetchSongCategories = () => {
           totalSongCategories: res.data.length,
         },
       });
-
-      // dispatch(
-      //   setVotingSectionInView(
-      //     "songs",
-      //     res.data[parseInt(currentSongCategory, 10)]
-      //   )
-      // );
     } catch (err) {
+      dispatch(setShowLoader(false));
       dispatch({
         type: actionTypes.FETCH_ALL_SONG_CATEGORIES_FAIL,
         msg: "Error fetching categories....",

@@ -10,6 +10,7 @@ import {
   fetchLatestPosts,
   fetchSongCategories,
   setVotingSectionInView,
+  setShowLoader,
 } from "../store/actions";
 import Popup from "../components/Popup/Popup";
 import styled from "styled-components";
@@ -53,15 +54,17 @@ const Layout = (props) => {
 
   useEffect(() => {
     // Fetch songs data in preperation of the user going to the voting page
-    const attemptSongFetch = async () => {
+    const attemptFetch = async () => {
+      dispatch(setShowLoader(true));
       await dispatch(fetchSongCategories());
       setVotingSectionInView(
         "songs",
         songCategories[parseInt(currentSongCategory, 10)]
       );
       fetchLatestPosts();
+      dispatch(setShowLoader(false));
     };
-    attemptSongFetch();
+    attemptFetch();
   }, []);
 
   const showMessage = (popupMessage) => {

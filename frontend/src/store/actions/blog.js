@@ -22,6 +22,7 @@ export const fetchLatestPosts = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
+    dispatch(setShowLoader(false));
     dispatch({
       type: actionTypes.FETCH_LATEST_POSTS_FAIL,
       msg: "Error fetching Posts",

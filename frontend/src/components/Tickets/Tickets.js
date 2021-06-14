@@ -93,7 +93,7 @@ const Tickets = () => {
             }
             to="/buy-tickets"
           >
-            Vote Now
+            Buy Tickets
           </Link>
         </TicketsWrapper>
       </TicketContainer>
