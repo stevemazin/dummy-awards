@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import Footer from "../Footer/Footer";
-import { accentColor, Container, navyBlue } from "../Utilities";
-import Skeleton from "react-loading-skeleton";
+import { Container, navyBlue } from "../Utilities";
 import Navbar from "../Navbar/Navbar";
 
 const PostDetail = styled.div`
@@ -55,21 +54,21 @@ const SinglePost = (props) => {
     return { __html: postData.body };
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
+
   return (
     <>
       <Navbar />
       {postData && (
         <PostDetail>
           <Container>
-            <img
-              className="post-main-img"
-              src={postData.photo_main || <Skeleton />}
-              alt=""
-            />
-            <h3>{postData.headline || <Skeleton />}</h3>
+            <img className="post-main-img" src={postData.photo_main} alt="" />
+            <h3>{postData.headline}</h3>
             <div
               className="post-body"
-              dangerouslySetInnerHTML={setDangerousPost() || <Skeleton />}
+              dangerouslySetInnerHTML={setDangerousPost()}
             ></div>
           </Container>
         </PostDetail>

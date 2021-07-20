@@ -2,7 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 import { updateObject } from "../utility";
 
 const initialState = {
-  posts: [],
+  posts: null,
   msg: null,
   singlePostInView: null,
 };

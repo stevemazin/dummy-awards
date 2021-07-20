@@ -49,17 +49,32 @@ export const infoBlue = {
   300: "#18d7c7",
 };
 
-export const neutral = {
-  100: "#ffffff",
-  200: "#f4f5f7",
-  300: "#e1e1e1",
-  400: "#737581",
-  500: "#4a4b53",
-  600: "#000000",
-};
+// export const neutral = {
+//   100: "#ffffff",
+//   200: "#f4f5f7",
+//   300: "#e1e1e1",
+//   400: "#737581",
+//   500: "#4a4b53",
+//   600: "#000000",
+// };
 
 export const socials = {
   Facebook: "#485A93",
   Twitter: "#27AAE1",
   Instagram: "#FF8555",
+};
+
+export const neutral = {
+  50: "#fbfbfb",
+  100: "#ffffff",
+  200: "#e4e4e4",
+  300: "#c9c9c9",
+  400: "#adadad",
+  500: "#929292",
+  600: "#777777", // MidPoint Color
+  700: "#5f5f5f",
+  800: "#474747",
+  900: "#303030",
+  1000: "#181818",
+  1100: "#181818",
 };

@@ -5,6 +5,7 @@ import Nomination from "./Nomination/Nomination";
 import { connect } from "react-redux";
 import { submitVote } from "../../store/actions";
 import { isMobile } from "react-device-detect";
+import IconButton from "../Utilities/Buttons/CustomBtn";
 
 const CategoryContainer = styled.div`
   .cat-header {
@@ -23,22 +24,22 @@ const NominationGroup = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: fit-content;
+
   gap: 2rem;
 
-  @media screen and (max-width: 960px) {
+  @media screen and (max-width: 1150px) {
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
     justify-items: center;
   }
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 850px) {
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
     justify-items: center;
   }
 
-  @media screen and (max-width: 350px) {
+  @media screen and (max-width: 450px) {
     grid-template-columns: 1fr;
     align-items: center;
     justify-items: center;
@@ -59,6 +60,7 @@ const Category = (props) => {
     selectedChoice,
     voterId,
     submitVote,
+    dataIsLoading,
   } = props;
 
   let nomineeListName;
@@ -82,6 +84,7 @@ const Category = (props) => {
         {categoriesList[nomineeListName].map((category) => {
           return (
             <Nomination
+              dataIsLoading={dataIsLoading}
               key={category["id"]}
               itemId={category["id"]}
               currentCatName={categoriesList["cat_name"]}

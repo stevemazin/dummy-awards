@@ -1,13 +1,23 @@
 import React from "react";
 import styled from "styled-components";
-import customCss from "./CustomBtn.css";
+import CircularSpinner from "./Spinner/CircularSpinner";
 
-const CustomBtn = () => {
+const Btn = styled.button`
+  width: fit-content;
+  padding: 0 1rem;
+  height: 4.2rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const IconButton = (props) => {
   return (
-    <button className="button">
-      <span>Submit Vote </span>
-    </button>
+    <Btn>
+      <span>{props.children}</span>
+      <CircularSpinner />
+    </Btn>
   );
 };
 
-export default CustomBtn;
+export default IconButton;

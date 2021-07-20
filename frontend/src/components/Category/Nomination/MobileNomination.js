@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { setChoice } from "../../../store/actions";
 import { showPopupMessage } from "../../../store/actions/ui";
-import Skeleton from "react-loading-skeleton";
 
 const MobileNomination = ({
   nomineeImg,
@@ -16,7 +15,8 @@ const MobileNomination = ({
   return (
     <>
       <img
-        src={nomineeImg || <Skeleton />}
+        className="nomimation-img"
+        src={nomineeImg}
         alt="Nominee"
         onClick={() => {
           if (!user) {

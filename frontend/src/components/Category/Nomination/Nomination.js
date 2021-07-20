@@ -12,26 +12,12 @@ import SimpleTick from "../../Utilities/InlineSVGs/SimpleTick";
 import { isMobile } from "react-device-detect";
 import MobileNomination from "./MobileNomination";
 import DesktopNomination from "./DesktopNomination";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+
+import ContentLoader from "react-content-loader";
 
 const NominationContainer = styled.div`
   text-align: center;
-  min-height: 24rem;
-  min-width: 24rem;
-
-  @media screen and (max-width: ${breakpoints.Desktop}) {
-    min-height: 21rem;
-    min-width: 21rem;
-  }
-
-  @media screen and (max-width: ${breakpoints.Tablet}) {
-    min-height: 18rem;
-    min-width: 18rem;
-  }
-
-  @media screen and (max-width: ${breakpoints.Phone}) {
-    min-height: 14rem;
-    min-width: 14rem;
-  }
 
   #circularTick {
     height: 5rem;
@@ -92,16 +78,24 @@ const NominationContainer = styled.div`
   }
 `;
 
-const ImageContainer = styled.div`
+const UtilityContainer = styled.div`
   position: relative;
-  height: auto;
-  width: 100%;
 
-  img {
+  .nomimation-img {
+    min-width: 24rem;
+    width: 100%;
+
     border-radius: 0.5rem;
     display: block;
-    width: 100%;
-    height: 100%;
+    background-color: lightcoral;
+
+    @media screen and (max-width: 1100px) {
+      min-width: 22rem;
+    }
+
+    @media screen and (max-width: 500px) {
+      min-width: 18rem;
+    }
 
     @media screen and (max-width: ${breakpoints.Tablet}) {
       align-self: center;
@@ -150,14 +144,15 @@ const ImageContainer = styled.div`
 
 const Nomination = (props) => {
   const {
-    nomineeImg,
-    nomineeName,
-    votingSectionInView,
     votingSectionInViewData,
-    user,
     itemId,
     currentCatName,
     selectedNominee,
+    dataIsLoading,
+    nomineeImg,
+    nomineeName,
+    user,
+    votingSectionInView,
   } = props;
 
   console.log("This is mobile: " + isMobile);
@@ -169,38 +164,61 @@ const Nomination = (props) => {
       reduxNominee={selectedNominee}
       reduxData={votingSectionInViewData.cat_name}
     >
-      <ImageContainer
+      <UtilityContainer
         onClick={() => {
           console.log(itemId, currentCatName);
         }}
       >
-        {isMobile && (
-          <MobileNomination
-            nomineeImg={nomineeImg}
-            nomineeName={nomineeName}
-            votingSectionInView={votingSectionInView}
-            votingSectionInViewData={votingSectionInViewData}
-            user={user}
-          />
+        {dataIsLoading ? (
+          <ContentLoader style={{ width: "100%" }} viewBox="0 0 280 280">
+            <rect x="0" y="0" rx="5" ry="5" width="280" height="280" />
+          </ContentLoader>
+        ) : (
+          <>
+            {isMobile && !dataIsLoading && (
+              <MobileNomination
+                dataIsLoading={dataIsLoading}
+                nomineeImg={nomineeImg}
+                nomineeName={nomineeName}
+                votingSectionInView={votingSectionInView}
+                votingSectionInViewData={votingSectionInViewData}
+                user={user}
+              />
+            )}
+            {!isMobile && !dataIsLoading && (
+              <DesktopNomination
+                dataIsLoading={dataIsLoading}
+                nomineeImg={nomineeImg}
+                itemId={itemId}
+                selectedNominee={selectedNominee}
+                currentCatName={currentCatName}
+                votingSectionInViewData={votingSectionInViewData}
+                user={user}
+                nomineeName={nomineeName}
+                votingSectionInView={votingSectionInView}
+              />
+            )}
+          </>
         )}
-        {!isMobile && (
-          <DesktopNomination
-            nomineeImg={nomineeImg}
-            itemId={itemId}
-            selectedNominee={selectedNominee}
-            currentCatName={currentCatName}
-            votingSectionInViewData={votingSectionInViewData}
-            user={user}
-            nomineeName={nomineeName}
-            votingSectionInView={votingSectionInView}
-          />
-        )}
-      </ImageContainer>
-      <div className="nominee-info">
-        <h6 className="nominee-info-txt">{nomineeName}</h6>
-        {itemId === selectedNominee &&
-          currentCatName === votingSectionInViewData.cat_name && <SimpleTick />}
-      </div>
+      </UtilityContainer>
+
+      {dataIsLoading && (
+        <ContentLoader
+          style={{ width: "80%", marginTop: "1.2rem" }}
+          viewBox="0 0 280 25"
+        >
+          <rect x="0" y="0" rx="5" ry="5" width="280" height="25" />
+        </ContentLoader>
+      )}
+      {!dataIsLoading && (
+        <div className="nominee-info">
+          <h6 className="nominee-info-txt">{nomineeName}</h6>
+          {itemId === selectedNominee &&
+            currentCatName === votingSectionInViewData.cat_name && (
+              <SimpleTick />
+            )}
+        </div>
+      )}
     </NominationContainer>
   );
 };

@@ -27,11 +27,8 @@ const Layout = (props) => {
     popupMessage,
     loadUser,
     googleAuthenticate,
-    fetchLatestPosts,
     showLoader,
-    songCategories,
-    currentSongCategory,
-    setVotingSectionInView,
+    fetchLatestPosts,
   } = props;
   let location = useLocation();
 
@@ -50,23 +47,6 @@ const Layout = (props) => {
       loadUser();
     }
   }, [location]);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // Fetch songs data in preperation of the user going to the voting page
-    const attemptFetch = async () => {
-      dispatch(setShowLoader(true));
-      await dispatch(fetchSongCategories());
-      setVotingSectionInView(
-        "songs",
-        songCategories[parseInt(currentSongCategory, 10)]
-      );
-      fetchLatestPosts();
-      dispatch(setShowLoader(false));
-    };
-    attemptFetch();
-  }, []);
 
   const showMessage = (popupMessage) => {
     if (popupMessage !== "") {

@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Category from "../components/Category/Category";
 import { Container } from "../components/Utilities/Container";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import MiniHero from "../components/Hero/MiniHero/MiniHero";
 import Footer from "../components/Footer/Footer";
 import {
@@ -33,6 +33,7 @@ const SectionNavigator = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 
   .cat-changer-btn {
     z-index: 99;
@@ -107,22 +108,48 @@ const Vote = (props) => {
     currentSongCategory,
     votingSectionInView,
     votingSectionInViewData,
-    setVotingSectionInView,
-    fetchArtistCategories,
-    fetchMovieCategories,
-    totalSongCategories,
     totalArtistCategories,
     totalMovieCategories,
+    totalSongCategories,
     setCurrentMovieCategory,
     setCurrentArtistCategory,
     setCurrentSongCategory,
     clearChoiceData,
+    setVotingSectionInView,
   } = props;
 
-  // Get movies and artist data
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    fetchArtistCategories();
-    fetchMovieCategories();
+    // Fetch data
+    const attemptFetch = async () => {
+      setIsLoading(true);
+      await dispatch(fetchArtistCategories());
+      await dispatch(fetchMovieCategories());
+      await dispatch(fetchSongCategories());
+      setVotingSectionInView(
+        "songs",
+        songCategories[parseInt(currentSongCategory, 10)]
+      );
+      // Show skeleton while loading is true
+      setIsLoading(false);
+    };
+
+    // Fetch only once. If the data is in the state, do not fetch
+    if (
+      songCategories &&
+      movieCategories &&
+      artistCategories &&
+      votingSectionInViewData &&
+      totalSongCategories &&
+      totalMovieCategories &&
+      totalArtistCategories
+    ) {
+      return;
+    } else {
+      attemptFetch();
+    }
   }, []);
 
   let currentSectionIndex = null;
@@ -311,6 +338,7 @@ const Vote = (props) => {
           <MainSectionWrapper>
             {votingSectionInViewData ? (
               <Category
+                dataIsLoading={isLoading}
                 currentSectionIndex={currentSectionIndex}
                 currentSection={votingSectionInView}
                 categoriesList={votingSectionInViewData}
