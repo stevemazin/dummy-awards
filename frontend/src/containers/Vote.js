@@ -6,9 +6,6 @@ import { connect, useDispatch } from "react-redux";
 import MiniHero from "../components/Hero/MiniHero/MiniHero";
 import Footer from "../components/Footer/Footer";
 import {
-  fetchArtistCategories,
-  fetchSongCategories,
-  fetchMovieCategories,
   setVotingSectionInView,
   setCurrentMovieCategory,
   setCurrentArtistCategory,
@@ -18,6 +15,8 @@ import {
 import { Link } from "react-router-dom";
 import { accentColor, navyBlue, neutral } from "../components/Utilities";
 import Navbar from "../components/Navbar/Navbar";
+import axios from "axios";
+import * as actionTypes from "../store/actions/actionTypes";
 
 const VoteWrapper = styled.div`
   font-size: 1.6rem;
@@ -116,47 +115,90 @@ const Vote = (props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // Fetch data
-    const attemptFetch = async () => {
-      setIsLoading(true);
-      await dispatch(fetchArtistCategories());
-      await dispatch(fetchMovieCategories());
-      dispatch(
-        setVotingSectionInView(
-          "songs",
-          songCategories[parseInt(currentSongCategory, 10)]
-        )
-      );
-      // Show skeleton while loading is true
-      setIsLoading(false);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
     };
 
-    // Fetch only once. If the data is in the state, do not fetch
-    if (
-      songCategories &&
-      movieCategories &&
-      artistCategories &&
-      votingSectionInViewData &&
-      totalSongCategories &&
-      totalMovieCategories &&
-      totalArtistCategories
-    ) {
-      return;
-    } else {
-      const res = attemptFetch();
-      console.log("This is the res" + res);
+    async function fetchMovies() {
+      try {
+        const movies = await axios.get(
+          `${process.env.REACT_APP_API_URL}/movies/categories/`,
+          config
+        );
+
+        dispatch({
+          type: actionTypes.FETCH_ALL_MOVIE_CATEGORIES_SUCCESS,
+          payload: {
+            data: movies.data,
+            totalMovieCategories: movies.data.length,
+          },
+        });
+      } catch (err) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_SONG_CATEGORIES_FAIL,
+          msg: "Error fetching movies....",
+        });
+      }
     }
-  }, [
-    dispatch,
-    currentSongCategory,
-    songCategories,
-    movieCategories,
-    artistCategories,
-    totalSongCategories,
-    totalMovieCategories,
-    totalArtistCategories,
-    votingSectionInViewData,
-  ]);
+
+    async function fetchArtists() {
+      try {
+        const artists = await axios.get(
+          `${process.env.REACT_APP_API_URL}/artists/categories/`,
+          config
+        );
+
+        dispatch({
+          type: actionTypes.FETCH_ALL_ARTIST_CATEGORIES_SUCCESS,
+          payload: {
+            data: artists.data,
+            totalArtistCategories: artists.data.length,
+          },
+        });
+      } catch (err) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_MOVIE_CATEGORIES_FAIL,
+          msg: "Error fetching movies....",
+        });
+      }
+    }
+
+    async function fetchSongs() {
+      try {
+        const songs = await axios.get(
+          `${process.env.REACT_APP_API_URL}/songs/categories/`,
+          config
+        );
+
+        dispatch({
+          type: actionTypes.FETCH_ALL_SONG_CATEGORIES_SUCCESS,
+          payload: {
+            data: songs.data,
+            totalSongCategories: songs.data.length,
+          },
+        });
+        dispatch(setVotingSectionInView("songs", songs.data[0]));
+      } catch (err) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_MOVIE_CATEGORIES_FAIL,
+          msg: "Error fetching songs....",
+        });
+      }
+    }
+
+    if (!songCategories || !movieCategories || !artistCategories) {
+      setIsLoading(true);
+      fetchSongs();
+      fetchMovies();
+      fetchArtists();
+      setTimeout(() => {
+        setIsLoading(false);
+      }, [2000]);
+    }
+  }, [dispatch]);
 
   let currentSectionIndex = null;
   let totalCategoriesInCurrentSection = null;

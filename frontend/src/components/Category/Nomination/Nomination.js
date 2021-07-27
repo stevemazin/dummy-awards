@@ -12,7 +12,6 @@ import SimpleTick from "../../Utilities/InlineSVGs/SimpleTick";
 import { isMobile } from "react-device-detect";
 import MobileNomination from "./MobileNomination";
 import DesktopNomination from "./DesktopNomination";
-
 import ContentLoader from "react-content-loader";
 
 const NominationContainer = styled.div`
@@ -153,8 +152,6 @@ const Nomination = (props) => {
     user,
     votingSectionInView,
   } = props;
-
-  console.log("This is mobile: " + isMobile);
 
   return (
     <NominationContainer
