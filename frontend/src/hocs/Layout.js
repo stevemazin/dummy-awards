@@ -1,16 +1,13 @@
 import React, { useEffect } from "react";
-import Navbar from "../components/Navbar/Navbar";
 import { connect, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import {
   checkAuthenticated,
-  loadUser,
   googleAuthenticate,
   fetchLatestPosts,
+  loadUser,
   fetchSongCategories,
-  setVotingSectionInView,
-  setShowLoader,
 } from "../store/actions";
 import Popup from "../components/Popup/Popup";
 import styled from "styled-components";
@@ -22,15 +19,10 @@ const LayoutContainer = styled.div`
 `;
 
 const Layout = (props) => {
-  const {
-    checkAuthenticated,
-    popupMessage,
-    loadUser,
-    googleAuthenticate,
-    showLoader,
-    fetchLatestPosts,
-  } = props;
+  const { popupMessage, showLoader, latestPosts } = props;
+
   let location = useLocation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const values = queryString.parse(location.search); // grab code and state
@@ -41,12 +33,19 @@ const Layout = (props) => {
     // console.log("Code: " + code);
 
     if (state && code) {
-      googleAuthenticate(state, code);
+      dispatch(googleAuthenticate(state, code));
     } else {
-      checkAuthenticated();
-      loadUser();
+      dispatch(checkAuthenticated());
+      dispatch(loadUser());
     }
-  }, [location]);
+  }, [dispatch, location]);
+
+  useEffect(() => {
+    if (!latestPosts) {
+      dispatch(fetchLatestPosts());
+      dispatch(fetchSongCategories());
+    }
+  }, [latestPosts, dispatch]);
 
   const showMessage = (popupMessage) => {
     if (popupMessage !== "") {
@@ -58,7 +57,6 @@ const Layout = (props) => {
   return (
     <LayoutContainer>
       <GlobalStyles />
-      {showLoader && <Loader />}
       {popupMessage && showMessage && <Popup message={popupMessage} />}
       {props.children}
     </LayoutContainer>
@@ -67,6 +65,7 @@ const Layout = (props) => {
 
 const mapStateToProps = (state) => {
   return {
+    latestPosts: state.blog.posts,
     showLoader: state.ui.showLoader,
     popupMessage: state.ui.popupMessage,
     showPopupMessage: state.ui.showPopupMessage,
@@ -81,10 +80,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  checkAuthenticated,
-  loadUser,
-  googleAuthenticate,
-  fetchLatestPosts,
-  setVotingSectionInView,
-})(Layout);
+export default connect(mapStateToProps, {})(Layout);

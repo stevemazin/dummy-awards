@@ -12,20 +12,13 @@ import Activate from "./containers/Activate";
 import Vote from "./containers/Vote";
 import Login from "./containers/Login";
 import ResetPassword from "./containers/ResetPassword";
-import GlobalStyles from "./components/Utilities/globalStyles";
 import SinglePost from "./components/Blog/SinglePost";
 import ComingSoon from "./components/ComingSoon/ComingSoon";
-import Hottest from "./components/Tickets/Hottest";
 
 const App = () => {
   return (
     <Provider store={store}>
-      <PersistGate
-        loading={() => {
-          console.log("Redux loading...");
-        }}
-        persistor={persistor}
-      >
+      <PersistGate persistor={persistor}>
         <Router>
           <Layout>
             <Switch>

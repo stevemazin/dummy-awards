@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { accentColor, neutral } from "../../Utilities";
 import { useDispatch } from "react-redux";
-import { getSinglePost, setShowLoader } from "../../../store/actions";
+import { getSinglePost } from "../../../store/actions";
 
 const Newscard = styled.div`
   display: inline-block;

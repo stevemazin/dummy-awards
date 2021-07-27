@@ -13,7 +13,6 @@ import {
   setCurrentMovieCategory,
   setCurrentArtistCategory,
   setCurrentSongCategory,
-  setChoice,
   clearChoiceData,
 } from "../store/actions";
 import { Link } from "react-router-dom";
@@ -111,11 +110,6 @@ const Vote = (props) => {
     totalArtistCategories,
     totalMovieCategories,
     totalSongCategories,
-    setCurrentMovieCategory,
-    setCurrentArtistCategory,
-    setCurrentSongCategory,
-    clearChoiceData,
-    setVotingSectionInView,
   } = props;
 
   const dispatch = useDispatch();
@@ -127,10 +121,11 @@ const Vote = (props) => {
       setIsLoading(true);
       await dispatch(fetchArtistCategories());
       await dispatch(fetchMovieCategories());
-      await dispatch(fetchSongCategories());
-      setVotingSectionInView(
-        "songs",
-        songCategories[parseInt(currentSongCategory, 10)]
+      dispatch(
+        setVotingSectionInView(
+          "songs",
+          songCategories[parseInt(currentSongCategory, 10)]
+        )
       );
       // Show skeleton while loading is true
       setIsLoading(false);
@@ -148,9 +143,20 @@ const Vote = (props) => {
     ) {
       return;
     } else {
-      attemptFetch();
+      const res = attemptFetch();
+      console.log("This is the res" + res);
     }
-  }, []);
+  }, [
+    dispatch,
+    currentSongCategory,
+    songCategories,
+    movieCategories,
+    artistCategories,
+    totalSongCategories,
+    totalMovieCategories,
+    totalArtistCategories,
+    votingSectionInViewData,
+  ]);
 
   let currentSectionIndex = null;
   let totalCategoriesInCurrentSection = null;
@@ -180,21 +186,27 @@ const Vote = (props) => {
       previousCatInSection = currentIndex - 1;
     }
 
-    console.log("Current: " + currentSectionIndex);
-    console.log("Previous: " + previousCatInSection);
-
     if (currentSection === "songs") {
-      setCurrentSongCategory(previousCatInSection);
-      setVotingSectionInView("songs", songCategories[previousCatInSection]);
-      clearChoiceData();
+      dispatch(setCurrentSongCategory(previousCatInSection));
+      dispatch(
+        setVotingSectionInView("songs", songCategories[previousCatInSection])
+      );
+      dispatch(clearChoiceData());
     } else if (currentSection === "movies") {
-      setCurrentMovieCategory(previousCatInSection);
-      setVotingSectionInView("movies", movieCategories[previousCatInSection]);
-      clearChoiceData();
+      dispatch(setCurrentMovieCategory(previousCatInSection));
+      dispatch(
+        setVotingSectionInView("movies", movieCategories[previousCatInSection])
+      );
+      dispatch(clearChoiceData());
     } else {
-      setCurrentArtistCategory(previousCatInSection);
-      setVotingSectionInView("artists", artistCategories[previousCatInSection]);
-      clearChoiceData();
+      dispatch(setCurrentArtistCategory(previousCatInSection));
+      dispatch(
+        setVotingSectionInView(
+          "artists",
+          artistCategories[previousCatInSection]
+        )
+      );
+      dispatch(clearChoiceData());
     }
   };
 
@@ -212,21 +224,24 @@ const Vote = (props) => {
       nextCatInSection = currentIndex + 1;
     }
 
-    console.log("Current: " + currentSectionIndex);
-    console.log("Next: " + nextCatInSection);
-
     if (currentSection === "songs") {
-      setCurrentSongCategory(nextCatInSection);
-      setVotingSectionInView("songs", songCategories[nextCatInSection]);
-      clearChoiceData();
+      dispatch(setCurrentSongCategory(nextCatInSection));
+      dispatch(
+        setVotingSectionInView("songs", songCategories[nextCatInSection])
+      );
+      dispatch(clearChoiceData());
     } else if (currentSection === "movies") {
-      setCurrentMovieCategory(nextCatInSection);
-      setVotingSectionInView("movies", movieCategories[nextCatInSection]);
-      clearChoiceData();
+      dispatch(setCurrentMovieCategory(nextCatInSection));
+      dispatch(
+        setVotingSectionInView("movies", movieCategories[nextCatInSection])
+      );
+      dispatch(clearChoiceData());
     } else {
-      setCurrentArtistCategory(nextCatInSection);
-      setVotingSectionInView("artists", artistCategories[nextCatInSection]);
-      clearChoiceData();
+      dispatch(setCurrentArtistCategory(nextCatInSection));
+      dispatch(
+        setVotingSectionInView("artists", artistCategories[nextCatInSection])
+      );
+      dispatch(clearChoiceData());
     }
   };
 
@@ -239,11 +254,13 @@ const Vote = (props) => {
           <VotingCategories>
             <Link
               onClick={() => {
-                setVotingSectionInView(
-                  "songs",
-                  songCategories[parseInt(currentSongCategory, 10)]
+                dispatch(
+                  setVotingSectionInView(
+                    "songs",
+                    songCategories[parseInt(currentSongCategory, 10)]
+                  )
                 );
-                clearChoiceData();
+                dispatch(clearChoiceData());
               }}
               to="/vote"
               className={
@@ -256,11 +273,13 @@ const Vote = (props) => {
             </Link>
             <Link
               onClick={() => {
-                setVotingSectionInView(
-                  "movies",
-                  movieCategories[parseInt(currentMovieCategory, 10)]
+                dispatch(
+                  setVotingSectionInView(
+                    "movies",
+                    movieCategories[parseInt(currentMovieCategory, 10)]
+                  )
                 );
-                clearChoiceData();
+                dispatch(clearChoiceData());
               }}
               to="/vote"
               className={
@@ -273,11 +292,13 @@ const Vote = (props) => {
             </Link>
             <Link
               onClick={() => {
-                setVotingSectionInView(
-                  "artists",
-                  artistCategories[parseInt(currentArtistCategory, 10)]
+                dispatch(
+                  setVotingSectionInView(
+                    "artists",
+                    artistCategories[parseInt(currentArtistCategory, 10)]
+                  )
                 );
-                clearChoiceData();
+                dispatch(clearChoiceData());
               }}
               to="/vote"
               className={
@@ -292,7 +313,6 @@ const Vote = (props) => {
           <SectionNavigator>
             <button
               onClick={() => {
-                console.log("Setting Previous");
                 setPrevious(
                   votingSectionInView,
                   totalCategoriesInCurrentSection,
@@ -314,7 +334,6 @@ const Vote = (props) => {
             </button>
             <button
               onClick={() => {
-                console.log("Setting Next");
                 setNext(
                   votingSectionInView,
                   totalCategoriesInCurrentSection,
@@ -374,14 +393,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  setVotingSectionInView,
-  fetchArtistCategories,
-  fetchSongCategories,
-  fetchMovieCategories,
-  setCurrentMovieCategory,
-  setCurrentArtistCategory,
-  setCurrentSongCategory,
-  setChoice,
-  clearChoiceData,
-})(Vote);
+export default connect(mapStateToProps)(Vote);

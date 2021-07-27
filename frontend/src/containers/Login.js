@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
 import { setNavSolid } from "../store/actions";
 import LoginForm from "../components/Forms/Login/LoginForm";
 import heroImg from "../assets/mega-concert.svg";
 import SliqLogo from "../components/Utilities/InlineSVGs/SliqLogo";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const LoginWrapper = styled.div`
   height: 100%;
@@ -29,10 +29,12 @@ const LoginWrapper = styled.div`
   }
 `;
 
-const Login = ({ setNavSolid }) => {
+const Login = () => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    setNavSolid();
-  }, []);
+    dispatch(setNavSolid());
+  }, [dispatch]);
 
   return (
     <LoginWrapper>
@@ -48,6 +50,4 @@ const Login = ({ setNavSolid }) => {
   );
 };
 
-export default connect(null, {
-  setNavSolid,
-})(Login);
+export default Login;

@@ -2,9 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Container } from "../Utilities/Container";
 import ticketsBack from "../../assets/tickets-back.png";
-import { Header4 } from "../Utilities/Typography";
 import { Link } from "react-router-dom";
-import { accentColor, breakpoints, navyBlue, neutral } from "../Utilities";
+import { breakpoints, neutral } from "../Utilities";
 import { isMobile } from "react-device-detect";
 import Hottest from "./Hottest";
 

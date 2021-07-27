@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link, NavLink, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Container } from "../Utilities/Container";
 import { accentColor, neutral, navyBlue, breakpoints } from "../Utilities";
-import {
-  logout,
-  setMobile,
-  setNavSolid,
-  setNavTransparent,
-} from "../../store/actions";
+import { setMobile, setNavSolid, setNavTransparent } from "../../store/actions";
 import SliqLogo from "../Utilities/InlineSVGs/SliqLogo";
 import { useMediaQuery } from "react-responsive";
 import MenuToggle from "./MenuToggle";
 import MobileNavbarLinks from "./MobileNavLinks";
 import DefaultNavLinks from "./DefaultNavLinks";
 import { isMobile } from "react-device-detect";
+import { useDispatch } from "react-redux";
 
 const NavContainer = styled(Container)`
   height: 100%;
@@ -105,26 +101,20 @@ const RightSection = styled.div`
 
 const LeftSection = styled.div``;
 
-const Nav = ({
-  navBgColor,
-  isAuthenticated,
-  setNavSolid,
-  setMobile,
-  setNavTransparent,
-  heroIsVisible,
-}) => {
+const Nav = ({ navBgColor, isAuthenticated, heroIsVisible }) => {
+  const dispatch = useDispatch();
   const isTabletWidth = useMediaQuery({ maxWidth: breakpoints.Tablet });
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (isTabletWidth) {
       setMobile(true);
-      setNavSolid();
+      dispatch(setNavSolid());
     } else {
-      setMobile(false);
-      heroIsVisible && setNavTransparent();
+      dispatch(setMobile(false));
+      heroIsVisible && dispatch(setNavTransparent());
     }
-  }, [isTabletWidth]);
+  }, [isTabletWidth, dispatch, heroIsVisible]);
 
   return (
     <NavSection

@@ -34,7 +34,6 @@ export const loadUser = () => async (dispatch) => {
     try {
       const res = await axios.get(
         `${process.env.REACT_APP_API_URL}/auth/users/me/`,
-
         config
       );
 
@@ -151,19 +150,18 @@ export const login = (email, password) => async (dispatch) => {
       config
     );
 
-    if (res.data.status === 401) {
-      console.log(res);
-    }
-
-    console.log(res);
+    // if (res.data.status === 401) {
+    //   console.log(res);
+    // }
 
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
+    dispatch(setShowLoader(false));
     dispatch(loadUser());
   } catch (err) {
-    console.log(err.response.data.detail);
+    dispatch(setShowLoader(false));
     dispatch(showAuthMessage(true, err.response.data.detail));
     dispatch({
       type: LOGIN_FAIL,
@@ -214,7 +212,6 @@ export const signUp =
         dispatch(showAuthMessage(true, err.response.data.password[0]));
       }
 
-      dispatch(setShowLoader(false));
       dispatch({
         type: SIGN_UP_FAIL,
       });

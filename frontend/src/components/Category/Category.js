@@ -5,7 +5,7 @@ import Nomination from "./Nomination/Nomination";
 import { connect } from "react-redux";
 import { submitVote } from "../../store/actions";
 import { isMobile } from "react-device-detect";
-import IconButton from "../Utilities/Buttons/CustomBtn";
+import IconButton from "../Utilities/Buttons/IconButton";
 
 const CategoryContainer = styled.div`
   .cat-header {

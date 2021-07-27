@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 import styled from "styled-components";
-import { navyBlue, neutral } from "../Utilities/Colors";
+import { navyBlue } from "../Utilities/Colors";
 
 const Button = styled.div`
   z-index: 99;

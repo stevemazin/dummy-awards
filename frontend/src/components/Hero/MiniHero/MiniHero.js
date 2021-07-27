@@ -4,9 +4,16 @@ import styled from "styled-components";
 import Timer from "../../Timer/Timer";
 import { breakpoints, neutral } from "../../Utilities";
 import { useInView, InView } from "react-intersection-observer";
-import * as actionCreators from "../../../store/actions";
 import heroImg2 from "../../../assets/orange-concert.jpg";
 import VoteTypeWritter from "../../TypeWriter/VoteTypeWritter";
+import { useDispatch } from "react-redux";
+
+import {
+  setNavSolid,
+  setNavTransparent,
+  switchHeroPresence,
+  switchHeroVisibility,
+} from "../../../store/actions";
 
 const HeroWrapper = styled.section`
   height: 40rem;
@@ -33,25 +40,27 @@ const HeroWrapper = styled.section`
 `;
 
 const MiniHero = (props) => {
+  const dispatch = useDispatch();
+
   const [ref] = useInView({
     threshold: 1,
   });
 
   useEffect(() => {
-    props.switchHeroPresence(true);
-  }, []);
+    dispatch(switchHeroPresence(true));
+  }, [dispatch]);
 
   return (
     <InView
       onChange={(inView) => {
         if (!props.isMobile && inView) {
           // set nav to transparent if hero is in view
-          props.switchHeroVisibility(inView);
-          props.setNavTransparent();
+          dispatch(switchHeroVisibility(inView));
+          dispatch(setNavTransparent());
         } else {
           // set nav to solid if hero is NOT in view
-          props.switchHeroVisibility(inView);
-          props.setNavSolid();
+          dispatch(switchHeroVisibility(inView));
+          dispatch(setNavSolid());
         }
       }}
       rootMargin="-350px 0px 0px 0px"
@@ -74,15 +83,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    switchHeroPresence: (heroPresence) =>
-      dispatch(actionCreators.switchHeroPresence(heroPresence)),
-    switchHeroVisibility: (heroVisibility) =>
-      dispatch(actionCreators.switchHeroVisibility(heroVisibility)),
-    setNavTransparent: () => dispatch(actionCreators.setNavTransparent()),
-    setNavSolid: () => dispatch(actionCreators.setNavSolid()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MiniHero);
+export default connect(mapStateToProps, {})(MiniHero);

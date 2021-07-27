@@ -1,6 +1,5 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
-import { setShowLoader, setVotingSectionInView } from "./ui";
 
 export const setCurrentSongCategory = (currentSongCat) => {
   return {
@@ -32,7 +31,6 @@ export const fetchSongCategories = () => {
         },
       });
     } catch (err) {
-      dispatch(setShowLoader(false));
       dispatch({
         type: actionTypes.FETCH_ALL_SONG_CATEGORIES_FAIL,
         msg: "Error fetching categories....",

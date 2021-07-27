@@ -1,6 +1,5 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
-import { setShowLoader } from "./ui";
 
 // actionCreators
 export const fetchLatestPosts = () => async (dispatch) => {
@@ -22,7 +21,6 @@ export const fetchLatestPosts = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    dispatch(setShowLoader(false));
     dispatch({
       type: actionTypes.FETCH_LATEST_POSTS_FAIL,
       msg: "Error fetching Posts",
@@ -49,7 +47,6 @@ export const getSinglePost = (slug) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    dispatch(setShowLoader(false));
     dispatch({
       type: actionTypes.GET_SINGLE_POST_FAIL,
       msg: "Error fetching Post",

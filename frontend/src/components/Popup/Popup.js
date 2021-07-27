@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { clearPopupMessage, showPopupMessage } from "../../store/actions/ui";
+import { clearPopupMessage } from "../../store/actions/ui";
 import { navyBlue, neutral } from "../Utilities";
-// import { FiX } from "react-icons/fi";
 import { motion } from "framer-motion";
 
 const Backdrop = styled.div`
@@ -49,11 +48,6 @@ const MessageContainer = styled(motion.div)`
 const Popup = (props) => {
   const { currrentMessage, clearPopupMessage, showPopupMessage } = props;
 
-  // const nextVariants = {
-  //   hidden: { y: "-100vh" },
-  //   visible: { y: 0, transition: { type: "spring", stiffness: 100 } },
-  // };
-
   return (
     <Backdrop
       onClick={() => {
@@ -61,12 +55,7 @@ const Popup = (props) => {
       }}
     >
       <div className="msg-holder">
-        <MessageContainer
-          // variants={nextVariants}
-          // initial="hidden"
-          // animate="visible"
-          showing={showPopupMessage}
-        >
+        <MessageContainer showing={showPopupMessage}>
           <span>{currrentMessage}</span>
         </MessageContainer>
       </div>

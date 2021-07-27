@@ -4,7 +4,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { Link, Redirect } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
-import axios from "axios";
 import styled from "styled-components";
 import {
   accentColor,
@@ -14,13 +13,13 @@ import {
   navyBlue,
 } from "../../Utilities";
 import { signUp } from "../../../store/actions/auth";
-import googleLogo from "../../../assets/google-logo.svg";
 import {
   clearAuthMessage,
   setShowLoader,
   showAuthMessage,
 } from "../../../store/actions/ui";
 import AuthMessage from "../AuthMessage";
+import IconButton from "../../Utilities/Buttons/IconButton";
 
 const FormWrapper = styled.div`
   font-size: 1.6rem;
@@ -202,11 +201,8 @@ const RegisterForm = ({
       await dispatch(
         signUp(first_name, last_name, email, password, re_password)
       );
-      // make loader spin for atleast 2 seconds for improved user experience
-      setTimeout(() => {
-        dispatch(setShowLoader(false));
-        setAccountCreated(true);
-      }, [2000]);
+      setAccountCreated(true);
+      dispatch(setShowLoader(false));
     };
     attemptSignup();
   };
@@ -224,14 +220,14 @@ const RegisterForm = ({
   }
 
   // Register using google
-  const continueWithGoogle = async () => {
-    try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?redirect_uri=${process.env.REACT_APP_API_URL}`
-      );
-      window.location.replace(res.data.authorization_url);
-    } catch (err) {}
-  };
+  // const continueWithGoogle = async () => {
+  //   try {
+  //     const res = await axios.get(
+  //       `${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?redirect_uri=${process.env.REACT_APP_API_URL}`
+  //     );
+  //     window.location.replace(res.data.authorization_url);
+  //   } catch (err) {}
+  // };
 
   // Is the user authenticated, redirect to home page
   if (isAuthenticated) {
@@ -314,7 +310,7 @@ const RegisterForm = ({
               <span className="error-msg">{errors.re_password.message}</span>
             )}
           </FormGroup>
-          <input className="fx-dark-btn" value="Register" type="submit" />
+          <IconButton>Register</IconButton>
         </form>
 
         <p className="alt-txt">

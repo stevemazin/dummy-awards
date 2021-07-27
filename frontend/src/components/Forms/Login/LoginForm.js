@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import axios from "axios";
+// import axios from "axios";
 import styled from "styled-components";
 import {
   accentColor,
@@ -12,9 +12,10 @@ import {
   danger,
 } from "../../Utilities";
 import { login } from "../../../store/actions";
-import googleLogo from "../../../assets/google-logo.svg";
 import AuthMessage from "../AuthMessage";
-import { clearAuthMessage } from "../../../store/actions/ui";
+import { clearAuthMessage, setShowLoader } from "../../../store/actions/ui";
+import { useDispatch } from "react-redux";
+import IconButton from "../../Utilities/Buttons/IconButton";
 
 const FormWrapper = styled.div`
   font-size: 1.6rem;
@@ -123,12 +124,9 @@ const FormGroup = styled.div`
     margin-top: 1rem;
   }
 `;
-const LoginForm = ({
-  login,
-  isAuthenticated,
-  authMessage,
-  clearAuthMessage,
-}) => {
+const LoginForm = ({ isAuthenticated, authMessage }) => {
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -136,24 +134,21 @@ const LoginForm = ({
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-
     const email = data["email"];
     const password = data["password"];
-
-    console.log("Password Ok");
-    console.log(data["password"]);
-    login(email, password);
+    dispatch(login(email, password));
+    dispatch(setShowLoader(true));
+    console.log("loggin in ");
   };
 
-  const continueWithGoogle = async () => {
-    try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?redirect_uri=${process.env.REACT_APP_API_URL}`
-      );
-      window.location.replace(res.data.authorization_url);
-    } catch (err) {}
-  };
+  // const continueWithGoogle = async () => {
+  //   try {
+  //     const res = await axios.get(
+  //       `${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?redirect_uri=${process.env.REACT_APP_API_URL}`
+  //     );
+  //     window.location.replace(res.data.authorization_url);
+  //   } catch (err) {}
+  // };
 
   // Check if there is a message and show it
   const showMessage = (authMessage) => {
@@ -166,9 +161,9 @@ const LoginForm = ({
   // Clear error message after 5 seconds
   useEffect(() => {
     setTimeout(() => {
-      clearAuthMessage();
+      dispatch(clearAuthMessage());
     }, [6000]);
-  }, [authMessage]);
+  }, [dispatch, authMessage]);
 
   // If the user authenticated, redirect to home page
   if (isAuthenticated) {
@@ -203,7 +198,7 @@ const LoginForm = ({
               <span className="error-msg">Password is required</span>
             )}
           </FormGroup>
-          <input className="fx-dark-btn" value="Login" type="submit" />
+          <IconButton>Login</IconButton>
         </form>
         <p className="alt-txt">
           Don't have an account?{" "}
@@ -229,8 +224,7 @@ const LoginForm = ({
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  showAuthMessage: state.ui.showAuthMessage,
   authMessage: state.ui.authMessage,
 });
 
-export default connect(mapStateToProps, { login, clearAuthMessage })(LoginForm);
+export default connect(mapStateToProps, {})(LoginForm);

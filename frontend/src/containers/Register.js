@@ -6,6 +6,7 @@ import RegisterForm from "../components/Forms/Register/RegisterForm";
 import heroImg from "../assets/mega-concert.svg";
 import { Link } from "react-router-dom";
 import SliqLogo from "../components/Utilities/InlineSVGs/SliqLogo";
+import { useDispatch } from "react-redux";
 
 const RegisterWrapper = styled.div`
   height: 100%;
@@ -31,10 +32,12 @@ const RegisterWrapper = styled.div`
   }
 `;
 
-const Register = ({ setNavSolid }) => {
+const Register = () => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    setNavSolid();
-  }, []);
+    dispatch(setNavSolid());
+  }, [dispatch]);
 
   return (
     <RegisterWrapper>
@@ -58,6 +61,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  setNavSolid,
-})(Register);
+export default connect(mapStateToProps, {})(Register);

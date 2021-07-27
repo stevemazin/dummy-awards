@@ -6,8 +6,14 @@ import { neutral } from "../Utilities";
 import { Link } from "react-router-dom";
 import { useInView, InView } from "react-intersection-observer";
 import { connect } from "react-redux";
-import * as actionCreators from "../../store/actions";
 import { isMobile } from "react-device-detect";
+import { useDispatch } from "react-redux";
+import {
+  switchHeroPresence,
+  switchHeroVisibility,
+  setNavSolid,
+  setNavTransparent,
+} from "../../store/actions/ui";
 
 const HeroSection = styled.section`
   text-align: center;
@@ -39,16 +45,12 @@ const LogoGfx = styled.img`
   }
 `;
 
-const Hero = ({
-  setNavTransparent,
-  setNavSolid,
-  switchHeroPresence,
-  switchHeroVisibility,
-  // isMobile,
-}) => {
+const Hero = () => {
   const [ref] = useInView({
     threshold: 1,
   });
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     switchHeroPresence(true);
@@ -61,12 +63,12 @@ const Hero = ({
 
         if (!isMobile && inView) {
           // set nav to transparent if hero is in view
-          switchHeroVisibility(inView);
-          setNavTransparent();
+          dispatch(switchHeroVisibility(inView));
+          dispatch(setNavTransparent());
         } else {
           // set nav to solid if hero is NOT in view
-          switchHeroVisibility(inView);
-          setNavSolid();
+          dispatch(switchHeroVisibility(inView));
+          dispatch(setNavSolid());
         }
       }}
       rootMargin="-90% 0px 0px 0px"
@@ -101,15 +103,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    switchHeroPresence: (heroPresence) =>
-      dispatch(actionCreators.switchHeroPresence(heroPresence)),
-    switchHeroVisibility: (heroVisibility) =>
-      dispatch(actionCreators.switchHeroVisibility(heroVisibility)),
-    setNavTransparent: () => dispatch(actionCreators.setNavTransparent()),
-    setNavSolid: () => dispatch(actionCreators.setNavSolid()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Hero);
+export default connect(mapStateToProps, {})(Hero);

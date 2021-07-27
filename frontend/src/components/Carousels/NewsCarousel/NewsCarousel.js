@@ -115,7 +115,7 @@ const NewsCarousel = (props) => {
     ],
   };
 
-  if (posts.length === 0) {
+  if (!posts || posts.length === 0) {
     return (
       <ErrorWrapper>
         <div className="posts-error">

@@ -12,7 +12,6 @@ import SimpleTick from "../../Utilities/InlineSVGs/SimpleTick";
 import { isMobile } from "react-device-detect";
 import MobileNomination from "./MobileNomination";
 import DesktopNomination from "./DesktopNomination";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 import ContentLoader from "react-content-loader";
 
