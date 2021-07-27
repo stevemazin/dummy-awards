@@ -24,18 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-#c*u+0f%#-s8m0^yb+_drdof%g#i2h57x-1szs_z=ox8pnr4tx'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['stevemazin.pythonanywhere.com', 'localhost']
 
 # Application definition
-
-INSTALLED_APPS = [
-    'blog.apps.BlogConfig',
-    'songs.apps.SongsConfig',
-    'artists.apps.ArtistsConfig',
-    'movies.apps.MoviesConfig',
+DJ_BASE_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,14 +34,27 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
+]
+
+THIRD_PARTY_APPS = [    
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'djoser',
     'social_django',
     'corsheaders',
-    'tinymce',
+    'tinymce'
 ]
+
+
+CUSTOM_APPS = [ 
+    'blog.apps.BlogConfig',
+    'songs.apps.SongsConfig',
+    'artists.apps.ArtistsConfig',
+    'movies.apps.MoviesConfig'
+]
+
+INSTALLED_APPS = DJ_BASE_APPS + THIRD_PARTY_APPS + CUSTOM_APPS
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -87,26 +91,6 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'sliq-db',
-#         'USER': 'postgres',
-#         'PASSWORD': 'password',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -162,15 +146,6 @@ MEDIA_URL = '/media/'
 
 # Custom Stuff
 AUTH_USER_MODEL = 'accounts.User'
-
-# Email Stuff
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'mazindev.tech@gmail.com'
-EMAIL_HOST_PASSWORD = 'eflauisibwnsadoh'
-EMAIL_USE_TLS = True
-
 
 # Djoser Stuff
 DJOSER = {
@@ -237,12 +212,7 @@ AUTHENTICATION_BACKENDS = {
 } 
 
 
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",
-#     'https://stevemazin.pythonanywhere.com'
-# ]
 
-CORS_ALLOW_ALL_ORIGINS = True
 
 TINYMCE_DEFAULT_CONFIG = {
     'theme': "advanced",
