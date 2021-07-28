@@ -1,30 +1,34 @@
 import React from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useDispatch } from "react-redux";
 import { setChoice } from "../../../store/actions";
 import { showPopupMessage } from "../../../store/actions/ui";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import toast from "react-hot-toast";
 
-const MobileNomination = ({
-  nomineeImg,
-  nomineeName,
-  votingSectionInView,
-  votingSectionInViewData,
-  user,
-}) => {
+const NominationImage = (props) => {
+  const {
+    nomineeImg,
+    votingSectionInViewData,
+    user,
+    nomineeName,
+    votingSectionInView,
+  } = props;
+
   const dispatch = useDispatch();
-
   return (
     <>
-      <img
-        className="nomimation-img"
-        src={nomineeImg}
+      <LazyLoadImage
         alt="Nominee"
+        src={nomineeImg} // use normal <img> attributes as props
+        height={nomineeImg.height}
+        width={nomineeImg.width}
+        effect="blur"
+        className="nomimation-img"
         onClick={() => {
           if (!user) {
-            dispatch(
-              showPopupMessage(true, "Login or Create an account to vote...")
-            );
+            toast.error("Login or Create an account to vote...");
           } else {
-            console.log("This is the mobile nom...");
             let tempChoiceData = {};
             tempChoiceData["nomineeName"] = nomineeName;
             tempChoiceData["votingSectionInView"] = votingSectionInView;
@@ -38,4 +42,4 @@ const MobileNomination = ({
   );
 };
 
-export default MobileNomination;
+export default NominationImage;

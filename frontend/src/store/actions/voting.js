@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
 import { showPopupMessage, clearPopupMessage } from "./ui";
+import toast from "react-hot-toast";
 
 // actionCreators
 export const submitVote =
@@ -10,7 +11,6 @@ export const submitVote =
       // If voter id is not null, validate the vote before submitting
       if (selectedChoice) {
         // If selected choice is not null, continue with the validation
-        dispatch(clearPopupMessage());
 
         const config = {
           headers: {
@@ -82,7 +82,8 @@ export const submitVote =
                 data: res.data,
               },
             });
-            dispatch(showPopupMessage(true, message));
+
+            toast.success(message);
           } else {
             dispatch({
               type: actionTypes.CAST_VOTE_IN_CATEGORY_FAIL,
@@ -90,7 +91,8 @@ export const submitVote =
                 msg: res.data.error,
               },
             });
-            dispatch(showPopupMessage(true, res.data.error));
+
+            toast(res.data.error);
           }
         } catch (err) {
           console.log(err.response.data);
@@ -101,20 +103,17 @@ export const submitVote =
               error: err,
             },
           });
-          dispatch(
-            showPopupMessage(true, "Looks like you voted here already...")
-          );
+          const toastMessage = "Looks like you voted here already...";
+          toast.error(toastMessage);
         }
       } else {
-        dispatch(
-          showPopupMessage(true, "You have not selected any nominee...")
-        );
+        const toastMessage = "You have not selected any nominee...";
+        toast.error(toastMessage);
       }
     } else {
       // If voter id is null, show this error message
-      dispatch(
-        showPopupMessage(true, "Please login or create an account to vote...")
-      );
+      const toastMessage = "Please login or create an account to vote...";
+      toast.error(toastMessage);
     }
   };
 

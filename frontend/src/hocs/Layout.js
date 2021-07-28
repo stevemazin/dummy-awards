@@ -12,6 +12,8 @@ import Popup from "../components/Popup/Popup";
 import styled from "styled-components";
 import GlobalStyles from "../components/Utilities/globalStyles";
 
+import { Toaster } from "react-hot-toast";
+
 const LayoutContainer = styled.div`
   position: relative;
 `;
@@ -51,6 +53,16 @@ const Layout = (props) => {
   return (
     <LayoutContainer>
       <GlobalStyles />
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          // Define default options
+          duration: 5000,
+          style: {
+            fontSize: "1.6rem",
+          },
+        }}
+      />
       {popupMessage && showMessage && <Popup message={popupMessage} />}
       {props.children}
     </LayoutContainer>

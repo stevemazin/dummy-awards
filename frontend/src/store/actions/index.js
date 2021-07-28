@@ -22,10 +22,10 @@ export {
 
 export { fetchLatestPosts, getSinglePost } from "./blog";
 
-export { fetchMovieCategories, setCurrentMovieCategory } from "./movies";
+export { setCurrentMovieCategory } from "./movies";
 
-export { fetchSongCategories, setCurrentSongCategory } from "./songs";
+export { setCurrentSongCategory } from "./songs";
 
-export { fetchArtistCategories, setCurrentArtistCategory } from "./artists";
+export { setCurrentArtistCategory } from "./artists";
 
 export { submitVote, setChoice, clearChoiceData } from "./voting";

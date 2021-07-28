@@ -1,18 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  accentColor,
-  breakpoints,
-  green,
-  navyBlue,
-  neutral,
-} from "../../Utilities";
+import { breakpoints, danger, green } from "../../Utilities";
 import { connect } from "react-redux";
-import SimpleTick from "../../Utilities/InlineSVGs/SimpleTick";
-import { isMobile } from "react-device-detect";
-import MobileNomination from "./MobileNomination";
-import DesktopNomination from "./DesktopNomination";
-import ContentLoader from "react-content-loader";
+import { useDispatch } from "react-redux";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { showPopupMessage } from "../../../store/actions/ui";
+import { setChoice } from "../../../store/actions";
+import NominationImage from "./NominationImage";
 
 const NominationContainer = styled.div`
   text-align: center;
@@ -23,6 +17,30 @@ const NominationContainer = styled.div`
     polygon {
       fill: ${green[100]};
     }
+  }
+
+  .favorite_artist {
+    font-size: 3rem;
+    color: ${danger[200]};
+    cursor: pointer;
+    height: 4.2rem;
+    width: 4.2rem;
+    padding: 1rem;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: all 200ms ease-in;
+
+    &:hover {
+      transform: scale(1.5);
+    }
+  }
+
+  .hide_icon {
+    display: none;
+  }
+
+  .show_icon {
+    display: inline;
   }
 
   .nominee-info {
@@ -41,31 +59,17 @@ const NominationContainer = styled.div`
     }
 
     .nominee-info-txt {
-      display: inline-block;
       font-size: 1.6rem;
-      color: ${({
+      font-weight: ${({
         tempSelectedNominee,
         tempCatName,
         reduxNominee,
         reduxData,
       }) => {
         if (tempSelectedNominee === reduxNominee && tempCatName === reduxData) {
-          return green[300];
+          return "800";
         } else {
-          return navyBlue[500];
-        }
-      }};
-
-      margin-right: ${({
-        tempSelectedNominee,
-        tempCatName,
-        reduxNominee,
-        reduxData,
-      }) => {
-        if (tempSelectedNominee === reduxNominee && tempCatName === reduxData) {
-          return ".5rem";
-        } else {
-          return 0;
+          return "500";
         }
       }};
     }
@@ -77,12 +81,10 @@ const NominationContainer = styled.div`
 `;
 
 const UtilityContainer = styled.div`
-  position: relative;
-
   .nomimation-img {
     min-width: 24rem;
     width: 100%;
-
+    cursor: pointer;
     border-radius: 0.5rem;
     display: block;
     background-color: lightcoral;
@@ -100,44 +102,6 @@ const UtilityContainer = styled.div`
       justify-self: center;
     }
   }
-
-  .overlay {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    position: absolute;
-    z-index: 99;
-    top: 0;
-    left: 0;
-    background: rgb(0, 0, 0);
-    background: rgba(0, 0, 0, 0.5); /* Black see-through */
-    width: 100%;
-    height: 100%;
-    transition: 0.3s ease;
-    opacity: 0;
-
-    font-size: 2rem;
-    text-align: center;
-    border-radius: 5px;
-
-    .nominee-select {
-      cursor: pointer;
-      border: none;
-      background-color: ${accentColor[300]};
-      color: ${neutral[100]};
-      border-radius: 5px;
-      padding: 1rem 1.5rem;
-    }
-  }
-
-  @media (hover) {
-    &:hover {
-      .overlay {
-        opacity: 1;
-      }
-    }
-  }
 `;
 
 const Nomination = (props) => {
@@ -153,6 +117,8 @@ const Nomination = (props) => {
     votingSectionInView,
   } = props;
 
+  const dispatch = useDispatch();
+
   return (
     <NominationContainer
       tempSelectedNominee={itemId}
@@ -165,56 +131,56 @@ const Nomination = (props) => {
           console.log(itemId, currentCatName);
         }}
       >
-        {dataIsLoading ? (
-          <ContentLoader style={{ width: "100%" }} viewBox="0 0 280 280">
-            <rect x="0" y="0" rx="5" ry="5" width="280" height="280" />
-          </ContentLoader>
-        ) : (
-          <>
-            {isMobile && !dataIsLoading && (
-              <MobileNomination
-                dataIsLoading={dataIsLoading}
-                nomineeImg={nomineeImg}
-                nomineeName={nomineeName}
-                votingSectionInView={votingSectionInView}
-                votingSectionInViewData={votingSectionInViewData}
-                user={user}
-              />
-            )}
-            {!isMobile && !dataIsLoading && (
-              <DesktopNomination
-                dataIsLoading={dataIsLoading}
-                nomineeImg={nomineeImg}
-                itemId={itemId}
-                selectedNominee={selectedNominee}
-                currentCatName={currentCatName}
-                votingSectionInViewData={votingSectionInViewData}
-                user={user}
-                nomineeName={nomineeName}
-                votingSectionInView={votingSectionInView}
-              />
-            )}
-          </>
-        )}
+        <>
+          <NominationImage
+            dataIsLoading={dataIsLoading}
+            nomineeImg={nomineeImg}
+            itemId={itemId}
+            selectedNominee={selectedNominee}
+            currentCatName={currentCatName}
+            votingSectionInViewData={votingSectionInViewData}
+            user={user}
+            nomineeName={nomineeName}
+            votingSectionInView={votingSectionInView}
+          />
+        </>
       </UtilityContainer>
-
-      {dataIsLoading && (
-        <ContentLoader
-          style={{ width: "80%", marginTop: "1.2rem" }}
-          viewBox="0 0 280 25"
-        >
-          <rect x="0" y="0" rx="5" ry="5" width="280" height="25" />
-        </ContentLoader>
-      )}
-      {!dataIsLoading && (
-        <div className="nominee-info">
-          <h6 className="nominee-info-txt">{nomineeName}</h6>
-          {itemId === selectedNominee &&
-            currentCatName === votingSectionInViewData.cat_name && (
-              <SimpleTick />
-            )}
-        </div>
-      )}
+      <div className="nominee-info">
+        <span className="nominee-info-txt">{nomineeName}</span>
+        <AiOutlineHeart
+          className={
+            itemId === selectedNominee &&
+            currentCatName === votingSectionInViewData.cat_name
+              ? "hide_icon"
+              : "show_icon favorite_artist"
+          }
+          onClick={() => {
+            if (!user) {
+              dispatch(
+                showPopupMessage(true, "Login or Create an account to vote...")
+              );
+            } else {
+              let tempChoiceData = {};
+              tempChoiceData["nomineeName"] = nomineeName;
+              tempChoiceData["votingSectionInView"] = votingSectionInView;
+              tempChoiceData["allCatData"] = votingSectionInViewData;
+              tempChoiceData["voterData"] = user;
+              dispatch(setChoice(tempChoiceData));
+            }
+          }}
+        />
+        {itemId === selectedNominee &&
+          currentCatName === votingSectionInViewData.cat_name && (
+            <AiFillHeart
+              className={
+                itemId === selectedNominee &&
+                currentCatName === votingSectionInViewData.cat_name
+                  ? "show_icon favorite_artist"
+                  : "hide_icon"
+              }
+            />
+          )}
+      </div>
     </NominationContainer>
   );
 };

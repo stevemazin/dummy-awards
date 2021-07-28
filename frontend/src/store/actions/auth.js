@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 import {
   SIGN_UP_SUCCESS,
   SIGN_UP_FAIL,
@@ -159,6 +160,7 @@ export const login = (email, password) => async (dispatch) => {
       payload: res.data,
     });
     dispatch(setShowLoader(false));
+    toast.success("Successfully logged in!");
     dispatch(loadUser());
   } catch (err) {
     dispatch(setShowLoader(false));
@@ -197,12 +199,7 @@ export const signUp =
         payload: res.data,
       });
       if (res.status === 201) {
-        dispatch(
-          showPopupMessage(
-            true,
-            "Head on to your email & verify the account..."
-          )
-        );
+        toast("Head on to your email & verify the account...");
       }
     } catch (err) {
       if (err.response.data.email) {
@@ -313,4 +310,5 @@ export const logout = () => (dispatch) => {
   dispatch({
     type: LOGOUT,
   });
+  toast.success("Logged out. Hope to see you soon!");
 };
