@@ -7,6 +7,7 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { showPopupMessage } from "../../../store/actions/ui";
 import { setChoice } from "../../../store/actions";
 import NominationImage from "./NominationImage";
+import toast from "react-hot-toast";
 
 const NominationContainer = styled.div`
   text-align: center;
@@ -156,9 +157,7 @@ const Nomination = (props) => {
           }
           onClick={() => {
             if (!user) {
-              dispatch(
-                showPopupMessage(true, "Login or Create an account to vote...")
-              );
+              toast.error("Login or create an account to continue!");
             } else {
               let tempChoiceData = {};
               tempChoiceData["nomineeName"] = nomineeName;

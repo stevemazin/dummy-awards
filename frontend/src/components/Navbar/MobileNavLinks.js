@@ -24,7 +24,13 @@ const MobiNav = styled.div`
   width: 100%;
 `;
 
-const MobileNavbarLinks = ({ isOpen, isAuthenticated, logout, setIsOpen }) => {
+const MobileNavbarLinks = ({
+  isOpen,
+  isAuthenticated,
+  logout,
+  resetVoter,
+  setIsOpen,
+}) => {
   const [redirect, setRedirect] = useState(false);
 
   const logoutUser = () => {

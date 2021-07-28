@@ -28,4 +28,4 @@ export { setCurrentSongCategory } from "./songs";
 
 export { setCurrentArtistCategory } from "./artists";
 
-export { submitVote, setChoice, clearChoiceData } from "./voting";
+export { setChoice, clearChoiceData, resetVoter } from "./voting";

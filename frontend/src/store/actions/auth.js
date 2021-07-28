@@ -19,7 +19,8 @@ import {
   GOOGLE_AUTH_SUCCESS,
   GOOGLE_AUTH_FAIL,
 } from "./actionTypes";
-import { setShowLoader, showAuthMessage, showPopupMessage } from "./ui";
+import { setShowLoader, showAuthMessage } from "./ui";
+import { resetVoter } from "./voting";
 
 // Load user data if they successfuly sign in
 export const loadUser = () => async (dispatch) => {
@@ -159,6 +160,8 @@ export const login = (email, password) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
+
+    dispatch(resetVoter());
     dispatch(setShowLoader(false));
     toast.success("Successfully logged in!");
     dispatch(loadUser());
@@ -307,8 +310,10 @@ export const resetPassConfirm =
 
 // Log a user out
 export const logout = () => (dispatch) => {
+  dispatch(resetVoter());
   dispatch({
     type: LOGOUT,
   });
+
   toast.success("Logged out. Hope to see you soon!");
 };

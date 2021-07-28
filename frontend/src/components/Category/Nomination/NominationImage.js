@@ -27,7 +27,7 @@ const NominationImage = (props) => {
         className="nomimation-img"
         onClick={() => {
           if (!user) {
-            toast.error("Login or Create an account to vote...");
+            toast.error("Login or create an account to continue!");
           } else {
             let tempChoiceData = {};
             tempChoiceData["nomineeName"] = nomineeName;

@@ -54,9 +54,8 @@ const Layout = (props) => {
     <LayoutContainer>
       <GlobalStyles />
       <Toaster
-        position="top-center"
+        position="bottom-center"
         toastOptions={{
-          // Define default options
           duration: 5000,
           style: {
             fontSize: "1.6rem",

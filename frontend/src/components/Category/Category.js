@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { breakpoints } from "../Utilities";
 import Nomination from "./Nomination/Nomination";
 import { connect } from "react-redux";
-import { submitVote } from "../../store/actions";
 import { isMobile } from "react-device-detect";
+import { submitVotePromise, validateVote } from "./votingLogic";
+import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 
 const CategoryContainer = styled.div`
@@ -59,7 +60,8 @@ const Category = (props) => {
     selectedCategory,
     selectedChoice,
     voterId,
-    submitVote,
+    user,
+
     dataIsLoading,
   } = props;
 
@@ -76,6 +78,8 @@ const Category = (props) => {
     nomineeListName = "nominated_artists";
     nomineeNameForCat = "artist_name";
   }
+
+  const dispatch = useDispatch();
 
   return (
     <CategoryContainer>
@@ -98,12 +102,24 @@ const Category = (props) => {
         <button
           className={isMobile ? "mobi-btn" : "btn dsk-solid-btn"}
           onClick={() => {
-            submitVote(
+            const res = validateVote(
               currentSection,
               selectedCategory,
               selectedChoice,
-              voterId
+              user
             );
+
+            if (res.message) {
+              toast.error(res.message);
+            } else {
+              toast.promise(submitVotePromise(res), {
+                loading: "Voting...",
+                success: <b>Vote submitted successfully!</b>,
+                error: <b>Looks like you voted here already!</b>,
+              });
+
+              console.log(res);
+            }
           }}
         >
           Submit Vote
@@ -119,9 +135,8 @@ const mapStateToProps = (state) => {
     selectedCategory: state.voting.selectedCategory,
     selectedChoice: state.voting.selectedChoice,
     voterId: state.voting.voterId,
+    user: state.auth.user,
   };
 };
 
-export default connect(mapStateToProps, {
-  submitVote,
-})(Category);
+export default connect(mapStateToProps, {})(Category);

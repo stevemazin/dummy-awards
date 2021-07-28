@@ -24,6 +24,7 @@ const votingReducer = (state = initialState, action) => {
         selectedChoice: null,
         selectedCategory: null,
         msg: payload.msg,
+        voterId: null,
         successVoteData: payload.data, // Data obtained after the vote is casst succesfuly
         error: null,
       });
@@ -33,6 +34,7 @@ const votingReducer = (state = initialState, action) => {
         selectedCategory: null,
         msg: payload.msg,
         error: payload.error,
+        voterId: null,
       });
 
     case actionTypes.SET_CHOICE_IN_CAT:
@@ -70,6 +72,15 @@ const votingReducer = (state = initialState, action) => {
         selectedChoice: choice,
         selectedCategory: catId,
         voterId: voterId,
+      });
+
+    case actionTypes.RESET_VOTER:
+      return updateObject({
+        selectedCategory: null,
+        selectedChoice: null,
+        voterId: null,
+        msg: null,
+        error: null,
       });
     default:
       return state;
