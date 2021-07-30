@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.js": "/static/js/main.11246434.chunk.js",
-    "main.js.map": "/static/js/main.11246434.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.248907bc.js",
-    "runtime-main.js.map": "/static/js/runtime-main.248907bc.js.map",
-    "static/css/2.165ff965.chunk.css": "/static/css/2.165ff965.chunk.css",
-    "static/js/2.4f524be5.chunk.js": "/static/js/2.4f524be5.chunk.js",
-    "static/js/2.4f524be5.chunk.js.map": "/static/js/2.4f524be5.chunk.js.map",
+    "main.js": "/static/js/main.1cc18946.chunk.js",
+    "main.js.map": "/static/js/main.1cc18946.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.8233b8b5.js",
+    "runtime-main.js.map": "/static/js/runtime-main.8233b8b5.js.map",
+    "static/css/2.8d331ee6.chunk.css": "/static/css/2.8d331ee6.chunk.css",
+    "static/js/2.665c7861.chunk.js": "/static/js/2.665c7861.chunk.js",
+    "static/js/2.665c7861.chunk.js.map": "/static/js/2.665c7861.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/2.165ff965.chunk.css.map": "/static/css/2.165ff965.chunk.css.map",
-    "static/js/2.4f524be5.chunk.js.LICENSE.txt": "/static/js/2.4f524be5.chunk.js.LICENSE.txt",
+    "static/css/2.8d331ee6.chunk.css.map": "/static/css/2.8d331ee6.chunk.css.map",
+    "static/js/2.665c7861.chunk.js.LICENSE.txt": "/static/js/2.665c7861.chunk.js.LICENSE.txt",
     "static/media/1.e28f6d3c.svg": "/static/media/1.e28f6d3c.svg",
     "static/media/2.78962dd1.svg": "/static/media/2.78962dd1.svg",
     "static/media/3.4177daae.svg": "/static/media/3.4177daae.svg",
@@ -18,11 +18,11 @@
     "static/media/7.64b80f27.png": "/static/media/7.64b80f27.png",
     "static/media/8.1d7c7d2d.png": "/static/media/8.1d7c7d2d.png",
     "static/media/cover-main.c067d63b.jpg": "/static/media/cover-main.c067d63b.jpg",
+    "static/media/da.07d7bdd3.svg": "/static/media/da.07d7bdd3.svg",
+    "static/media/dummyHero.fa4592a3.svg": "/static/media/dummyHero.fa4592a3.svg",
     "static/media/facebook.80580ea2.svg": "/static/media/facebook.80580ea2.svg",
-    "static/media/google-logo.03ea2157.svg": "/static/media/google-logo.03ea2157.svg",
     "static/media/hero-logo.6d993d4e.svg": "/static/media/hero-logo.6d993d4e.svg",
     "static/media/instagram.67a8fa58.svg": "/static/media/instagram.67a8fa58.svg",
-    "static/media/logo.51294a6d.svg": "/static/media/logo.51294a6d.svg",
     "static/media/mega-concert.f98f0520.svg": "/static/media/mega-concert.f98f0520.svg",
     "static/media/orange-concert.e3acedc9.jpg": "/static/media/orange-concert.e3acedc9.jpg",
     "static/media/rapper-on-stage.5aee1e23.jpg": "/static/media/rapper-on-stage.5aee1e23.jpg",
@@ -31,9 +31,9 @@
     "static/media/twitter.58f978cb.svg": "/static/media/twitter.58f978cb.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.248907bc.js",
-    "static/css/2.165ff965.chunk.css",
-    "static/js/2.4f524be5.chunk.js",
-    "static/js/main.11246434.chunk.js"
+    "static/js/runtime-main.8233b8b5.js",
+    "static/css/2.8d331ee6.chunk.css",
+    "static/js/2.665c7861.chunk.js",
+    "static/js/main.1cc18946.chunk.js"
   ]
 }

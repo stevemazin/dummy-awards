@@ -5,7 +5,7 @@ import { setNavTransparent } from "../../store/actions";
 import { connect } from "react-redux";
 import heroImg from "../../assets/mega-concert.svg";
 import { Link } from "react-router-dom";
-import SliqLogo from "../Utilities/InlineSVGs/SliqLogo";
+import DummyAwardsLogo from "../Utilities/InlineSVGs/DALogo";
 
 const DevWrapper = styled.div`
   height: 100vh;
@@ -40,7 +40,7 @@ const ComingSoon = ({ setNavTransparent }) => {
       <div className="utility-container">
         <div className="home-link">
           <Link to="/">
-            <SliqLogo />
+            <DummyAwardsLogo />
           </Link>
         </div>
         <p>Feature Coming Soon!</p>

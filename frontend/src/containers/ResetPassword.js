@@ -9,19 +9,14 @@ import {
   accentColor,
   infoBlue,
   danger,
+  navyBlue,
 } from "../components/Utilities";
 import heroImg from "../assets/mega-concert.svg";
-import SliqLogo from "../components/Utilities/InlineSVGs/SliqLogo";
+import DummyAwardsLogo from "../components/Utilities/InlineSVGs/DALogo";
 
 const ResetPasswordContainer = styled.div`
   height: 100vh;
   width: 100%;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url(${heroImg});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,7 +32,7 @@ const FormWrapper = styled.div`
   }
 
   .form-header {
-    color: ${neutral[100]};
+    color: ${navyBlue[300]};
     margin-left: 1rem;
     margin-bottom: 1rem;
   }
@@ -127,7 +122,7 @@ const ResetPassword = ({ resetPassword }) => {
       <FormWrapper>
         <div className="home-link">
           <Link to="/">
-            <SliqLogo />
+            <DummyAwardsLogo />
           </Link>
         </div>
         <h2 className="form-header">Request Password Reset</h2>

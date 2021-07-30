@@ -77,15 +77,18 @@ const Intro = () => {
       <Container>
         <IntroWrapper>
           <TextWrapper>
-            <SectionHeader>A Show for Creatives</SectionHeader>
+            <SectionHeader>By Creatives for Creatives</SectionHeader>
             <Paragraph>
-              Sliq Awards is considered the most prestigious award show in
-              music, and digital design. For over 15 years, the Sliq Master
-              Crafter has been regarded as one of the top prizes in the creative
-              industry. Sliq Events Inc. has had a rich legacy of honoring some
-              of the most groundbreaking ideas, created by some of the most
-              remarkable minds in the industry. Our main agenda is to celebrate
-              the art culture, and reward the players.
+              Dummy Awards is considered the most prestigious award show in
+              music, and digital design. For over 15 years, the Master Crafter
+              has been regarded as one of the top prizes in the creative
+              industry.
+            </Paragraph>
+            <Paragraph>
+              Dummy Events Inc. has had a rich legacy of honoring some of the
+              most groundbreaking ideas, created by some of the most remarkable
+              minds in the industry. Our main agenda is to celebrate the art
+              culture.
             </Paragraph>
           </TextWrapper>
 

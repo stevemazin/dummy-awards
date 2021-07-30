@@ -1,7 +1,14 @@
 import React from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
-import { Container, neutral, accentColor } from "../../Utilities";
+import {
+  Container,
+  neutral,
+  accentColor,
+  navyBlue,
+  Header4,
+  Header2,
+} from "../../Utilities";
 
 import logo1 from "../../../assets/sponsor-logos/b&w/1.png";
 import logo2 from "../../../assets/sponsor-logos/b&w/4.png";
@@ -13,14 +20,12 @@ const SponsorsWrapper = styled.div`
   padding: 5rem 0 5rem 0;
   width: 100%;
   height: fit-content;
-  background-color: ${neutral[300]};
+  background-color: ${navyBlue[300]};
 
   .sponsor-header {
     margin-bottom: 2rem;
     color: ${accentColor[300]};
     text-align: center;
-    font-size: 1.6rem;
-    font-weight: 300;
   }
 `;
 
@@ -88,7 +93,7 @@ const SponsorsCarousel = () => {
   return (
     <SponsorsWrapper>
       <Container>
-        <h2 className="sponsor-header">Proudly Sponsored By</h2>
+        <Header2 className="sponsor-header">Proudly Sponsored By</Header2>
         <Slider {...settings}>
           <SponsorLogo src={logo1} />
           <SponsorLogo src={logo2} />

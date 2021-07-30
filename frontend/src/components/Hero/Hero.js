@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import BigLogo from "../../assets/hero-logo.svg";
+import BigDummy from "../../assets/dummyHero.svg";
+
 import heroImg from "../../assets/cover-main.jpg";
 import { neutral } from "../Utilities";
 import { Link } from "react-router-dom";
@@ -76,7 +78,7 @@ const Hero = () => {
       <HeroSection ref={ref}>
         <>
           <div>
-            <LogoGfx src={BigLogo} />
+            <LogoGfx src={BigDummy} />
           </div>
           <p className="tag-line">
             Rewarding Extra Ordinery Work in the Industry

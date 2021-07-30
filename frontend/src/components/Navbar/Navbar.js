@@ -5,13 +5,13 @@ import { connect } from "react-redux";
 import { Container } from "../Utilities/Container";
 import { accentColor, neutral, navyBlue, breakpoints } from "../Utilities";
 import { setMobile, setNavSolid, setNavTransparent } from "../../store/actions";
-import SliqLogo from "../Utilities/InlineSVGs/SliqLogo";
 import { useMediaQuery } from "react-responsive";
 import MenuToggle from "./MenuToggle";
 import MobileNavbarLinks from "./MobileNavLinks";
 import DefaultNavLinks from "./DefaultNavLinks";
 import { isMobile } from "react-device-detect";
 import { useDispatch } from "react-redux";
+import dummyLogo from "../../assets/da.svg";
 
 const NavContainer = styled(Container)`
   height: 100%;
@@ -20,38 +20,32 @@ const NavContainer = styled(Container)`
 const NavSection = styled.nav`
   height: 6rem;
   width: 100%;
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
+  margin-top: -6rem;
   font-size: 1.6rem;
-  z-index: 999;
+  z-index: 9999;
   transition: all 200ms ease-in-out;
+  color: ${({ navBgColor }) =>
+    navBgColor === "transparent" ? neutral[100] : navyBlue[300]};
 
   .link-btn {
+    background-color: transparent;
+    height: 4.2rem;
+    width: fit-content;
+    padding: 0 1rem;
+    outline: none;
+    border: none;
+    color: inherit;
     display: flex;
     align-items: center;
-    height: 4.2rem;
 
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    color: ${({ navBgColor }) => {
-      if (navBgColor === "#2d5d78") {
-        return navyBlue[300];
-      } else {
-        return neutral[300];
-      }
-    }};
-    font-size: 1.6rem;
-
-    &:hover,
-    &:active {
+    &:hover {
       color: ${accentColor[300]};
     }
 
     span {
-      margin-left: 0.5rem;
+      margin-left: 0.4rem;
     }
   }
 
@@ -59,15 +53,6 @@ const NavSection = styled.nav`
     display: flex;
     align-items: center;
     height: 4.2rem;
-
-    text-decoration: none;
-    color: ${({ navBgColor }) => {
-      if (navBgColor === "#2d5d78") {
-        return navyBlue[300];
-      } else {
-        return neutral[300];
-      }
-    }};
 
     &:hover {
       color: ${accentColor[300]};
@@ -101,7 +86,19 @@ const RightSection = styled.div`
 
 const LeftSection = styled.div``;
 
-const Nav = ({ navBgColor, isAuthenticated, heroIsVisible }) => {
+const LogoGfx = styled.img`
+  height: 4rem;
+
+  @media screen and (max-width: ${breakpoints.Medium}) {
+    height: 3.6rem;
+  }
+
+  @media screen and (max-width: ${breakpoints.Tablet}) {
+    height: 3.2rem;
+  }
+`;
+
+const Nav = ({ isAuthenticated, heroIsVisible, stickyNav, navBgColor }) => {
   const dispatch = useDispatch();
   const isTabletWidth = useMediaQuery({ maxWidth: breakpoints.Tablet });
   const [isOpen, setIsOpen] = useState(false);
@@ -116,16 +113,32 @@ const Nav = ({ navBgColor, isAuthenticated, heroIsVisible }) => {
     }
   }, [isTabletWidth, dispatch, heroIsVisible]);
 
+  const getNavStyleName = (navBgColor, stickyNav) => {
+    let navClassNames = "";
+
+    if (navBgColor === "#2d5d78") {
+      navClassNames = "inView";
+    } else {
+      navClassNames = "notInView";
+    }
+
+    if (stickyNav) {
+      navClassNames += " sticky-nav-styles";
+    }
+
+    return navClassNames;
+  };
+
   return (
     <NavSection
+      className={getNavStyleName(navBgColor, stickyNav)}
       navBgColor={navBgColor}
-      className={navBgColor === "#2d5d78" ? "inView" : "notInView"}
     >
       <NavContainer>
         <NavWrapper>
           <LeftSection>
             <Link to="/">
-              <SliqLogo />
+              <LogoGfx src={dummyLogo} />
             </Link>
           </LeftSection>
           <RightSection>
@@ -161,6 +174,7 @@ const mapStateToProps = (state) => {
     heroIsVisible: state.ui.heroIsVisible,
     heroIsPresent: state.ui.heroIsPresent,
     navBgColor: state.ui.navBgColor,
+    stickyNav: state.ui.stickyNav,
     isAuthenticated: state.auth.isAuthenticated,
   };
 };

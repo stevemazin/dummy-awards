@@ -9,6 +9,7 @@ import NewsCarousel from "../components/Carousels/NewsCarousel/NewsCarousel";
 import Footer from "../components/Footer/Footer";
 import { connect } from "react-redux";
 import Navbar from "../components/Navbar/Navbar";
+import MiniFooter from "../components/Footer/MiniFooter";
 
 const Home = ({ blogPosts }) => {
   return (
@@ -17,8 +18,6 @@ const Home = ({ blogPosts }) => {
       <Hero />
       <Intro />
       <Steps />
-      <NewsCarousel posts={blogPosts} />
-      <Tickets />
       <SponsorsCarousel />
       <Footer />
     </InView>

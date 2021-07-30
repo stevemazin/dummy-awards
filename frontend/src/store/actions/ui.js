@@ -29,6 +29,18 @@ export const setNavSolid = (heroIsVisibleVal) => {
   };
 };
 
+export const setNavSticky = () => {
+  return {
+    type: actionTypes.SET_NAV_STICKY_TOP,
+  };
+};
+
+export const setNavFluid = () => {
+  return {
+    type: actionTypes.SET_NAV_FLUID,
+  };
+};
+
 export const setVotingSectionInView = (section, sectionData) => {
   return {
     type: actionTypes.SET_VOTING_SECTION_IN_VIEW,
@@ -81,6 +93,13 @@ export const clearAuthMessage = () => {
 export const setMobile = (val) => {
   return {
     type: actionTypes.SET_MOBILE,
+    payload: val,
+  };
+};
+
+export const setCatNameInView = (val) => {
+  return {
+    type: actionTypes.SET_CAT_NAME_IN_VIEW,
     payload: val,
   };
 };

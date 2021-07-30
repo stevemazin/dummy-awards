@@ -7,16 +7,22 @@ import MiniHero from "../components/Hero/MiniHero/MiniHero";
 import Footer from "../components/Footer/Footer";
 import {
   setVotingSectionInView,
-  setCurrentMovieCategory,
-  setCurrentArtistCategory,
-  setCurrentSongCategory,
   clearChoiceData,
+  setNavFluid,
+  setNavTransparent,
 } from "../store/actions";
 import { Link } from "react-router-dom";
 import { accentColor, navyBlue, neutral } from "../components/Utilities";
 import Navbar from "../components/Navbar/Navbar";
 import axios from "axios";
 import * as actionTypes from "../store/actions/actionTypes";
+import {
+  getSectionAndTotalCategories,
+  setNext,
+  setPrevious,
+} from "./voteWorkers";
+import { animateScroll as scroll } from "react-scroll";
+import { ViewController } from "./votingStyledComponents";
 
 const VoteWrapper = styled.div`
   font-size: 1.6rem;
@@ -32,9 +38,15 @@ const SectionNavigator = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  .box_shadow {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
 
   .cat-changer-btn {
-    z-index: 99;
+    z-index: 999;
     outline: none;
     border: none;
     background-color: ${neutral[100]};
@@ -42,6 +54,8 @@ const SectionNavigator = styled.div`
     width: 4.5rem;
     border-radius: 5px;
     cursor: pointer;
+
+    left: 0;
 
     @media (hover) {
       &:hover {
@@ -66,34 +80,38 @@ const SectionNavigator = styled.div`
 `;
 
 const MainSectionWrapper = styled.div`
+  padding-top: 1rem;
   margin: 2rem auto;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: min-content;
 `;
 
-const VotingCategories = styled.div`
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+const VotingInner = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: fit-content;
   gap: 1rem;
+  padding-top: 1rem;
 
   .cat-link {
     text-align: center;
     text-decoration: none;
     font-size: 1.6rem;
-    color: ${navyBlue[300]};
+    font-weight: bold;
+    color: ${neutral[100]};
     padding-top: 1rem;
     padding-bottom: 1rem;
-    border-radius: 5px;
   }
 
   .cat-link-active {
     color: ${accentColor[300]};
-    border: 1px solid ${accentColor[300]};
+    border-bottom: 3px solid ${accentColor[300]};
   }
+`;
+
+const VotingCategories = styled.div`
+  background-color: ${navyBlue[300]};
 `;
 
 const Vote = (props) => {
@@ -109,6 +127,7 @@ const Vote = (props) => {
     totalArtistCategories,
     totalMovieCategories,
     totalSongCategories,
+    catNameInView,
   } = props;
 
   const dispatch = useDispatch();
@@ -198,168 +217,113 @@ const Vote = (props) => {
         setIsLoading(false);
       }, [2000]);
     }
-  }, [dispatch]);
+  }, [dispatch, songCategories, movieCategories, artistCategories]);
 
-  let currentSectionIndex = null;
-  let totalCategoriesInCurrentSection = null;
+  const { currentSectionIndex, totalCategoriesInCurrentSection } =
+    getSectionAndTotalCategories(
+      votingSectionInView,
+      currentSongCategory,
+      totalSongCategories,
+      currentMovieCategory,
+      totalMovieCategories,
+      currentArtistCategory,
+      totalArtistCategories
+    );
 
-  if (votingSectionInView === "songs") {
-    currentSectionIndex = currentSongCategory;
-    totalCategoriesInCurrentSection = totalSongCategories;
-  } else if (votingSectionInView === "movies") {
-    currentSectionIndex = currentMovieCategory;
-    totalCategoriesInCurrentSection = totalMovieCategories;
-  } else {
-    currentSectionIndex = currentArtistCategory;
-    totalCategoriesInCurrentSection = totalArtistCategories;
-  }
-
-  const setPrevious = (
-    currentSection,
-    totalCategoriesInSection,
-    currentSectionInd
-  ) => {
-    const currentIndex = parseInt(currentSectionInd, 10);
-    let previousCatInSection = null;
-
-    if (currentIndex - 1 < 0) {
-      previousCatInSection = parseInt(totalCategoriesInSection) - 1;
-    } else {
-      previousCatInSection = currentIndex - 1;
-    }
-
-    if (currentSection === "songs") {
-      dispatch(setCurrentSongCategory(previousCatInSection));
-      dispatch(
-        setVotingSectionInView("songs", songCategories[previousCatInSection])
-      );
-      dispatch(clearChoiceData());
-    } else if (currentSection === "movies") {
-      dispatch(setCurrentMovieCategory(previousCatInSection));
-      dispatch(
-        setVotingSectionInView("movies", movieCategories[previousCatInSection])
-      );
-      dispatch(clearChoiceData());
-    } else {
-      dispatch(setCurrentArtistCategory(previousCatInSection));
-      dispatch(
-        setVotingSectionInView(
-          "artists",
-          artistCategories[previousCatInSection]
-        )
-      );
-      dispatch(clearChoiceData());
-    }
-  };
-
-  const setNext = (
-    currentSection,
-    totalCategoriesInSection,
-    currentSectionInd
-  ) => {
-    const currentIndex = parseInt(currentSectionInd, 10);
-    let nextCatInSection = null;
-
-    if (currentIndex + 1 >= parseInt(totalCategoriesInSection)) {
-      nextCatInSection = 0;
-    } else {
-      nextCatInSection = currentIndex + 1;
-    }
-
-    if (currentSection === "songs") {
-      dispatch(setCurrentSongCategory(nextCatInSection));
-      dispatch(
-        setVotingSectionInView("songs", songCategories[nextCatInSection])
-      );
-      dispatch(clearChoiceData());
-    } else if (currentSection === "movies") {
-      dispatch(setCurrentMovieCategory(nextCatInSection));
-      dispatch(
-        setVotingSectionInView("movies", movieCategories[nextCatInSection])
-      );
-      dispatch(clearChoiceData());
-    } else {
-      dispatch(setCurrentArtistCategory(nextCatInSection));
-      dispatch(
-        setVotingSectionInView("artists", artistCategories[nextCatInSection])
-      );
-      dispatch(clearChoiceData());
-    }
+  const goToTopOfList = () => {
+    scroll.scrollTo(400, {
+      duration: 1000,
+      delay: 10,
+      smooth: "easeInOutQuint",
+    });
   };
 
   return (
     <>
       <Navbar />
       <MiniHero />
-      <Container>
-        <VoteWrapper>
-          <VotingCategories>
-            <Link
-              onClick={() => {
-                dispatch(
-                  setVotingSectionInView(
-                    "songs",
-                    songCategories[parseInt(currentSongCategory, 10)]
-                  )
-                );
-                dispatch(clearChoiceData());
-              }}
-              to="/vote"
-              className={
-                votingSectionInView === "songs"
-                  ? "cat-link cat-link-active"
-                  : "cat-link"
-              }
-            >
-              Songs
-            </Link>
-            <Link
-              onClick={() => {
-                dispatch(
-                  setVotingSectionInView(
-                    "movies",
-                    movieCategories[parseInt(currentMovieCategory, 10)]
-                  )
-                );
-                dispatch(clearChoiceData());
-              }}
-              to="/vote"
-              className={
-                votingSectionInView === "movies"
-                  ? "cat-link cat-link-active"
-                  : "cat-link"
-              }
-            >
-              Movies
-            </Link>
-            <Link
-              onClick={() => {
-                dispatch(
-                  setVotingSectionInView(
-                    "artists",
-                    artistCategories[parseInt(currentArtistCategory, 10)]
-                  )
-                );
-                dispatch(clearChoiceData());
-              }}
-              to="/vote"
-              className={
-                votingSectionInView === "artists"
-                  ? "cat-link cat-link-active"
-                  : "cat-link"
-              }
-            >
-              Artists
-            </Link>
-          </VotingCategories>
+      <ViewController>
+        <VotingCategories>
+          <Container>
+            <VotingInner>
+              <Link
+                onClick={() => {
+                  dispatch(
+                    setVotingSectionInView(
+                      "songs",
+                      songCategories[parseInt(currentSongCategory, 10)]
+                    )
+                  );
+                  dispatch(clearChoiceData());
+                  goToTopOfList();
+                }}
+                to="/vote"
+                className={
+                  votingSectionInView === "songs"
+                    ? "cat-link cat-link-active"
+                    : "cat-link"
+                }
+              >
+                Songs
+              </Link>
+              <Link
+                onClick={() => {
+                  dispatch(
+                    setVotingSectionInView(
+                      "movies",
+                      movieCategories[parseInt(currentMovieCategory, 10)]
+                    )
+                  );
+                  dispatch(clearChoiceData());
+                  goToTopOfList();
+                }}
+                to="/vote"
+                className={
+                  votingSectionInView === "movies"
+                    ? "cat-link cat-link-active"
+                    : "cat-link"
+                }
+              >
+                Movies
+              </Link>
+              <Link
+                onClick={() => {
+                  dispatch(
+                    setVotingSectionInView(
+                      "artists",
+                      artistCategories[parseInt(currentArtistCategory, 10)]
+                    )
+                  );
+                  dispatch(clearChoiceData());
+                  goToTopOfList();
+                }}
+                to="/vote"
+                className={
+                  votingSectionInView === "artists"
+                    ? "cat-link cat-link-active"
+                    : "cat-link"
+                }
+              >
+                Artists
+              </Link>
+            </VotingInner>
+          </Container>
+        </VotingCategories>
+
+        <Container>
           <SectionNavigator>
             <button
               onClick={() => {
                 setPrevious(
                   votingSectionInView,
                   totalCategoriesInCurrentSection,
-                  currentSectionIndex
+                  currentSectionIndex,
+                  songCategories,
+                  movieCategories,
+                  artistCategories,
+                  dispatch
                 );
+                goToTopOfList();
               }}
               className="cat-changer-btn"
             >
@@ -374,13 +338,21 @@ const Vote = (props) => {
                 <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
               </svg>
             </button>
+
+            <h4>{catNameInView}</h4>
+
             <button
               onClick={() => {
                 setNext(
                   votingSectionInView,
                   totalCategoriesInCurrentSection,
-                  currentSectionIndex
+                  currentSectionIndex,
+                  songCategories,
+                  movieCategories,
+                  artistCategories,
+                  dispatch
                 );
+                goToTopOfList();
               }}
               className="cat-changer-btn"
             >
@@ -396,6 +368,11 @@ const Vote = (props) => {
               </svg>
             </button>
           </SectionNavigator>
+        </Container>
+      </ViewController>
+
+      <Container>
+        <VoteWrapper>
           <MainSectionWrapper>
             {votingSectionInViewData ? (
               <Category
@@ -404,6 +381,7 @@ const Vote = (props) => {
                 currentSection={votingSectionInView}
                 categoriesList={votingSectionInViewData}
                 totalCategoriesInSection={totalCategoriesInCurrentSection}
+                goToTopOfList={goToTopOfList}
               />
             ) : (
               <div className="nomination-errors">
@@ -432,6 +410,7 @@ const mapStateToProps = (state) => {
     totalSongCategories: state.songs.totalSongCategories,
     totalMovieCategories: state.movies.totalMovieCategories,
     totalArtistCategories: state.artists.totalArtistCategories,
+    catNameInView: state.ui.catNameInView,
   };
 };
 

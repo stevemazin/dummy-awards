@@ -238,10 +238,12 @@ export const activateUser = (uid, token) => async (dispatch) => {
     dispatch({
       type: ACTIVATION_SUCCESS,
     });
+    toast.success("Success!");
   } catch (err) {
     dispatch({
       type: ACTIVATION_FAIL,
     });
+    toast.error("Something went wrong...");
   }
 };
 
@@ -265,10 +267,12 @@ export const resetPassword = (email) => async (dispatch) => {
     dispatch({
       type: PASSWORD_RESET_SUCCESS,
     });
+    toast.success("Success");
   } catch (err) {
     dispatch({
       type: PASSWORD_RESET_FAIL,
     });
+    toast.error("Something went wrong...");
   }
 };
 

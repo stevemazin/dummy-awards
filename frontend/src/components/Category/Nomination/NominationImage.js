@@ -2,7 +2,6 @@ import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useDispatch } from "react-redux";
 import { setChoice } from "../../../store/actions";
-import { showPopupMessage } from "../../../store/actions/ui";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import toast from "react-hot-toast";
 
@@ -21,8 +20,8 @@ const NominationImage = (props) => {
       <LazyLoadImage
         alt="Nominee"
         src={nomineeImg} // use normal <img> attributes as props
-        height={nomineeImg.height}
-        width={nomineeImg.width}
+        height="100%"
+        width="100%"
         effect="blur"
         className="nomimation-img"
         onClick={() => {

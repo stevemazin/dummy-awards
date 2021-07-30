@@ -98,6 +98,10 @@ const UtilityContainer = styled.div`
       min-width: 18rem;
     }
 
+    @media screen and (max-width: 450px) {
+      min-width: 12rem;
+    }
+
     @media screen and (max-width: ${breakpoints.Tablet}) {
       align-self: center;
       justify-self: center;

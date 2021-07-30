@@ -8,11 +8,13 @@ export const navyBlue = {
 
 // Orange => 5% Diff
 export const accentColor = {
-  100: "#f47a56",
-  200: "#f26a41",
-  300: "#F1592C",
-  400: "#d95028",
-  500: "#c14723",
+  100: "#b5f1d6",
+  200: "#b1f0d3",
+
+  300: "#adefd1",
+
+  400: "#a4e3c7",
+  500: "#9cd7bc",
 };
 
 // Yellow => 5% Diff

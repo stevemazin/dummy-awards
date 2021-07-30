@@ -6,10 +6,14 @@ import {
   clearChoiceData,
 } from "../store/actions";
 
-const setPrevious = (
+export const setPrevious = (
   currentSection,
   totalCategoriesInSection,
-  currentSectionInd
+  currentSectionInd,
+  songCategories,
+  movieCategories,
+  artistCategories,
+  dispatch
 ) => {
   const currentIndex = parseInt(currentSectionInd, 10);
   let previousCatInSection = null;
@@ -20,28 +24,35 @@ const setPrevious = (
     previousCatInSection = currentIndex - 1;
   }
 
-  console.log("Current: " + currentSectionIndex);
-  console.log("Previous: " + previousCatInSection);
-
   if (currentSection === "songs") {
-    setCurrentSongCategory(previousCatInSection);
-    setVotingSectionInView("songs", songCategories[previousCatInSection]);
-    clearChoiceData();
+    dispatch(setCurrentSongCategory(previousCatInSection));
+    dispatch(
+      setVotingSectionInView("songs", songCategories[previousCatInSection])
+    );
+    dispatch(clearChoiceData());
   } else if (currentSection === "movies") {
-    setCurrentMovieCategory(previousCatInSection);
-    setVotingSectionInView("movies", movieCategories[previousCatInSection]);
-    clearChoiceData();
+    dispatch(setCurrentMovieCategory(previousCatInSection));
+    dispatch(
+      setVotingSectionInView("movies", movieCategories[previousCatInSection])
+    );
+    dispatch(clearChoiceData());
   } else {
-    setCurrentArtistCategory(previousCatInSection);
-    setVotingSectionInView("artists", artistCategories[previousCatInSection]);
-    clearChoiceData();
+    dispatch(setCurrentArtistCategory(previousCatInSection));
+    dispatch(
+      setVotingSectionInView("artists", artistCategories[previousCatInSection])
+    );
+    dispatch(clearChoiceData());
   }
 };
 
-const setNext = (
+export const setNext = (
   currentSection,
   totalCategoriesInSection,
-  currentSectionInd
+  currentSectionInd,
+  songCategories,
+  movieCategories,
+  artistCategories,
+  dispatch
 ) => {
   const currentIndex = parseInt(currentSectionInd, 10);
   let nextCatInSection = null;
@@ -52,20 +63,47 @@ const setNext = (
     nextCatInSection = currentIndex + 1;
   }
 
-  console.log("Current: " + currentSectionIndex);
-  console.log("Next: " + nextCatInSection);
-
   if (currentSection === "songs") {
-    setCurrentSongCategory(nextCatInSection);
-    setVotingSectionInView("songs", songCategories[nextCatInSection]);
-    clearChoiceData();
+    dispatch(setCurrentSongCategory(nextCatInSection));
+    dispatch(setVotingSectionInView("songs", songCategories[nextCatInSection]));
+    dispatch(clearChoiceData());
   } else if (currentSection === "movies") {
-    setCurrentMovieCategory(nextCatInSection);
-    setVotingSectionInView("movies", movieCategories[nextCatInSection]);
-    clearChoiceData();
+    dispatch(setCurrentMovieCategory(nextCatInSection));
+    dispatch(
+      setVotingSectionInView("movies", movieCategories[nextCatInSection])
+    );
+    dispatch(clearChoiceData());
   } else {
-    setCurrentArtistCategory(nextCatInSection);
-    setVotingSectionInView("artists", artistCategories[nextCatInSection]);
-    clearChoiceData();
+    dispatch(setCurrentArtistCategory(nextCatInSection));
+    dispatch(
+      setVotingSectionInView("artists", artistCategories[nextCatInSection])
+    );
+    dispatch(clearChoiceData());
   }
+};
+
+export const getSectionAndTotalCategories = (
+  votingSectionInView,
+  currentSongCategory,
+  totalSongCategories,
+  currentMovieCategory,
+  totalMovieCategories,
+  currentArtistCategory,
+  totalArtistCategories
+) => {
+  let currentSectionIndex = null;
+  let totalCategoriesInCurrentSection = null;
+
+  if (votingSectionInView === "songs") {
+    currentSectionIndex = currentSongCategory;
+    totalCategoriesInCurrentSection = totalSongCategories;
+  } else if (votingSectionInView === "movies") {
+    currentSectionIndex = currentMovieCategory;
+    totalCategoriesInCurrentSection = totalMovieCategories;
+  } else {
+    currentSectionIndex = currentArtistCategory;
+    totalCategoriesInCurrentSection = totalArtistCategories;
+  }
+
+  return { currentSectionIndex, totalCategoriesInCurrentSection };
 };

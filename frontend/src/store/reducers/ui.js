@@ -8,15 +8,22 @@ const initialState = {
   navBgColor: "",
   votingSectionInView: "",
   votingSectionInViewData: null,
+  catNameInView: null,
   showPopupMessage: false,
   popupMessage: "",
   showAuthMessage: false,
   authMessage: "",
   showLoader: false,
+  stickyNav: true,
 };
 
 const uiReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.SET_CAT_NAME_IN_VIEW:
+      return updateObject(state, {
+        catNameInView: action.payload,
+      });
+
     case actionTypes.SET_VOTING_SECTION_IN_VIEW:
       return updateObject(state, {
         votingSectionInView: action.payload.section,
@@ -64,6 +71,14 @@ const uiReducer = (state = initialState, action) => {
     case actionTypes.SWITCH_NAV_BG_SOLID:
       console.log("Switching to solid (ui.js)");
       return updateObject(state, { navBgColor: "#2d5d78" });
+    case actionTypes.SET_NAV_STICKY_TOP:
+      return updateObject(state, {
+        stickyNav: true,
+      });
+    case actionTypes.SET_NAV_FLUID:
+      return updateObject(state, {
+        stickyNav: false,
+      });
     default:
       return state;
   }

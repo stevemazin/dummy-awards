@@ -54,11 +54,12 @@ const Layout = (props) => {
     <LayoutContainer>
       <GlobalStyles />
       <Toaster
-        position="bottom-center"
+        position="bottom-left"
         toastOptions={{
           duration: 5000,
           style: {
             fontSize: "1.6rem",
+            zIndex: "9999999",
           },
         }}
       />

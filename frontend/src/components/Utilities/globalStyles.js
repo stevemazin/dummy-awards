@@ -29,6 +29,11 @@ const GlobalStyles = createGlobalStyle`
         font-size: 62.5%;
     }
 
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
     body {
         background-color: #EEEEEE;
 
@@ -36,8 +41,53 @@ const GlobalStyles = createGlobalStyle`
             background-color: ${neutral[100]};
         }
 
+        .sticky-nav-styles {
+            position: sticky;
+            top: 0;
+        }
+
+        .fluid-nav-styles {
+            background-color: purple;
+        }
+
         .notInView {
             background-color: transparent;
+        }
+
+
+        .icon-navigator-btn {
+            z-index: 99;
+            outline: none;
+            border: none;
+            background-color: ${neutral[100]};
+            height: 4.5rem;
+            width: 4.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+
+            &:not(:last-child) {
+            margin-right: 2rem;
+            }
+
+            @media (hover) {
+            &:hover {
+                background-color: ${neutral[200]};
+            }
+            }
+
+            &:acitve {
+            background-color: ${neutral[200]};
+            }
+
+            .section-nav-icons {
+            fill: ${accentColor[300]};
+
+            @media (hover) {
+                &:hover {
+                fill: ${accentColor[400]};
+                }
+            }
+            }
         }
         
         .fx-dark-btn {

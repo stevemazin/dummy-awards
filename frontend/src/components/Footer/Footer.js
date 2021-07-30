@@ -1,55 +1,44 @@
 import React from "react";
 import styled from "styled-components";
 import { FooterContainer } from "../Utilities/Container";
-import logo from "../../assets/logo.svg";
-import { Header4, Paragraph } from "../Utilities/Typography";
-import { Link } from "react-router-dom";
+import logo from "../../assets/da.svg";
+
 import { navyBlue, accentColor, neutral, breakpoints } from "../Utilities";
-import LinkItem from "./LinkItem/LinkItem";
 import twitter from "../../assets/twitter.svg";
 import facebook from "../../assets/facebook.svg";
 import instagram from "../../assets/instagram.svg";
+import { animateScroll as scroll } from "react-scroll";
+import { FaAngleUp } from "react-icons/fa";
 
 const FooterSection = styled.section`
   padding: 2rem 0 0 0;
   font-size: 1.6rem;
   height: fit-content;
-  background-color: ${navyBlue[300]};
-`;
+  background-color: ${navyBlue[400]};
 
-const FooterWrapper = styled.div`
-  padding: 3rem 0 2rem 0;
-
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-
-  .second .third {
-    justify-self: center;
-
-    background-color: red;
-  }
-
-  @media screen and (max-width: ${breakpoints.Medium}) {
-    grid-template-columns: repeat(2, 1fr);
-
-    .second .last {
-      justify-self: center;
-    }
-  }
-
-  @media screen and (max-width: ${breakpoints.Tablet}) {
-    grid-template-columns: 1fr;
-
-    .first .second .third .last {
-      justify-self: start;
-    }
+  .footer_bottom {
+    background-color: ${navyBlue[500]};
+    text-align: center;
+    padding: 1.6rem 0;
   }
 `;
 
-const SubSection = styled.div``;
+const SubSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  .sub_right {
+  }
+  .sub_left {
+    display: flex;
+    align-items: center;
+  }
+`;
 
 const LogoGfx = styled.img`
+  margin-right: 2rem;
   height: 4rem;
 
   @media screen and (max-width: ${breakpoints.Medium}) {
@@ -59,19 +48,6 @@ const LogoGfx = styled.img`
   @media screen and (max-width: ${breakpoints.Tablet}) {
     height: 3.2rem;
   }
-`;
-
-const LinksHeader = styled(Header4)`
-  margin-bottom: 0.5rem;
-`;
-
-const LinksList = styled.ul`
-  list-style: none;
-`;
-
-const FooterParagraph = styled.p`
-  line-height: 1.6;
-  color: ${neutral[300]};
 `;
 
 const SocialsContainer = styled.div`
@@ -91,45 +67,28 @@ const SocialGfx = styled.img`
   }
 `;
 
-const BottomSection = styled.div`
-  font-size: 1.4rem;
-  padding: 1.5rem 0;
-  border-top: 0.15rem solid ${accentColor[300]};
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  @media screen and (max-width: ${breakpoints.Phone}) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-`;
-
-const ExtraLinks = styled.div``;
-
 const DevSection = styled.p`
   line-height: 1.6;
   color: ${neutral[300]};
 `;
 
-const UtilityParagraph = styled(Paragraph)`
+const ToTop = styled.button`
+  font-size: 1.8rem;
+  height: 4.5rem;
+  width: 4.5rem;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: ${navyBlue[500]};
   color: ${neutral[100]};
-`;
 
-const ExtraLink = styled(Link)`
-  text-decoration: none;
-  color: ${neutral[100]};
-
-  &:not(:last-child) {
-    margin-right: 1rem;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
-    color: ${accentColor[300]};
-  }
-
-  @media screen and (max-width: ${breakpoints.Phone}) {
-    line-height: 1.6;
+    background-color: ${accentColor[300]};
   }
 `;
 
@@ -137,57 +96,9 @@ const Footer = () => {
   return (
     <FooterSection>
       <FooterContainer>
-        <FooterWrapper>
-          <SubSection className="first">
+        <SubSection>
+          <div className="sub_left">
             <LogoGfx src={logo} />
-            <UtilityParagraph>Since 2005</UtilityParagraph>
-          </SubSection>
-          <SubSection className="second">
-            <LinksHeader>sliq-awards</LinksHeader>
-            <LinksList>
-              <li>
-                <LinkItem destination="/" destinationTag="Home" />
-              </li>
-              <li>
-                <LinkItem destination="/gallery" destinationTag="Gallery" />
-              </li>
-              <li>
-                <LinkItem destination="/vote" destinationTag="Vote" />
-              </li>
-              <li>
-                <LinkItem destination="/winners" destinationTag="Winners" />
-              </li>
-            </LinksList>
-          </SubSection>
-          <SubSection className="third">
-            <LinksHeader>quick-links</LinksHeader>
-            <LinksList>
-              <li>
-                <LinkItem
-                  destination="/submit-work"
-                  destinationTag="Submit your work"
-                />
-              </li>
-              <li>
-                <LinkItem
-                  destination="/advertise-with-us"
-                  destinationTag="Advertise with us"
-                />
-              </li>
-              <li>
-                <LinkItem
-                  destination="/sponsor-us"
-                  destinationTag="Sponsor us"
-                />
-              </li>
-            </LinksList>
-          </SubSection>
-          <SubSection className="last">
-            <LinksHeader>contacts</LinksHeader>
-            <FooterParagraph>Sliq Mega Towers,</FooterParagraph>
-            <FooterParagraph>Pluto</FooterParagraph>
-            <FooterParagraph>0700 500 900</FooterParagraph>
-            <FooterParagraph>sliq@sliqawards.info</FooterParagraph>
             <SocialsContainer>
               <a className="social-ext-link" href="https://www.instagram.com/">
                 <SocialGfx className="insta" src={instagram} />
@@ -205,16 +116,23 @@ const Footer = () => {
                 <SocialGfx className="twitter" src={twitter} />
               </a>
             </SocialsContainer>
-          </SubSection>
-        </FooterWrapper>
-        <BottomSection>
-          <ExtraLinks>
-            <ExtraLink to="/terms">terms & conditions</ExtraLink>
-            <ExtraLink to="/privacy-policy">privacy policy</ExtraLink>
-          </ExtraLinks>
-          <DevSection>Developed by Stevie Designs</DevSection>
-        </BottomSection>
+          </div>
+
+          <div className="sub_right">
+            <ToTop
+              className=""
+              onClick={() => {
+                scroll.scrollToTop();
+              }}
+            >
+              <FaAngleUp />
+            </ToTop>
+          </div>
+        </SubSection>
       </FooterContainer>
+      <div className="footer_bottom">
+        <DevSection>Crafted by Steve Designs</DevSection>
+      </div>
     </FooterSection>
   );
 };

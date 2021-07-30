@@ -6,6 +6,9 @@ export {
   setVotingSectionInView,
   setMobile,
   setShowLoader,
+  setCatNameInView,
+  setNavFluid,
+  setNavSticky,
 } from "./ui";
 
 export {
